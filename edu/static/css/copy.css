@@ -158,22 +158,30 @@ body.theme-dark {
   color: var(--notes-code-block-muted, #607085);
   cursor: pointer;
   outline: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23607085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  
+  /* Custom select appearance resets */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  
+  /* Chevron indicator definition */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23607085' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
-  background-position: right 0.15rem center !important;
+  background-position: right 0.18rem center !important;
   background-size: 0.45rem !important;
+  
   height: 1.15rem !important;
-  min-width: 2.1rem !important;
+  min-width: 2.6rem !important; /* Slightly increased to fit abbreviation + chevron cleanly */
   display: inline-block !important;
   box-sizing: border-box !important;
+  pointer-events: auto !important; /* CRITICAL: Enables pointer events inside pointer-events: none layer */
   transition: border-color 0.16s, color 0.16s, background-color 0.16s;
 }
 
 .theme-dark .code-lang-select {
   background-color: rgba(255, 255, 255, 0.045) !important;
   color: var(--notes-code-block-muted, #8b949e);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
 }
 
 .code-lang-select:hover {
