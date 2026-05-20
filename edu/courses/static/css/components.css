@@ -1,0 +1,2363 @@
+.c-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.625rem 1rem;
+    font-size: var(--fs-0);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+#theme-toggle-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-icon svg {
+    display: block;
+}
+
+/* Exam Countdown Timer Base Styles */
+.exam-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.6rem;
+    font-size: var(--fs-0);
+    white-space: nowrap;
+}
+
+.exam-countdown__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: center;
+    text-align: center;
+}
+
+.exam-countdown__label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.exam-countdown__timer {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.exam-countdown__separator {
+    opacity: 0.6;
+    margin: 0 0.1rem;
+}
+
+.c-search {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.c-search__icon {
+    position: absolute;
+    left: var(--space-3);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    color: color-mix(in srgb, var(--color-text) 60%, white);
+}
+
+.c-search__input {
+    width: 100%;
+    min-height: 40px;
+    border-radius: var(--radius-sm);
+    border: 1px solid color-mix(in srgb, #fff 48%, transparent);
+    background: color-mix(in srgb, #fff 95%, var(--color-secondary-surface));
+    padding: 0 var(--space-4);
+    padding-left: 2.25rem;
+    font-size: var(--fs-0);
+}
+
+.c-search__input::placeholder {
+    color: color-mix(in srgb, var(--color-text) 60%, white);
+}
+
+body.theme-dark .c-search__input {
+    background: color-mix(in srgb, #0d1522 92%, #0d1522);
+    border-color: color-mix(in srgb, #ffffff 22%, transparent);
+    color: #eff5ff;
+}
+
+body.theme-dark .c-search__input::placeholder {
+    color: #b8c9dc;
+}
+
+/* Topbar global search: one capsule; submit sits inside the right edge (input chrome lives on the form) */
+
+
+.c-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    box-shadow: 0 2px 10px rgba(var(--color-shadow), 0.05);
+    display: grid;
+    gap: var(--space-3);
+}
+
+.c-card__title {
+    font-size: var(--fs-2);
+    font-weight: 600;
+}
+
+.c-card__meta {
+    color: var(--color-text-muted);
+    font-size: var(--fs-0);
+}
+
+.c-card__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.c-nav {
+    display: grid;
+    gap: var(--space-1);
+}
+
+.c-nav__item {
+    min-height: 44px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    padding: 0.625rem 0.875rem;
+    display: flex;
+    align-items: center;
+    color: var(--color-text);
+    background: transparent;
+    font-weight: 500;
+}
+
+.c-nav__item:hover {
+    background: color-mix(in srgb, var(--color-secondary-surface) 80%, white);
+    color: var(--color-text);
+}
+
+.c-nav__item.is-active {
+    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+    background: color-mix(in srgb, var(--color-primary) 14%, white);
+    color: color-mix(in srgb, var(--color-primary) 78%, black);
+}
+/* Dark theme: sidebar selected/hover links */
+body.theme-dark .c-nav__item:hover {
+    background: color-mix(in srgb, var(--color-surface-soft) 85%, #0b1320);
+    color: var(--color-text);
+}
+
+body.theme-dark .c-nav__item.is-active {
+    border-color: color-mix(in srgb, var(--color-accent) 52%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
+    color: #eaf3ff;
+}
+
+.c-progress-card {
+    background: linear-gradient(160deg, #ffffff 0%, var(--color-secondary-surface) 100%);
+}
+
+.c-progress {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-border) 66%, white);
+    overflow: hidden;
+}
+
+.c-progress__bar {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-primary), #37a669);
+    transition: width 0.16s ease-in-out;
+}
+/* Weekly Focus card in dark theme */
+body.theme-dark .c-progress-card {
+    background: linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--color-surface) 92%, #0b1320) 0%,
+        color-mix(in srgb, var(--color-secondary-surface) 82%, #0b1320) 100%
+    );
+    border-color: color-mix(in srgb, var(--color-border) 80%, #0b1320);
+}
+
+body.theme-dark .c-progress {
+    background: color-mix(in srgb, var(--color-border) 42%, #0b1320);
+}
+/* Dark theme: do NOT flatten alerts into one color */
+
+
+body.theme-dark .c-progress__bar {
+    background: linear-gradient(90deg, #2a9d66, #5cc98d);
+}
+.c-progress__text {
+    font-size: var(--fs-0);
+    color: var(--color-text-muted);
+}
+
+.c-alert {
+    border-left: 4px solid transparent;
+}
+
+.c-alert--info {
+    border-left-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 8%, white);
+}
+
+.c-alert--warn {
+    border-left-color: var(--color-warning);
+    background: color-mix(in srgb, var(--color-warning) 11%, white);
+}
+
+.c-alert--success {
+    border-left-color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 12%, white);
+}
+
+.c-alert--error {
+    border-left-color: var(--color-error);
+    background: color-mix(in srgb, var(--color-error) 10%, white);
+}
+
+.c-alert {
+    position: relative;
+    padding-right: 42px;
+}
+
+.c-alert__icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    background: color-mix(in srgb, var(--color-border) 35%, white);
+    color: var(--color-text);
+}
+
+.c-alert .c-card__meta {
+    padding-left: 36px;
+}
+
+.c-alert--error .c-alert__icon {
+    background: color-mix(in srgb, var(--color-error) 22%, white);
+    color: var(--color-error);
+}
+.c-alert--warn .c-alert__icon {
+    background: color-mix(in srgb, var(--color-warning) 22%, white);
+    color: color-mix(in srgb, var(--color-warning) 75%, #000);
+}
+.c-alert--success .c-alert__icon {
+    background: color-mix(in srgb, var(--color-primary) 20%, white);
+    color: var(--color-primary);
+}
+.c-alert--info .c-alert__icon {
+    background: color-mix(in srgb, var(--color-accent) 18%, white);
+    color: var(--color-accent);
+}
+
+/* Dark theme variants */
+body.theme-dark .c-alert--info {
+    background: color-mix(in srgb, var(--color-accent) 16%, #0b1320);
+}
+body.theme-dark .c-alert--warn {
+    background: color-mix(in srgb, var(--color-warning) 18%, #0b1320);
+}
+body.theme-dark .c-alert--success {
+    background: color-mix(in srgb, var(--color-primary) 18%, #0b1320);
+}
+body.theme-dark .c-alert--error {
+    background: color-mix(in srgb, var(--color-error) 18%, #0b1320);
+    border-left-color: color-mix(in srgb, var(--color-error) 90%, #ffffff);
+}
+
+.c-alert__close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+    background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    color: var(--color-text);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.c-alert__close:hover {
+    background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+}
+
+.auth-card {
+    max-width: min(560px, 100%);
+}
+
+.auth-card .errorlist {
+    margin-block: var(--space-1);
+    color: var(--color-error);
+    font-size: var(--fs-0);
+}
+
+.auth-card label {
+    font-weight: 500;
+    margin-bottom: var(--space-1);
+}
+
+.auth-card input,
+.auth-card select,
+.auth-card textarea {
+    width: 100%;
+}
+
+.c-inline-form {
+    display: flex;
+    gap: var(--space-2);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.c-inline-form input[type="hidden"] {
+    display: none;
+}
+
+.c-reader__content {
+    max-width: var(--reading-max);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: clamp(1.02rem, 0.96rem + 0.4vw, 1.2rem);
+    line-height: var(--lh-reading);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.page--workspace .c-reader__content {
+    max-width: 100%;
+    width: 100%;
+}
+
+.c-reader__content pre {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.c-reader__content pre code {
+    white-space: inherit;
+}
+
+.c-reader__content img,
+.c-reader__content video,
+.c-reader__content iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.c-reader__content p + p,
+.c-reader__content ul + p,
+.c-reader__content p + ul {
+    margin-top: var(--space-3);
+}
+
+/* ─── Markdown table ─────────────────────────────────────── */
+.c-reader__content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.93em;
+    display: table;
+    border: 2px solid #c8cdd3 !important;
+    background: #f8f9fa !important;
+}
+.c-reader__content thead {
+    background: #eaecef !important;
+}
+.c-reader__content th {
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #444d56 !important;
+    border-bottom: 2px solid #c8cdd3 !important;
+    border-right: 1px solid #dde1e5 !important;
+}
+.c-reader__content td {
+    padding: 0.55rem 0.85rem;
+    border-bottom: 1px solid #dde1e5 !important;
+    border-right: 1px solid #eaecef !important;
+    color: #24292f !important;
+    vertical-align: top;
+    line-height: 1.5;
+}
+.c-reader__content th:last-child,
+.c-reader__content td:last-child {
+    border-right: none !important;
+}
+.c-reader__content tbody tr:last-child td {
+    border-bottom: none !important;
+}
+.c-reader__content tbody tr:nth-child(even) {
+    background: #f0f2f5 !important;
+}
+.c-reader__content tbody tr:hover {
+    background: #e6eaf0 !important;
+}
+body.theme-dark .c-reader__content table {
+    border: 2px solid rgba(255,255,255,0.18) !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+body.theme-dark .c-reader__content thead {
+    background: rgba(255,255,255,0.10) !important;
+}
+body.theme-dark .c-reader__content th {
+    color: rgba(255,255,255,0.75) !important;
+    border-bottom: 2px solid rgba(255,255,255,0.18) !important;
+    border-right: 1px solid rgba(255,255,255,0.10) !important;
+}
+body.theme-dark .c-reader__content td {
+    color: rgba(255,255,255,0.88) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    border-right: 1px solid rgba(255,255,255,0.06) !important;
+}
+body.theme-dark .c-reader__content tbody tr:nth-child(even) {
+    background: rgba(255,255,255,0.04) !important;
+}
+body.theme-dark .c-reader__content tbody tr:hover {
+    background: rgba(255,255,255,0.08) !important;
+}
+
+/* ─── Inline code (p, li, td context only — not pre) ─────── */
+.c-reader__content p code,
+.c-reader__content li code,
+.c-reader__content td code,
+.c-reader__content th code,
+.c-reader__content blockquote code {
+    font-family: var(--font-mono) !important;
+    font-size: 0.88em !important;
+    padding: 0.18em 0.42em !important;
+    border-radius: 4px !important;
+    word-break: break-word !important;
+    background: #eef1f5 !important;
+    color: #c0392b !important;
+    border: 1px solid #d0d7de !important;
+    display: inline !important;
+}
+body.theme-dark .c-reader__content p code,
+body.theme-dark .c-reader__content li code,
+body.theme-dark .c-reader__content td code,
+body.theme-dark .c-reader__content th code,
+body.theme-dark .c-reader__content blockquote code {
+    background: rgba(99,179,237,0.14) !important;
+    color: #90cdf4 !important;
+    border: 1px solid rgba(99,179,237,0.28) !important;
+}
+
+/* ─── Code blocks: never restyle what hljs owns ─────────── */
+.c-reader__content pre code,
+.c-reader__content pre code.hljs {
+    background: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border: none !important;
+    font-size: inherit !important;
+    border-radius: 0 !important;
+    display: block !important;
+    word-break: normal !important;
+}
+
+/* old duplicate code rules removed */
+
+.c-video {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.c-video__frame iframe,
+.c-video iframe,
+.c-video__frame video,
+.c-video video {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: var(--radius-sm);
+}
+
+.c-video.is-zoom-fill .c-video__frame {
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+
+.c-video.is-zoom-fill .c-video__frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.c-media {
+    margin: 0;
+}
+
+.c-media__img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+.c-resource-download {
+    margin: 0;
+}
+
+/* ===================================================== */
+/* ROOT CHAT SHELL                                       */
+/* ===================================================== */
+
+#chat-room-shell {
+    height: calc(100dvh - 120px); /* adjust if your top navbar height differs */
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #0b1c2d 0%, #091423 100%);
+    overflow: hidden;
+}
+
+@supports not (height: 100dvh) {
+    #chat-room-shell {
+        height: calc(100vh - 120px);
+    }
+}
+
+/* ===================================================== */
+/* MESSAGE AREA                                          */
+/* ===================================================== */
+
+#chat {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 24px;
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar (desktop only) */
+#chat::-webkit-scrollbar {
+    width: 6px;
+}
+#chat::-webkit-scrollbar-thumb {
+    /* background: rgba(255,255,255,0.15); */
+    background-color: #000000;
+    border-radius: 10px;
+}
+
+/* ===================================================== */
+/* MESSAGE BUBBLES                                       */
+/* ===================================================== */
+
+#chat .message {
+    max-width: 65%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.45;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: fadeIn .15s ease;
+}
+
+/* Incoming */
+#chat .message.other {
+    align-self: flex-start;
+    background: #1f2c3a;
+    color: #e6edf3;
+    border-bottom-left-radius: 6px;
+}
+
+/* Outgoing */
+#chat .message.me {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #2e7dd7, #2468b8);
+    color: white;
+    border-bottom-right-radius: 6px;
+}
+
+/* Meta row */
+#chat .meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    opacity: .6;
+}
+
+#chat .text {
+    margin-top: 2px;
+}
+
+/* ===================================================== */
+/* EMPTY CHAT STATE                                      */
+/* ===================================================== */
+
+#chat .chat-empty-state {
+    margin: auto;
+    width: min(640px, 100%);
+    border-radius: 24px;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    text-align: center;
+    border: 1px solid color-mix(in srgb, #ffffff 16%, transparent);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, #2e7dd7 18%, #12253b) 0%,
+        color-mix(in srgb, #17304b 86%, #0b1725) 100%
+    );
+    color: #dce9f7;
+    box-shadow: 0 18px 48px rgba(5, 10, 18, 0.35);
+}
+
+#chat .chat-empty-state__emoji {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 0.9rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 1.75rem;
+    background: color-mix(in srgb, #2e7dd7 52%, #102338);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffffff 22%, transparent);
+}
+
+#chat .chat-empty-state__title {
+    margin: 0;
+    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+#chat .chat-empty-state__text {
+    margin: 0.7rem auto 0;
+    max-width: 44ch;
+    font-size: 0.97rem;
+    line-height: 1.5;
+    color: color-mix(in srgb, #dce9f7 84%, #ffffff);
+}
+
+/* ===================================================== */
+/* INPUT DOCK (Always Bottom)                            */
+/* ===================================================== */
+
+#chat-input {
+    flex-shrink: 0;
+    /* Grid fixes layout vs flex + inputs: 1fr column takes all leftover width; Send stays content-sized */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Text input */
+#chat-message-input {
+    grid-column: 1;
+    min-width: 0;
+    width: 100%;
+    border-radius: 999px;
+    border: none;
+    padding: 12px 18px;
+    background: #16283c;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: background .2s ease;
+}
+
+#chat-message-input:focus {
+    background: #1b324a;
+}
+
+/* Send button */
+#chat-message-submit {
+    grid-column: 2;
+    justify-self: end;
+    width: fit-content;
+    max-width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 22px;
+    background: #2e7dd7;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform .1s ease, opacity .2s ease;
+}
+
+#chat-message-submit:hover {
+    opacity: .9;
+}
+
+#chat-message-submit:active {
+    transform: scale(.97);
+}
+
+/* ===================================================== */
+/* RESPONSIVE                                            */
+/* ===================================================== */
+
+@media (max-width: 1024px) {
+
+    #chat {
+        padding: 18px;
+    }
+
+    #chat .message {
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #chat-room-shell {
+        height: calc(100dvh - 100px);
+    }
+
+    #chat {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    #chat .message {
+        max-width: 85%;
+        font-size: 13px;
+    }
+
+    #chat .chat-empty-state {
+        width: 100%;
+        border-radius: 18px;
+    }
+
+    #chat-input {
+        padding: 12px;
+    }
+
+    #chat-message-submit {
+        padding: 10px 16px;
+    }
+}
+
+/* ===================================================== */
+/* ANIMATION                                             */
+/* ===================================================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Light mode chat background (append at the end of components.css) */
+body:not(.theme-dark) #chat-room-shell {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-secondary-surface) 78%, #fff6ea) 0%,
+        color-mix(in srgb, #ffffff 72%, #ffe9f3) 100%
+    );
+    border: 1px solid color-mix(in srgb, var(--color-border) 76%, #ffd8b5);
+}
+
+body:not(.theme-dark) #chat .chat-empty-state {
+    border-color: color-mix(in srgb, var(--color-border) 72%, #ffd0de);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, #ffffff 82%, #ffe7f2) 0%,
+        color-mix(in srgb, #fff5ea 86%, #ffe2c8) 100%
+    );
+    color: color-mix(in srgb, var(--color-text) 88%, #2b3a4e);
+    box-shadow: 0 14px 32px rgba(170, 117, 83, 0.16);
+}
+
+body:not(.theme-dark) #chat .chat-empty-state__emoji {
+    background: color-mix(in srgb, #2e7dd7 16%, #ffffff);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, #2e7dd7 32%, #ffffff);
+}
+
+body:not(.theme-dark) #chat .chat-empty-state__text {
+    color: color-mix(in srgb, var(--color-text) 75%, #53657c);
+}
+
+body:not(.theme-dark) #chat-input {
+    background: color-mix(in srgb, #ffffff 82%, #ffeef6);
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 70%, #ffc9dd);
+}
+
+body:not(.theme-dark) #chat-message-input {
+    background: #fffdf9;
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-border) 72%, #ffd7a8);
+}
+
+body:not(.theme-dark) #chat-message-input:focus {
+    background: #fff7ef;
+}
+
+body:not(.theme-dark) #chat::-webkit-scrollbar-thumb {
+    background: #FFFFFF;
+}
+/* Light mode (default) */
+.course-chat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid #b7e4d0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f3fff9 0%, #e8fff4 100%);
+  color: #0f5132;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.course-chat-link:hover,
+.course-chat-link:focus-visible {
+  transform: translateY(-1px);
+  border-color: #7fd3ad;
+  box-shadow: 0 8px 18px rgba(15, 81, 50, 0.18);
+  outline: none;
+}
+
+.course-chat-link__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  opacity: 0.9;
+}
+
+.course-chat-link__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+}
+
+.course-chat-link__title {
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.2;
+}
+
+.course-chat-link__path {
+  font-size: 0.76rem;
+  line-height: 1.25;
+  opacity: 0.8;
+  word-break: break-all;
+}
+
+.course-chat-link__arrow {
+  font-size: 1.05rem;
+  font-weight: 700;
+  flex: 0 0 auto;
+  opacity: 0.85;
+}
+
+/* Dark mode */
+body.theme-dark .course-chat-link {
+  border-color: #2b5f8a;
+  background: linear-gradient(135deg, #13263a 0%, #1a3550 100%);
+  color: #d6ecff;
+}
+
+body.theme-dark .course-chat-link:hover,
+body.theme-dark .course-chat-link:focus-visible {
+  border-color: #4ea5e9;
+  box-shadow: 0 8px 18px rgba(23, 77, 126, 0.35);
+}
+
+body.theme-dark .course-chat-link__path {
+  color: #8fc6f0;
+  opacity: 1;
+}
+/* Keep it minimal: color + weight only */
+.page-subtitle--focus {
+  color: #8fb9df;
+  font-weight: 500;
+}
+
+.page-subtitle__value {
+  color: #d8ecff;
+  font-weight: 700;
+}
+
+.course-time {
+  color: #9ec2e6;
+  font-weight: 500;
+}
+
+.course-time__value {
+  color: #f2f8ff;
+  font-weight: 700;
+}
+
+/* Light mode adjustments */
+body:not(.theme-dark) .page-subtitle--focus {
+  color: #38607f;
+}
+
+body:not(.theme-dark) .page-subtitle__value {
+  color: #16374f;
+}
+
+body:not(.theme-dark) .course-time {
+  color: #335a78;
+}
+
+body:not(.theme-dark) .course-time__value {
+  color: #102e45;
+}
+/* PDF */
+.c-pdf-viewer {
+  width: 100%;
+  margin: 0 0 0.75rem 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.c-pdf-viewer__body {
+  display: grid;
+  grid-template-columns: minmax(16rem, 18rem) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.c-pdf-viewer:not(.has-outline-open) .c-pdf-viewer__scroll {
+  grid-column: 1 / -1;
+}
+
+.c-pdf-viewer.has-outline-open .c-pdf-outline {
+  grid-column: 1;
+}
+
+.c-pdf-viewer.has-outline-open .c-pdf-viewer__scroll {
+  grid-column: 2;
+}
+
+.c-pdf-outline {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 72%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 84%, #e3e8f2);
+  box-shadow: 0 10px 28px rgba(12, 18, 28, 0.08);
+  position: sticky;
+  top: 0.25rem;
+  max-height: 82vh;
+  overflow: hidden;
+}
+
+.c-pdf-outline[hidden] {
+  display: none !important;
+}
+
+body.theme-dark .c-pdf-outline {
+  background: color-mix(in srgb, var(--color-surface) 74%, #0b1320);
+}
+
+.c-pdf-outline__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.c-pdf-outline__title {
+  margin: 0;
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+}
+
+.c-pdf-outline__status,
+.c-pdf-outline__empty {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 68%, var(--color-muted));
+  font-size: 0.78rem;
+  flex: 0 0 auto;
+}
+
+.c-pdf-outline__list,
+.c-pdf-outline__children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.c-pdf-outline__list {
+  display: grid;
+  gap: 0.25rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.15rem;
+  align-content: start;
+}
+
+.c-pdf-outline__children {
+  display: grid;
+  gap: 0.2rem;
+  padding-top: 0.2rem;
+}
+
+.c-pdf-outline__item {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.c-pdf-outline__link {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.c-pdf-outline__link:hover,
+.c-pdf-outline__link:focus-visible {
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-primary) 22%, transparent);
+  outline: none;
+}
+
+.c-pdf-outline__item > .c-pdf-outline__children {
+  margin-left: 0.15rem;
+}
+
+.c-pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: nowrap;
+  position: relative;
+  min-height: 2rem;
+  padding: 0.3rem 0.3rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-surface) 78%, #e3e8f2);
+  border: 0;
+}
+
+body.theme-dark .c-pdf-toolbar {
+  background: color-mix(in srgb, var(--color-surface) 70%, #0b1320);
+}
+
+.c-pdf-toolbar__default,
+.c-pdf-toolbar__search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.c-pdf-toolbar__default {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.c-pdf-toolbar__search {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface, #101a2b);
+  padding: 0.2rem 0.35rem;
+  border-radius: 6px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.c-pdf-toolbar.is-search-active .c-pdf-toolbar__search {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.c-pdf-toolbar.is-search-active .c-pdf-toolbar__default {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.c-pdf-toolbar__section {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: nowrap;
+}
+
+.c-pdf-toolbar__section--icons .c-pdf-btn {
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.c-pdf-page-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+}
+
+.c-pdf-toolbar__divider {
+  width: 1px;
+  height: 1.35rem;
+  background: color-mix(in srgb, var(--color-border) 70%, transparent);
+  margin: 0 0.2rem;
+}
+
+.c-pdf-toolbar__section--zoom {
+  gap: 0.5rem;
+}
+
+.c-pdf-toolbar__section--color {
+  margin-left: auto;
+}
+
+.c-pdf-toolbar__search-main {
+    flex: 1 1 16rem;
+    min-width: 14rem;
+}
+
+.c-pdf-toolbar__search-options {
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 60%;
+  align-items: center;
+  padding: 0.1rem 0.2rem;
+  border-radius: 6px;
+}
+
+.c-pdf-toolbar__search-options .c-pdf-btn {
+  white-space: nowrap;
+  font-size: 0.62rem;
+  padding: 0.14rem 0.36rem;
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent) !important;
+  border-radius: 6px;
+  width: 5rem;
+}
+
+.c-pdf-toolbar__search-options .c-pdf-btn + .c-pdf-btn {
+  margin-left: 0.2rem;
+}
+
+.c-pdf-toolbar__search-options .c-pdf-btn[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--color-primary) 25%, var(--color-surface)) !important;
+  border-color: color-mix(in srgb, var(--color-primary) 55%, transparent) !important;
+}
+
+.c-pdf-toolbar__search .c-pdf-search-input {
+  flex: 1 1 auto;
+  min-width: 12rem;
+}
+
+.c-pdf-toolbar__search .c-pdf-btn {
+  flex: 0 0 auto;
+}
+
+.c-pdf-btn {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.35rem;
+  background: transparent;
+  border: 0;
+  width: auto;
+  height: auto;
+  color: var(--color-text, #1f2a44);
+}
+
+body:not(.theme-dark) .c-pdf-btn {
+  color: #1f2a44;
+}
+
+body:not(.theme-dark) .c-pdf-toolbar__section--icons .c-pdf-btn {
+  color: #22324f;
+}
+
+body:not(.theme-dark) .c-pdf-toolbar__section--icons .c-pdf-btn svg,
+body:not(.theme-dark) .c-pdf-toolbar__section--icons .c-pdf-btn path,
+body:not(.theme-dark) .c-pdf-toolbar__section--icons .c-pdf-btn line {
+  stroke: currentColor;
+}
+
+.c-pdf-zoom-select {
+font-size: 0.72rem;
+background: var( -- color-surface, #1b2536);
+  min-width: 8.25rem;
+  padding: 0.15rem 0.35rem;
+  color: inherit;
+  border-radius: 6px;
+}
+
+.c-pdf-page-input {
+  width: 3rem;
+  padding: 0.1rem 0.25rem;
+  font-size: 0.68rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.c-pdf-search-input {
+  flex: 1 1 14rem;
+  min-width: 10rem;
+  padding: 0.15rem 0.35rem;
+  font-size: 0.7rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.c-pdf-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.c-pdf-brightness {
+  width: 4.5rem;
+}
+
+.c-pdf-toolbar__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fs-1);
+}
+
+.c-pdf-progress {
+  --pdf-progress: 0%;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+  background:
+    radial-gradient(circle at center, var(--color-surface) 58%, transparent 60%),
+    conic-gradient(
+      color-mix(in srgb, var(--color-primary) 82%, #ffffff) var(--pdf-progress),
+      color-mix(in srgb, var(--color-border) 75%, transparent) 0
+    );
+  color: var(--color-text-muted);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.c-pdf-progress__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.c-pdf-progress.is-complete {
+  border-color: color-mix(in srgb, #1fbf75 60%, var(--color-border));
+  color: #1fbf75;
+}
+
+.c-pdf-progress.is-complete .c-pdf-progress__label {
+  font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+  .c-pdf-viewer__body {
+    grid-template-columns: 1fr;
+  }
+
+  .c-pdf-outline {
+    position: static;
+    max-height: none;
+  }
+
+  .c-pdf-toolbar {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.4rem;
+  }
+
+  .c-pdf-toolbar__default {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+  }
+
+  .c-pdf-toolbar__section {
+    flex-wrap: wrap;
+  }
+
+  .c-pdf-toolbar__section--color {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .c-pdf-toolbar__divider {
+    display: none;
+  }
+
+  .c-pdf-toolbar__search-main {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  .c-pdf-toolbar__search-options {
+    max-width: 100%;
+  }
+
+  .c-pdf-search-input {
+    min-width: 0;
+  }
+
+  .c-pdf-zoom-select {
+    min-width: 6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .c-pdf-toolbar__section--nav,
+  .c-pdf-toolbar__section--zoom {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.c-pdf-viewer__scroll {
+  width: 100%;
+  max-width: 100%;
+  min-height: 70vh;
+  max-height: 82vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  border-radius: 8px;
+  background: #0b1320;
+  position: relative;
+  border: 0;
+}
+
+.c-pdf-pages {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+.c-pdf-page {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1.4142;
+  margin: 0;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.c-pdf-page + .c-pdf-page {
+  margin-top: 0.75rem;
+}
+
+.c-pdf-page.is-rendered {
+  aspect-ratio: auto;
+}
+
+.c-pdf-page__canvas {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+  background: #ffffff;
+  filter: var(--pdf-canvas-filter, none) brightness(var(--pdf-brightness, 1)) contrast(var(--pdf-contrast, 1));
+}
+
+.c-pdf-page.is-rendered .c-pdf-page__canvas {
+  height: auto;
+}
+
+.c-pdf-page__text-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  line-height: 1;
+  pointer-events: auto;
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.c-pdf-page__highlights {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.c-pdf-page__annotations {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.c-pdf-link {
+  position: absolute;
+  display: block;
+  pointer-events: auto;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.c-pdf-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 72%, #ffffff);
+  outline-offset: 1px;
+}
+
+.c-pdf-highlight {
+  position: absolute;
+  background: rgba(255, 212, 86, 0.45);
+  border-radius: 2px;
+}
+
+.c-pdf-highlight.is-active {
+  background: rgba(255, 140, 0, 0.55);
+  box-shadow: 0 0 0 1px rgba(255, 140, 0, 0.4);
+}
+
+.c-pdf-hit {
+  text-shadow: 0 0 0 rgba(255, 212, 86, 0.6);
+}
+
+.c-pdf-page__text-layer span,
+.c-pdf-page__text-layer br {
+  position: absolute;
+  color: rgba(0, 0, 0, 0.01);
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.01);
+  white-space: pre;
+  transform-origin: 0 0;
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.c-pdf-page__text-layer::selection,
+.c-pdf-page__text-layer *::selection {
+  background: rgba(66, 133, 244, 0.35) !important;
+}
+
+.c-pdf-page__text-layer *::-moz-selection {
+  background: rgba(66, 133, 244, 0.35) !important;
+  color: rgba(0, 0, 0, 0.01);
+}
+
+/* Dark-mode PDF surface:
+   use a warm dark-paper treatment instead of pure black/white contrast so long
+   reading sessions feel less harsh while the text remains distinct. */
+body.theme-dark .c-pdf-viewer__scroll {
+  /* Slightly lifted surface for better edge definition. */
+  background: #0a111a;
+}
+
+body.theme-dark .c-pdf-page {
+  /* Keep pages distinct from the viewer surface. */
+  background: #0c141f;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 16px 34px rgba(2, 6, 12, 0.45);
+}
+
+body.theme-dark .c-pdf-page__canvas {
+  /* Increase contrast and darken background for stronger readability. */
+  --pdf-canvas-filter: invert(0.94) hue-rotate(180deg) brightness(1.08) contrast(1.4) saturate(1.05);
+}
+
+body.theme-dark .c-pdf-page__text-layer::selection,
+body.theme-dark .c-pdf-page__text-layer *::selection {
+  background: rgba(255, 211, 107, 0.44) !important;
+}
+
+body.theme-dark .c-pdf-page__text-layer *::-moz-selection {
+  background: rgba(255, 211, 107, 0.44) !important;
+}
+
+/* Viewer-specific theme overrides */
+.c-pdf-viewer.pdf-theme-dark .c-pdf-viewer__scroll {
+  background: #0a111a;
+}
+
+.c-pdf-viewer.pdf-theme-dark .c-pdf-page {
+  background: #0c141f;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 16px 34px rgba(2, 6, 12, 0.45);
+}
+
+.c-pdf-viewer.pdf-theme-dark .c-pdf-page__canvas {
+  --pdf-canvas-filter: invert(0.92) hue-rotate(180deg) brightness(1.08) contrast(1.35) saturate(1.02);
+}
+
+.c-pdf-viewer.pdf-theme-dark.pdf-theme-soft .c-pdf-page__canvas {
+  --pdf-canvas-filter: invert(0.88) hue-rotate(175deg) brightness(1.05) contrast(1.2) saturate(1);
+}
+
+.c-pdf-viewer.pdf-theme-dark .c-pdf-page__text-layer::selection,
+.c-pdf-viewer.pdf-theme-dark .c-pdf-page__text-layer *::selection {
+  background: rgba(255, 211, 107, 0.44) !important;
+}
+
+.c-pdf-viewer.pdf-theme-dark .c-pdf-page__text-layer *::-moz-selection {
+  background: rgba(255, 211, 107, 0.44) !important;
+}
+
+.c-pdf-viewer.pdf-force-light .c-pdf-viewer__scroll {
+  background: #f5f7fb;
+}
+
+.c-pdf-viewer.pdf-force-light .c-pdf-page {
+  background: #ffffff;
+  box-shadow:
+    0 0 0 1px rgba(22, 30, 45, 0.08),
+    0 16px 34px rgba(20, 32, 50, 0.12);
+}
+
+.c-pdf-viewer.pdf-force-light .c-pdf-page__canvas,
+.c-pdf-viewer.pdf-theme-dark.pdf-force-light .c-pdf-page__canvas {
+  --pdf-canvas-filter: invert(0) hue-rotate(0deg);
+  filter: brightness(1) contrast(1);
+}
+
+/* END OF PDF */
+.c-focus-modules {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.25rem;
+}
+
+.c-focus-modules__toggle {
+    justify-self: start;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface));
+    color: var(--color-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.7rem;
+    cursor: pointer;
+}
+
+.c-focus-modules__toggle:hover {
+    background: color-mix(in srgb, var(--color-secondary-surface) 75%, var(--color-surface));
+}
+
+.c-focus-modules__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.42rem;
+}
+
+/* Fix: allow hidden attribute to actually hide the list */
+.c-focus-modules__list[hidden] {
+    display: none;
+}
+
+.c-focus-modules__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    min-width: 0;
+}
+
+.c-focus-modules__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.c-focus-modules__name:hover {
+    color: lightgreen !important;
+}
+
+.c-focus-modules__time {
+    color: var(--color-text);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.c-focus-modules__time--accent {
+  color: #2a9d66;
+}
+
+body.theme-dark .c-focus-modules__toggle {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+    background: color-mix(in srgb, var(--color-surface) 86%, #0b1320);
+    color: #e8f2ff;
+}
+
+body.theme-dark .c-focus-modules__toggle:hover {
+    background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
+}
+
+body.theme-dark .c-focus-modules__list {
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 76%, #0b1320);
+    padding-top: 0.35rem;
+}
+
+body.theme-dark .c-focus-modules__item {
+    color: #b9cadd;
+}
+
+body.theme-dark .c-focus-modules__name {
+    color: #dbe8f6;
+}
+
+body.theme-dark .c-focus-modules__time {
+    color: #f3f8ff;
+}
+
+/* Presence badge */
+.c-presence {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.8rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid;
+    font-size: 0.92rem;
+    line-height: 1;
+}
+
+.c-presence__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: #2ecc71;
+}
+
+.c-presence__label {
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+.c-presence__count {
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+.c-presence--desktop {
+    width: 100%;
+    margin-top: auto;
+}
+
+.c-presence--mobile {
+    display: none;
+    margin: 0;
+    padding: 0.32rem 0.6rem;
+    font-size: 0.82rem;
+}
+
+/* Dark mode */
+.theme-dark .c-presence {
+    background: rgba(42, 157, 102, 0.12);
+    border-color: rgba(42, 157, 102, 0.45);
+    color: #d8f6e8;
+}
+
+/* Light mode */
+body:not(.theme-dark) .c-presence {
+    background: #ecfdf3;
+    border-color: #8ad8ad;
+    color: #1f5f45;
+}
+
+@media (max-width: 900px) {
+    .c-presence--desktop {
+        display: none;
+    }
+
+    .c-presence--mobile {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.45rem;
+        font-size: 0.75rem;
+        flex: 0 0 auto;
+        max-width: 42%;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .c-presence--mobile .c-presence__label {
+        display: none;
+    }
+
+    .c-presence--mobile .c-presence__dot {
+        width: 0.44rem;
+        height: 0.44rem;
+        flex: 0 0 auto;
+    }
+
+    .c-presence--mobile .c-presence__count {
+        font-size: 0.76rem;
+        letter-spacing: 0;
+    }
+}
+
+.c-toast-stack {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1500;
+    display: grid;
+    gap: 0.65rem;
+    width: min(360px, calc(100vw - 1.5rem));
+    pointer-events: none;
+}
+
+.c-toast {
+    pointer-events: auto;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    box-shadow: 0 10px 30px rgba(var(--color-shadow), 0.2);
+    padding: 0.7rem 0.8rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.c-toast__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.c-toast__title {
+    font-size: 0.92rem;
+    line-height: 1.2;
+}
+
+.c-toast__close {
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    border-radius: 8px;
+    min-width: 28px;
+    min-height: 28px;
+    line-height: 1;
+}
+
+.c-toast__meta {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+}
+
+.c-toast__body {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.35;
+    color: var(--color-text);
+}
+
+.c-toast__link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+body.theme-dark .c-toast {
+    background: color-mix(in srgb, var(--color-surface) 90%, #0b1320);
+    border-color: color-mix(in srgb, var(--color-border) 80%, #0b1320);
+}
+
+@media (max-width: 900px) {
+    .c-toast-stack {
+        right: 0.65rem;
+        left: 0.65rem;
+        width: auto;
+        bottom: 0.65rem;
+    }
+}
+
+/* ==========================================================================
+   Modern Code Runner Styles
+   File: /srv/e-learning/edu/courses/static/css/modern.css
+
+   What this file does:
+   - Removes the "editable" text completely
+   - Places Run and Copy buttons together on the top-right edge
+   - Makes Run button icon-only
+   - Adds adaptive light/dark code block styling
+   - Adds a subtle code block background
+   - Shows border/focus effect only while the user is inside the code block
+   - Styles output panel for light/dark mode
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Theme variables
+   ========================================================================== */
+
+:root {
+    --code-runner-accent: #2563eb;
+    --code-runner-accent-hover: #1d4ed8;
+    --code-runner-accent-soft: rgba(37, 99, 235, 0.12);
+
+    --code-runner-success: #16a34a;
+    --code-runner-success-hover: #15803d;
+    --code-runner-success-soft: rgba(22, 163, 74, 0.12);
+
+    --code-runner-danger: #dc2626;
+    --code-runner-danger-soft: rgba(220, 38, 38, 0.1);
+
+    --code-runner-bg: #f8fafc;
+    --code-runner-bg-elevated: #ffffff;
+    --code-runner-bg-muted: #f1f5f9;
+
+    --code-runner-code-bg: #f6f8fa;
+    --code-runner-code-bg-soft: #eef2f7;
+    --code-runner-code-fg: #1f2937;
+
+    --code-runner-output-bg: #ffffff;
+    --code-runner-output-header-bg: #f1f5f9;
+    --code-runner-output-fg: #1f2937;
+    --code-runner-output-muted: #64748b;
+
+    --code-runner-border: rgba(148, 163, 184, 0.45);
+    --code-runner-border-soft: rgba(148, 163, 184, 0.24);
+    --code-runner-border-strong: rgba(37, 99, 235, 0.78);
+
+    --code-runner-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+    --code-runner-focus-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+
+    --code-runner-radius: 12px;
+    --code-runner-radius-sm: 9px;
+
+    --code-runner-font:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        "Courier New",
+        monospace;
+}
+
+/* Explicit dark theme compatibility */
+body.theme-dark {
+    --code-runner-accent: #9ec2e6;
+    --code-runner-accent-hover: #bfdbfe;
+    --code-runner-accent-soft: rgba(158, 194, 230, 0.14);
+
+    --code-runner-success: #3fb950;
+    --code-runner-success-hover: #56d364;
+    --code-runner-success-soft: rgba(63, 185, 80, 0.14);
+
+    --code-runner-danger: #f85149;
+    --code-runner-danger-soft: rgba(248, 81, 73, 0.14);
+
+    --code-runner-bg: #0d1117;
+    --code-runner-bg-elevated: #161b22;
+    --code-runner-bg-muted: #21262d;
+
+    --code-runner-code-bg: #0f1724;
+    --code-runner-code-bg-soft: #111827;
+    --code-runner-code-fg: #e6edf3;
+
+    --code-runner-output-bg: #0d1117;
+    --code-runner-output-header-bg: #161b22;
+    --code-runner-output-fg: #e6edf3;
+    --code-runner-output-muted: #8b949e;
+
+    --code-runner-border: rgba(139, 148, 158, 0.38);
+    --code-runner-border-soft: rgba(139, 148, 158, 0.22);
+    --code-runner-border-strong: rgba(158, 194, 230, 0.82);
+
+    --code-runner-shadow: none;
+    --code-runner-focus-shadow: none;
+}
+/* ==========================================================================
+   Main wrapper
+   ========================================================================== */
+
+.llm-code-block-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0 1.25rem;
+    padding: 0.35rem;
+    border-radius: calc(var(--code-runner-radius) + 4px);
+    background: var(--code-runner-code-bg-soft);
+}
+
+
+/* Border/focus effect.
+   Hidden normally. Visible only when user clicks/focuses/edits inside block. */
+.llm-code-block-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    border: 0.5px solid transparent;
+    border-radius: calc(var(--code-runner-radius) + 6px);
+    pointer-events: none;
+    opacity: 0;
+    transition:
+        opacity 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.llm-code-block-wrap.is-editing::before,
+.llm-code-block-wrap:focus-within::before {
+    opacity: 1;
+    border-color: var(--code-runner-border-strong);
+    box-shadow: var(--code-runner-focus-shadow);
+}
+
+
+/* Keep children above the focus layer */
+.llm-code-block-wrap > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* ==========================================================================
+   Code block base
+   ========================================================================== */
+
+/* .llm-code-block-wrap pre {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow: auto;
+
+    border: 0.5px solid var(--code-runner-border-soft);
+    border-radius: var(--code-runner-radius);
+
+    background: var(--code-runner-code-bg);
+    color: var(--code-runner-code-fg);
+
+    transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+} */
+
+
+/* More top padding because copy/run buttons are now inside top-right */
+.llm-code-block-wrap pre {
+    padding: 2.75rem 1.1rem 1.1rem;
+}
+
+
+/* Code font */
+.llm-code-block-wrap pre,
+.llm-code-block-wrap pre code {
+    font-family: var(--code-runner-font);
+    font-size: 0.86rem;
+    line-height: 1.65;
+    tab-size: 4;
+}
+
+
+/* Code element */
+.llm-code-block-wrap pre code {
+    display: block;
+    min-width: 100%;
+    outline: none;
+    white-space: pre;
+}
+
+
+/* Editable/code cursor */
+.llm-code-block-wrap pre,
+.llm-code-block-wrap pre code[contenteditable="true"],
+.llm-code-block-wrap pre[contenteditable="true"] {
+    cursor: text;
+}
+
+
+/* Remove browser default editable outline */
+.llm-code-block-wrap pre code[contenteditable="true"]:focus,
+.llm-code-block-wrap pre[contenteditable="true"]:focus {
+    outline: none;
+}
+
+
+/* Border becomes stronger only while focused/editing */
+/* .llm-code-block-wrap.is-editing pre,
+.llm-code-block-wrap:focus-within pre {
+    border-color: var(--code-runner-border-strong);
+} */
+
+
+/* ==========================================================================
+   Remove editable label completely
+   ========================================================================== */
+
+.code-edit-hint {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.code-container:hover .code-edit-hint {
+    opacity: 1;
+}
+
+
+/* ==========================================================================
+  Run button style
+  ========================================================================== */
+
+.code-run-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+
+    padding: 0;
+    border: 1px solid var(--code-runner-border);
+    border-radius: 999px;
+
+    background: color-mix(in srgb, var(--code-runner-bg-elevated) 88%, transparent);
+    color: var(--code-runner-output-muted);
+
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+
+    transition:
+        color 0.16s ease,
+        background-color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        opacity 0.16s ease,
+        transform 0.16s ease;
+}
+
+.code-run-btn:hover {
+    color: var(--code-runner-accent);
+    border-color: var(--code-runner-border-strong);
+    background: var(--code-runner-accent-soft);
+}
+
+.code-run-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--code-runner-focus-shadow);
+}
+
+.code-run-btn:disabled {
+    opacity: 0.62;
+    cursor: wait;
+    transform: none;
+}
+
+
+/* ==========================================================================
+   Copy and Run button placement
+   ========================================================================== */
+
+/* Run button sits directly next to copy button on its left */
+.code-run-btn {
+    position: absolute !important;
+    top: 0.75rem !important;
+    right: 3rem !important;
+    z-index: 5;
+
+    margin: 0 !important;
+    align-self: auto !important;
+
+    background: color-mix(in srgb, var(--code-runner-accent) 14%, var(--code-runner-bg-elevated));
+    color: var(--code-runner-accent);
+    border-color: color-mix(in srgb, var(--code-runner-accent) 42%, transparent);
+}
+
+.code-run-btn:hover {
+    transform: translateY(-1px);
+    color: #ffffff;
+    background: var(--code-runner-accent);
+    border-color: var(--code-runner-accent-hover);
+}
+
+.code-run-btn:active {
+    transform: translateY(0);
+}
+
+.code-run-btn:disabled {
+    color: var(--code-runner-accent);
+    background: var(--code-runner-accent-soft);
+}
+
+
+/* Run icon */
+.code-run-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+}
+
+.code-run-btn__icon svg {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+}
+
+
+/* Hide run button text completely.
+   Button remains accessible through aria-label/title from JS. */
+.code-run-btn__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+}
+
+
+
+/* ==========================================================================
+   Output panel
+   ========================================================================== */
+
+.code-output-panel {
+    margin-top: 0.55rem;
+    overflow: hidden;
+
+    border: 0.5px solid var(--code-runner-border);
+    border-radius: var(--code-runner-radius);
+
+    background: var(--code-runner-output-bg);
+    color: var(--code-runner-output-fg);
+
+    font-size: 0.84rem;
+
+    transition:
+        background-color 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.code-output-panel[hidden] {
+    display: none !important;
+}
+
+.code-output-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.52rem 0.78rem;
+
+    border-bottom: 0.5px solid var(--code-runner-border);
+    background: var(--code-runner-output-header-bg);
+}
+
+.code-output-panel__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+
+    color: var(--code-runner-output-muted);
+
+    font-size: 0.69rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.code-output-panel__title::before {
+    content: "";
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: var(--code-runner-success);
+}
+
+.code-output-panel__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.55rem;
+    height: 1.55rem;
+
+    padding: 0;
+    border: 0.5px solid transparent;
+    border-radius: 999px;
+
+    background: transparent;
+    color: var(--code-runner-output-muted);
+
+    cursor: pointer;
+    line-height: 1;
+
+    transition:
+        color 0.16s ease,
+        background-color 0.16s ease,
+        border-color 0.16s ease;
+}
+
+.code-output-panel__close:hover {
+    color: var(--code-runner-danger);
+    border-color: color-mix(in srgb, var(--code-runner-danger) 40%, transparent);
+    background: var(--code-runner-danger-soft);
+}
+
+.code-output-panel__close:focus-visible {
+    outline: none;
+}
+
+.code-output-panel__body {
+    min-height: 3rem;
+    max-height: 18rem;
+
+    margin: 0;
+    padding: 0.85rem 1rem;
+
+    overflow: auto;
+
+    background: var(--code-runner-output-bg);
+    color: var(--code-runner-output-fg);
+
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    font-family: var(--code-runner-font);
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* Error output */
+.code-output-panel--error {
+    border-color: color-mix(in srgb, var(--code-runner-danger) 52%, var(--code-runner-border));
+}
+
+.code-output-panel--error .code-output-panel__title::before {
+    background: var(--code-runner-danger);
+
+
+.code-output-panel--error .code-output-panel__body {
+    color: var(--code-runner-danger);
+}
+
+
+/* ==========================================================================
+   Small screens
+   ========================================================================== */
+
+@media (max-width: 640px) {
+    .llm-code-block-wrap {
+        padding: 0.25rem;
+    }
+
+    .llm-code-block-wrap pre {
+        padding: 2.8rem 0.9rem 1rem;
+    }
+
+    .code-run-btn {
+        top: 0.65rem !important;
+        right: 2.85rem !important;
+    }
+
+    .code-run-btn {
+        width: 2.05rem;
+        height: 2.05rem;
+        min-width: 2.05rem;
+        min-height: 2.05rem;
+    }
+}

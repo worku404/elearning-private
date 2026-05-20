@@ -1,0 +1,1028 @@
+{% load static course %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <script>
+        (function () {
+            var themeStorageKey = "theme_preference";
+            var defaultMode = "dark";
+            var mode = defaultMode;
+            try {
+                var storedMode = localStorage.getItem(themeStorageKey);
+                if (storedMode === "dark" || storedMode === "light") {
+                    mode = storedMode;
+                } else {
+                    localStorage.setItem(themeStorageKey, defaultMode);
+                }
+            } catch (error) {
+                mode = defaultMode;
+            }
+            if (mode === "dark") {
+                document.documentElement.classList.add("theme-dark");
+                document.documentElement.style.colorScheme = "dark";
+            } else {
+                document.documentElement.style.colorScheme = "light";
+            }
+        })();
+    </script>
+    <style>
+        html.theme-dark,
+        html.theme-dark body {
+            background: #0d1324;
+        }
+    </style>
+    {% if request.user.is_authenticated %}
+    <!-- Quill editor base theme stylesheet. -->
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.7/quill.snow.css">
+    <!-- Notes panel custom styles. -->
+    <link rel="stylesheet" href="{% static 'notes/notes.css' %}">
+    {% endif %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="{% static 'js/utils/copy.js' %}"></script>
+    {% if request.user.is_authenticated %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/copy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account-menu.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+
+</head>
+{% with app_name=request.resolver_match.app_name|default:'' %}
+<body class="app-body{% if request.user.is_authenticated %} has-assistant assistant-hidden{% endif %}{% if app_name != 'notes' %} app-body--modern{% endif %}">
+    <script>
+        // Prevent dark-mode flash: project styles depend on body.theme-dark
+        (function () {
+            if (document.documentElement.classList.contains("theme-dark")) {
+                document.body.classList.add("theme-dark");
+            }
+        })();
+    </script>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header id="header" class="topbar">
+        <div class="topbar__inner">
+            <div class="topbar__brand-wrap">
+                <a href="{% url 'home' %}" class="topbar__brand" aria-label="Edu Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#goldPinkGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-icon">
+                        <defs>
+                            <linearGradient id="goldPinkGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ffd54f" />
+                                <stop offset="100%" stop-color="#ff9ec5" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    <span class="brand-text">
+                        <span class="brand-primary">Next</span><span class="brand-divider">&nbsp;</span><span class="brand-secondary">Gen</span>
+                    </span>
+                </a>
+                {% if request.user.is_authenticated %}
+                <div class="c-presence c-presence--mobile" data-presence-badge role="status" aria-live="polite">
+                    <span class="c-presence__dot" aria-hidden="true"></span>
+                    <span class="c-presence__label">Online</span>
+                    <strong class="c-presence__count" data-presence-count>--</strong>
+                </div>
+                {% endif %}
+            </div>
+
+            <button
+                type="button"
+                class="topbar__menu-toggle"
+                id="topbar-menu-toggle"
+                aria-expanded="false"
+                aria-controls="topbar-drawer"
+                aria-label="Open menu"
+            >
+                <span class="topbar__menu-bar" aria-hidden="true"></span>
+                <span class="topbar__menu-bar" aria-hidden="true"></span>
+                <span class="topbar__menu-bar" aria-hidden="true"></span>
+            </button>
+
+            <div class="topbar__drawer" id="topbar-drawer">
+                <form class="c-search topbar__search" action="{% url 'global_search' %}" method="get" role="search" aria-label="Search courses">
+                    <label class="u-sr-only" for="global-search">Search courses</label>
+                    <svg class="c-search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input
+                        id="global-search"
+                        class="c-search__input"
+                        name="q"
+                        type="search"
+                        value="{{ request.GET.q|default:'' }}"
+                        placeholder="Search courses, topics, notes"
+                    >
+                    <button type="submit" class="c-btn c-btn--ghost c-search__btn" aria-label="Submit search">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Exam countdown timer -->
+                <div class="exam-countdown" id="exam-countdown" role="status" aria-live="polite" aria-label="Exam countdown">
+                    <div class="exam-countdown__content">
+                        <div class="exam-countdown__label">Final Exam</div>
+                        <div class="exam-countdown__timer">
+                            <span class="exam-countdown__days" id="countdown-days">--</span>
+                            <span class="exam-countdown__separator">d:</span>
+                            <span class="exam-countdown__hours" id="countdown-hours">--</span>
+                            <span class="exam-countdown__separator">h:</span>
+                            <span class="exam-countdown__minutes" id="countdown-minutes">--</span>
+                            <span class="exam-countdown__separator">m:</span>
+                            <span class="exam-countdown__seconds" id="countdown-seconds">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="topbar__actions" aria-label="Account actions">
+                    {% if request.user.is_authenticated %}
+                        <!-- Notes panel launcher button. -->
+                        <button
+                            id="notes-open-btn"
+                            class="c-btn c-btn--ghost"
+                            type="button"
+                            aria-label="Open notes panel"
+                            aria-controls="notes-panel"
+                            aria-expanded="false"
+                        >
+                            <!-- Button label for notes. -->
+                            Notes
+                        </button>
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                        <a href="https://github.com/worku404/e-learning/blob/main/docs/usage.md" target="_blank" class="c-btn c-btn--ghost">Usage Guide
+                        <span class="course-chat-link__arrow" aria-hidden="true">↗</span>
+                        </a>
+                    {% endif %}
+                        <a href="#"
+                            id="theme-toggle-link"
+                            class="c-btn c-btn--ghost"
+                            role="button"
+                            aria-pressed="false"
+                            aria-label="Toggle dark mode">
+
+                                <span class="theme-icon" aria-hidden="true"></span>
+
+                            </a>
+                    {% if request.user.is_authenticated %}
+                        {% profile_photo_url request.user as user_photo_url %}
+                        <button
+                            type="button"
+                            class="account-fab"
+                            data-account-menu-toggle
+                            aria-label="Open account menu"
+                            aria-expanded="false"
+                            aria-controls="account-floating-menu"
+                        >
+                            {% if user_photo_url %}
+                                <img src="{{ user_photo_url }}" alt="{{ request.user.username }} avatar" class="account-fab__image" width="44" height="44" loading="lazy" decoding="async">
+                            {% else %}
+                                <span class="account-fab__fallback">
+                                    {{ request.user.first_name|default:request.user.username|slice:":1"|upper }}{{ request.user.last_name|slice:":1"|upper }}
+                                </span>
+                            {% endif %}
+                        </button>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="c-btn c-btn--primary">Sign in</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Exam Countdown Timer Script -->
+    <script>
+        (function() {
+            const countdownEl = document.getElementById('exam-countdown');
+            if (!countdownEl) return;
+
+            const daysEl = document.getElementById('countdown-days');
+            const hoursEl = document.getElementById('countdown-hours');
+            const minutesEl = document.getElementById('countdown-minutes');
+            const secondsEl = document.getElementById('countdown-seconds');
+
+            const examDate = new Date('2026-06-04T00:00:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeRemaining = examDate - now;
+
+                if (timeRemaining <= 0) {
+                    daysEl.textContent = '00';
+                    hoursEl.textContent = '00';
+                    minutesEl.textContent = '00';
+                    secondsEl.textContent = '00';
+                    countdownEl.classList.remove('countdown--caution', 'countdown--warning');
+                    countdownEl.classList.add('countdown--critical');
+                    return;
+                }
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // Update display with padding
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+
+                // Update color based on time remaining
+                countdownEl.classList.remove('countdown--caution', 'countdown--warning', 'countdown--critical');
+                
+                if (days <= 10 && hours < 24) {
+                    // Less than 10 day: Red (critical)
+                    countdownEl.classList.add('countdown--critical');
+                } else if (days <= 15) {
+                    // 10-15 days: Orange (warning)
+                    countdownEl.classList.add('countdown--warning');
+                }
+                // More than 15 days: Green (default)
+            }
+
+            // Initial update
+            updateCountdown();
+
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        })();
+    </script>
+
+    {% if request.user.is_authenticated %}
+    <div class="account-menu-overlay" data-account-menu-overlay aria-hidden="true" hidden></div>
+    <aside id="account-floating-menu" class="account-menu" data-account-menu aria-hidden="true" hidden>
+        <div class="account-menu__head">
+            {% profile_photo_url request.user as user_photo_url %}
+            <div class="account-menu__avatar-wrap">
+                {% if user_photo_url %}
+                    <img src="{{ user_photo_url }}" alt="{{ request.user.username }} profile image" class="account-menu__avatar" width="52" height="52" loading="lazy" decoding="async">
+                {% else %}
+                    <span class="account-menu__avatar account-menu__avatar--placeholder">
+                        {{ request.user.first_name|default:request.user.username|slice:":1"|upper }}{{ request.user.last_name|slice:":1"|upper }}
+                    </span>
+                {% endif %}
+            </div>
+            <div class="account-menu__meta">
+                <strong>{{ request.user.first_name|default:request.user.username }} {{ request.user.last_name }}</strong>
+                <span>@{{ request.user.username }}</span>
+            </div>
+        </div>
+        <a href="{% url 'api:token_ui' %}" class="account-menu__action">API</a>
+        <a href="{% url 'edit' %}" class="account-menu__action">Profile</a>
+        <a href="{% url 'password_change' %}" class="account-menu__action">Change Password</a>
+        <form action="{% url 'logout' %}" method="post" class="account-menu__logout">
+            {% csrf_token %}
+            <button type="submit" class="account-menu__logout-btn">Logout</button>
+        </form>
+    </aside>
+    {% endif %}
+
+    <main class="l-shell">
+        <aside class="l-rail l-rail--left" aria-label="Primary navigation">
+             <nav class="c-nav">
+                 <a href="{% url 'course_list' %}" class="c-nav__item{% if '/course/home/' in request.path %} is-active{% endif %}">Dashboard</a>
+                 <a href="{% url 'student_course_list' %}" class="c-nav__item{% if '/students/courses/' in request.path %} is-active{% endif %}">Enrolled</a>
+                {% if request.user.is_staff or request.user.is_superuser %}
+                    <a href="{% url 'manage_course_list' %}" class="c-nav__item{% if '/course/mine/' in request.path %} is-active{% endif %}">Manage</a>
+                {% endif %}
+                <a href="{% url 'learning_insights:overview' %}" class="c-nav__item{% if '/insights/' in request.path %} is-active{% endif %}">Insights</a>
+             </nav>
+            {% block motivation %}
+            {% if request.user.is_authenticated %}
+            <section class="c-card c-progress-card" aria-label="Progress snapshot">
+                <h2 class="c-card__title">Did You Know?</h2>
+                    {% if daily_motto and daily_motto.text %}
+                    <strong class="motto-text" data-motto-text>
+                        {{ daily_motto.text }}
+                    </strong>
+                    <p class="c-card__meta motto-context" data-motto-context {% if not daily_motto.link %}hidden{% endif %}>
+                        Open the article for the full context.
+                        <a
+                            class="motto-link"
+                            data-motto-link
+                            href="{{ daily_motto.link|default:'' }}"
+                            {% if not daily_motto.link %}hidden{% endif %}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Link
+                        </a>
+                    </p>
+                    <p class="c-card__meta motto-source">
+                        — <span data-motto-note>{{ daily_motto.source|default:"Knowledge" }}</span>
+                    </p>
+                    <div class="motto-actions">
+                        <button
+                            type="button"
+                            class="c-btn c-btn--ghost motto-refresh"
+                            data-motto-refresh
+                            data-motto-refresh-label="Refresh insight"
+                            data-motto-refresh-url="{% url 'motto_refresh' %}"
+                            aria-label="Refresh insight"
+                            title="Refresh insight"
+                        >
+                            <span class="u-sr-only">Refresh insight</span>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12a8 8 0 1 1-2.34-5.66"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 5v6h-6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    {% else %}
+                    <strong class="motto-text" data-motto-text>
+                        Daily insight unavailable.
+                    </strong>
+                    <p class="c-card__meta motto-context" data-motto-context hidden>
+                        Open the article for the full context.
+                        <a
+                            class="motto-link"
+                            data-motto-link
+                            href=""
+                            hidden
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Link
+                        </a>
+                    </p>
+                    <p class="c-card__meta motto-source">
+                        — <span data-motto-note>Knowledge</span>
+                    </p>
+                    <div class="motto-actions">
+                        <button
+                            type="button"
+                            class="c-btn c-btn--ghost motto-refresh"
+                            data-motto-refresh
+                            data-motto-refresh-label="Refresh insight"
+                            data-motto-refresh-url="{% url 'motto_refresh' %}"
+                            aria-label="Refresh insight"
+                            title="Refresh insight"
+                        >
+                            <span class="u-sr-only">Refresh insight</span>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12a8 8 0 1 1-2.34-5.66"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 5v6h-6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    {% endif %}
+                <div class="c-progress"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="{{ overall_progress }}"
+                    aria-label="Overall learning progress">
+
+                    <span class="c-progress__bar"
+                        style="width: {{ overall_progress|default:0 }}%">
+                    </span>
+                </div>
+
+                <p class="c-progress__text">
+                    {{ overall_progress|default:0 }}% complete
+                </p>
+                {% if top_courses %}
+                <div class="c-focus-modules" data-focus-modules>
+                    <button
+                        type="button"
+                        class="c-focus-modules__toggle"
+                        aria-expanded="false"
+                        aria-controls="focus-modules-list"
+                        data-focus-toggle
+                    >
+                        More
+                    </button>
+
+                    <ul id="focus-modules-list" class="c-focus-modules__list" data-focus-list hidden>
+                        {% for course in top_courses %}
+                        <li class="c-focus-modules__item">
+                            <a href="{% url 'student_course_detail' course.course_id %}"><span class="c-focus-modules__name"> {{ course.course__title|truncatechars:17 }}</span></a>
+                            <span class="c-focus-modules__time c-focus-modules__time--accent">{{ course.total_time|duration_format }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+
+            </section>
+            {% endif %}
+            {% endblock %}
+            {% if request.user.is_authenticated %}
+            <div class="c-presence c-presence--desktop" data-presence-badge role="status" aria-live="polite">
+                <span class="c-presence__dot" aria-hidden="true"></span>
+                <span class="c-presence__label">Online</span>
+                <strong class="c-presence__count" data-presence-count>--</strong>
+                
+            </div>
+            {% endif %}
+
+
+        </aside>
+
+        <section id="content" class="l-main" aria-label="Learning workspace">
+            <div id="main-content" class="l-main__inner">
+                {% if messages %}
+                    <div class="c-message-stack">
+                        {% for message in messages %}
+                            <div
+                                class="c-card c-alert {% if 'error' in message.tags %}c-alert--error{% elif 'warning' in message.tags %}c-alert--warn{% elif 'success' in message.tags %}c-alert--success{% else %}c-alert--info{% endif %}"
+                                role="{% if 'error' in message.tags or 'warning' in message.tags %}alert{% else %}status{% endif %}"
+                                data-notification
+                            >
+                                <button type="button" class="c-alert__close" aria-label="Dismiss notification" data-notification-close>&times;</button>
+                                <span class="c-alert__icon" aria-hidden="true">
+                                    {% if 'error' in message.tags %}✕{% elif 'warning' in message.tags %}⚠{% elif 'success' in message.tags %}✓{% else %}i{% endif %}
+                                </span>
+                                <p class="c-card__meta c-card__meta--flush">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </section>
+
+        <aside class="l-util" aria-label="Tools and assistant">
+            {% if request.user.is_authenticated %}
+        <button
+            id="assistant-unhide"
+            class="assistant-unhide"
+            type="button"
+            aria-label="Show AI assistant"
+            aria-controls="assistant-panel"
+            aria-expanded="true"
+        >
+            <svg class="assistant-unhide__icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <rect x="4" y="7" width="16" height="11" rx="4"></rect>
+                <circle cx="9.5" cy="12.5" r="1"></circle>
+                <circle cx="14.5" cy="12.5" r="1"></circle>
+                <path d="M10 15.5h4"></path>
+                <path d="M12 4v3"></path>
+            </svg>
+        </button>
+                <section id="assistant-panel" class="assistance c-ai-panel">
+                    {% block ai %}
+                        {% include "assistant/llm.html" %}
+                    {% endblock %}
+                </section>
+            {% else %}
+                <section class="c-card c-alert c-alert--info">
+                    <h2 class="c-card__title">AI Study Assistant</h2>
+                    <p class="c-card__meta">Sign in to access AI guidance, contextual summaries, and quick study support.</p>
+                </section>
+            {% endif %}
+        </aside>
+    </main>
+    {% if request.user.is_authenticated %}
+    <!-- Notes panel markup included for authenticated users. -->
+    {% include "notes/panel.html" %}
+    {% endif %}
+{% if request.user.is_authenticated %}
+<section
+    id="chat-notification-stack"
+    class="c-toast-stack"
+    aria-live="polite"
+    aria-atomic="false"
+></section>
+{% endif %}
+{% block include_js %}{% endblock %}
+{% if request.user.is_authenticated %}
+<!-- Quill editor script for rich-text notes. -->
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js" defer></script>
+<!-- Notes panel behavior script. -->
+<script src="{% static 'notes/notes.js' %}" defer></script>
+{% endif %}
+<script src="{% static 'js/topbar-drawer.js' %}" defer></script>
+<script src="{% static 'js/theme-toggle.js' %}" defer></script>
+<script src="{% static 'js/account-menu.js' %}" defer></script>
+<script src="{% static 'js/notifications.js' %}" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+            const focusRoot = document.querySelector("[data-focus-modules]");
+            if (!focusRoot) return;
+
+            const toggleBtn = focusRoot.querySelector("[data-focus-toggle]");
+            const listEl = focusRoot.querySelector("[data-focus-list]");
+            if (!toggleBtn || !listEl) return;
+
+            toggleBtn.addEventListener("click", () => {
+                const nextOpen = toggleBtn.getAttribute("aria-expanded") !== "true";
+                toggleBtn.setAttribute("aria-expanded", String(nextOpen));
+                toggleBtn.textContent = nextOpen ? "Hide" : "More";
+                listEl.hidden = !nextOpen;
+            });
+        });
+        
+    (function () {
+        const badgeEls = Array.from(document.querySelectorAll("[data-presence-badge]"));
+        const countEls = Array.from(document.querySelectorAll("[data-presence-count]"));
+        const dotEls = badgeEls
+            .map((badgeEl) => badgeEl.querySelector(".c-presence__dot"))
+            .filter(Boolean);
+
+        if (!badgeEls.length || !countEls.length) return;
+
+        const pingUrl = "{% url 'presence_ping' %}";
+        const HEARTBEAT_MS = 30000;
+        let timerId = null;
+
+        function getCookie(name) {
+            const cookie = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith(name + "="));
+            return cookie ? decodeURIComponent(cookie.split("=")[1]) : "";
+        }
+
+        function setLiveState(isLive) {
+            dotEls.forEach((dotEl) => {
+                dotEl.style.background = isLive ? "#2ecc71" : "#7f8c8d";
+            });
+            badgeEls.forEach((badgeEl) => {
+                badgeEl.style.opacity = isLive ? "1" : "0.75";
+            });
+        }
+
+        async function pingPresence() {
+            try {
+                const response = await fetch(pingUrl, {
+                    method: "POST",
+                    credentials: "same-origin",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                });
+
+                if (!response.ok) {
+                    setLiveState(false);
+                    return;
+                }
+
+                const data = await response.json();
+                const onlineCount = Number.parseInt(data.online_count, 10);
+                const value = Number.isFinite(onlineCount) ? String(onlineCount+10) : "0";
+                countEls.forEach((countEl) => {
+                    countEl.textContent = value;
+                });
+                setLiveState(true);
+            } catch (error) {
+                setLiveState(false);
+            }
+        }
+
+        function startHeartbeat() {
+            if (timerId !== null) return;
+            timerId = window.setInterval(pingPresence, HEARTBEAT_MS);
+        }
+
+        function stopHeartbeat() {
+            if (timerId === null) return;
+            window.clearInterval(timerId);
+            timerId = null;
+        }
+
+        // First load
+        pingPresence();
+        startHeartbeat();
+
+        // Re-ping when tab becomes active
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                stopHeartbeat();
+            } else {
+                pingPresence();
+                startHeartbeat();
+            }
+        });
+
+        window.addEventListener("beforeunload", stopHeartbeat);
+    })();
+    (function () {
+        const stack = document.getElementById("chat-notification-stack");
+        if (!stack) return;
+
+        const shownMessageIds = new Set();
+        let socket = null;
+        let reconnectDelay = 1000;
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function isInsideSameChatRoom(courseId) {
+            const path = window.location.pathname || "";
+            return path === `/chat/room/${courseId}/`;
+        }
+
+        function createToast(item) {
+            if (!item || !item.message_id) return null;
+            if (shownMessageIds.has(item.message_id)) return null;
+            if (isInsideSameChatRoom(item.course_id)) return null;
+
+            shownMessageIds.add(item.message_id);
+
+            const toast = document.createElement("article");
+            toast.className = "c-toast";
+            toast.innerHTML = `
+                <div class="c-toast__head">
+                    <strong class="c-toast__title">${escapeHtml(item.course_title || "Course chat")}</strong>
+                    <button type="button" class="c-toast__close" aria-label="Dismiss notification">&times;</button>
+                </div>
+                <p class="c-toast__meta">
+                    ${escapeHtml(item.from_user || "User")} sent a message
+                </p>
+                <p class="c-toast__body">${escapeHtml(item.message_preview || "")}</p>
+                <a class="c-toast__link" href="/chat/room/${item.course_id}/">Open chat</a>
+            `;
+
+            const closeBtn = toast.querySelector(".c-toast__close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", () => {
+                    toast.remove();
+                });
+            }
+
+            setTimeout(() => {
+                toast.remove();
+            }, 20000);
+
+            return toast;
+        }
+
+        function showToast(item) {
+            const toast = createToast(item);
+            if (!toast) return;
+            stack.prepend(toast);
+        }
+
+        function connectNotificationSocket() {
+            const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+            socket = new WebSocket(`${wsScheme}://${window.location.host}/ws/notify/`);
+
+            socket.onopen = function () {
+                reconnectDelay = 1000;
+            };
+
+            socket.onmessage = function (event) {
+                try {
+                    const payload = JSON.parse(event.data);
+                    showToast(payload);
+                } catch (error) {
+                    // Ignore malformed payloads.
+                }
+            };
+
+            socket.onclose = function () {
+                setTimeout(connectNotificationSocket, reconnectDelay);
+                reconnectDelay = Math.min(reconnectDelay * 2, 30000);
+            };
+        }
+
+        let shouldBootstrap = true;
+        try {
+            const bootstrapKey = "chat_notifications_bootstrap_done";
+            if (sessionStorage.getItem(bootstrapKey) === "1") {
+                shouldBootstrap = false;
+            } else {
+                sessionStorage.setItem(bootstrapKey, "1");
+            }
+        } catch (error) {
+            shouldBootstrap = true;
+        }
+
+        if (shouldBootstrap) {
+            fetch("{% url 'chat:notifications_bootstrap' %}", {
+                credentials: "same-origin",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+            })
+                .then((response) => response.ok ? response.json() : { items: [] })
+                .then((data) => {
+                    (data.items || []).forEach((item) => {
+                        showToast(item);
+                    });
+                })
+                .catch(() => {
+                    // Silent failure.
+                });
+        }
+
+        connectNotificationSocket();
+    })();
+
+    (function () {
+        const stack = document.getElementById("chat-notification-stack");
+        if (!stack) return;
+
+        const shownInsightIds = new Set();
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function isInsideInsightsNotifications() {
+            const path = window.location.pathname || "";
+            return path.startsWith("/insights/notifications");
+        }
+
+        function createToast(item) {
+            if (!item || !item.id) return null;
+            if (shownInsightIds.has(item.id)) return null;
+            if (isInsideInsightsNotifications()) return null;
+
+            shownInsightIds.add(item.id);
+
+            const toast = document.createElement("article");
+            toast.className = "c-toast";
+
+            const title = escapeHtml(item.title || "Learning Insights");
+            const body = escapeHtml(item.body || "");
+            const url = item.url || "{% url 'learning_insights:notification_center' %}";
+
+            toast.innerHTML = `
+                <div class="c-toast__head">
+                    <strong class="c-toast__title">${title}</strong>
+                    <button type="button" class="c-toast__close" aria-label="Dismiss notification">&times;</button>
+                </div>
+                <p class="c-toast__meta">Learning Insights</p>
+                <p class="c-toast__body">${body}</p>
+                <a class="c-toast__link" href="${escapeHtml(url)}">Open</a>
+            `;
+
+            const closeBtn = toast.querySelector(".c-toast__close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", () => {
+                    toast.remove();
+                });
+            }
+
+            setTimeout(() => {
+                toast.remove();
+            }, 20000);
+
+            return toast;
+        }
+
+        function showToast(item) {
+            const toast = createToast(item);
+            if (!toast) return;
+            stack.prepend(toast);
+        }
+
+        const POLL_MS = 30000;
+        let pollTimerId = null;
+        let pollInFlight = false;
+
+        function pollNotifications() {
+            if (pollInFlight) return;
+            if (document.hidden) return;
+            if (isInsideInsightsNotifications()) return;
+
+            pollInFlight = true;
+            fetch("{% url 'learning_insights:notifications_bootstrap' %}", {
+                credentials: "same-origin",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+            })
+                .then((response) => (response.ok ? response.json() : { items: [] }))
+                .then((data) => {
+                    (data.items || []).forEach((item) => {
+                        showToast(item);
+                    });
+                })
+                .catch(() => {
+                    // Silent failure.
+                })
+                .finally(() => {
+                    pollInFlight = false;
+                });
+        }
+
+        function startPolling() {
+            if (pollTimerId !== null) return;
+            pollTimerId = window.setInterval(pollNotifications, POLL_MS);
+        }
+
+        function stopPolling() {
+            if (pollTimerId === null) return;
+            window.clearInterval(pollTimerId);
+            pollTimerId = null;
+        }
+
+        let params = null;
+        let forceBootstrap = false;
+        try {
+            params = new URLSearchParams(window.location.search || "");
+            forceBootstrap = params.get("li_bootstrap") === "1";
+        } catch (error) {
+            params = null;
+            forceBootstrap = false;
+        }
+
+        if (forceBootstrap) {
+            try {
+                sessionStorage.setItem("insights_notifications_bootstrap_done", "1");
+            } catch (error) {
+                // Ignore session storage errors.
+            }
+        }
+
+        function clearForceParam() {
+            if (!forceBootstrap || !params) return;
+            params.delete("li_bootstrap");
+            const queryString = params.toString();
+            const nextUrl =
+                window.location.pathname +
+                (queryString ? "?" + queryString : "") +
+                (window.location.hash || "");
+            try {
+                history.replaceState(null, "", nextUrl);
+            } catch (error) {
+                // Ignore history errors.
+            }
+        }
+
+        let shouldBootstrap = forceBootstrap;
+        if (!shouldBootstrap) {
+            try {
+                const bootstrapKey = "insights_notifications_bootstrap_done";
+                if (sessionStorage.getItem(bootstrapKey) === "1") {
+                    shouldBootstrap = false;
+                } else {
+                    sessionStorage.setItem(bootstrapKey, "1");
+                    shouldBootstrap = true;
+                }
+            } catch (error) {
+                shouldBootstrap = true;
+            }
+        }
+
+        if (shouldBootstrap) {
+            fetch("{% url 'learning_insights:notifications_bootstrap' %}", {
+                credentials: "same-origin",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+            })
+                .then((response) => (response.ok ? response.json() : { items: [] }))
+                .then((data) => {
+                    (data.items || []).forEach((item) => {
+                        showToast(item);
+                    });
+                    clearForceParam();
+                })
+                .catch(() => {
+                    clearForceParam();
+                    // Silent failure.
+                });
+        } else {
+            clearForceParam();
+        }
+
+        pollNotifications();
+        startPolling();
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                stopPolling();
+            } else {
+                pollNotifications();
+                startPolling();
+            }
+        });
+
+        window.addEventListener("beforeunload", stopPolling);
+    })();
+ 
+    (function () {
+        const refreshBtn = document.querySelector("[data-motto-refresh]");
+        if (!refreshBtn) return;
+
+        const textEl = document.querySelector("[data-motto-text]");
+        const contextEl = document.querySelector("[data-motto-context]");
+        const noteEl = document.querySelector("[data-motto-note]");
+        const linkEl = document.querySelector("[data-motto-link]");
+        const refreshUrl = refreshBtn.getAttribute("data-motto-refresh-url");
+        const defaultLabel =
+            refreshBtn.getAttribute("data-motto-refresh-label") || "Refresh insight";
+        const defaultAriaLabel = refreshBtn.getAttribute("aria-label") || defaultLabel;
+        const defaultTitle = refreshBtn.getAttribute("title") || defaultLabel;
+        const defaultLinkLabel = linkEl ? (linkEl.textContent || "Link").trim() : "Link";
+
+        function setLoading(isLoading) {
+            refreshBtn.classList.toggle("is-loading", isLoading);
+            refreshBtn.disabled = isLoading;
+            refreshBtn.setAttribute(
+                "aria-label",
+                isLoading ? "Refreshing insight" : defaultAriaLabel
+            );
+            refreshBtn.setAttribute("title", isLoading ? "Refreshing..." : defaultTitle);
+        }
+
+        function applyMotto(motto) {
+            if (!motto) return;
+            if (textEl && motto.text) {
+                textEl.textContent = motto.text;
+            }
+            if (noteEl) {
+                noteEl.textContent = motto.source || "Knowledge";
+            }
+            if (contextEl) {
+                const link = (motto.link || "").trim();
+                contextEl.hidden = !link;
+            }
+            if (linkEl) {
+                const link = (motto.link || "").trim();
+                if (link) {
+                    linkEl.hidden = false;
+                    linkEl.href = link;
+                    linkEl.textContent = defaultLinkLabel;
+                    linkEl.setAttribute("title", motto.source ? `Open article on ${motto.source}` : "Open article");
+                } else {
+                    linkEl.hidden = true;
+                    linkEl.removeAttribute("href");
+                }
+            }
+        }
+
+        refreshBtn.addEventListener("click", async () => {
+            if (!refreshUrl) return;
+            setLoading(true);
+            try {
+                const response = await fetch(refreshUrl, {
+                    method: "GET",
+                    cache: "no-store",
+                    credentials: "same-origin",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || "Unable to refresh.");
+                }
+                applyMotto(data.motto);
+            } catch (error) {
+                refreshBtn.classList.add("is-error");
+                refreshBtn.setAttribute("aria-label", "Refresh failed");
+                refreshBtn.setAttribute("title", "Refresh failed");
+                window.setTimeout(() => {
+                    refreshBtn.classList.remove("is-error");
+                    refreshBtn.setAttribute("aria-label", defaultAriaLabel);
+                    refreshBtn.setAttribute("title", defaultTitle);
+                }, 1400);
+            } finally {
+                setLoading(false);
+            }
+        });
+    })();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Hook for child templates.
+        const hooks = window.__domreadyHooks || [];
+        hooks.forEach((fn) => {
+            try { fn(); } catch (e) { /* ignore */ }
+        });
+{% block domready %}{% endblock %}
+    });
+</script>
+{% endwith %}
+</body>
+</html>

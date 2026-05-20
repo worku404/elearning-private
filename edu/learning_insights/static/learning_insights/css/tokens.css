@@ -1,0 +1,62 @@
+/* ===================================================== */
+/* Learning Insights: local design tokens                */
+/* ===================================================== */
+
+:root {
+    --li-kicker-gap: 0.35rem;
+    --li-meta-gap: 0.35rem;
+    --li-meta-gap-xs: 0.25rem;
+    --li-meta-gap-sm: 0.45rem;
+    --li-meta-gap-md: 0.75rem;
+
+    --li-stack-gap: var(--space-4);
+    --li-actions-gap: var(--space-3);
+    --li-filter-gap: var(--space-2);
+
+    --li-grid-gap: var(--space-4);
+    --li-grid-min: 220px;
+
+    --li-card-max: 980px;
+    --li-card-max-narrow: 820px;
+
+    --li-stat-gap: 0.4rem;
+
+    --li-subcard-padding: var(--space-4);
+    --li-subcard-padding-sm: var(--space-3);
+    --li-subcard-radius: 14px;
+    --li-subcard-border: color-mix(in srgb, var(--color-border) 85%, transparent);
+    --li-subcard-bg: color-mix(in srgb, var(--color-surface) 96%, var(--color-bg));
+
+    --li-badge-padding: 0.2rem 0.55rem;
+    --li-badge-radius: 999px;
+    --li-badge-font: 0.8rem;
+    --li-badge-new-bg: var(--color-primary);
+    --li-badge-new-color: #ffffff;
+    --li-badge-tag-bg: color-mix(in srgb, var(--color-border) 60%, transparent);
+
+    --li-code-max-h: 520px;
+    --li-code-bg: var(
+        --assistant-code-bg,
+        color-mix(in srgb, var(--color-surface) 92%, var(--color-bg))
+    );
+    --li-code-border: var(--assistant-code-border, var(--color-border));
+
+    --li-prose-lh: 1.65;
+    --li-chart-min-h: 260px;
+    --li-chart-min-h-lg: 320px;
+
+    --li-text-success: #2a9d66;
+    --li-text-warning: #ffd166;
+    --li-text-danger: #ff7b7b;
+    --li-text-highlight: #ffd54f;
+
+    --li-soft-border: color-mix(in srgb, var(--color-border) 85%, transparent);
+    --li-soft-surface: color-mix(in srgb, var(--color-surface) 96%, var(--color-bg));
+}
+
+body.theme-dark {
+    --li-subcard-border: color-mix(in srgb, #ffffff 18%, transparent);
+    --li-subcard-bg: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
+    --li-badge-tag-bg: color-mix(in srgb, #ffffff 10%, transparent);
+}
+

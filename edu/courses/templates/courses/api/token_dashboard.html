@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}API Developer Tools{% endblock %}
+
+{% block content %}
+<section class="page page--api c-stack">
+    <header class="page-heading">
+        <h1 class="page-title">API Developer Tools</h1>
+        <p class="page-subtitle">
+            Build against the e-learning API with confidence. This page gives you a complete developer workflow:
+            understand the API, generate a token, test protected routes, and troubleshoot common errors quickly.
+        </p>
+        <div class="api-chip-list" aria-label="Developer options">
+            <span class="api-chip">Quick start</span>
+            <span class="api-chip">Token auth</span>
+            <span class="api-chip">PowerShell-safe commands</span>
+            <span class="api-chip">Debug checklist</span>
+        </div>
+    </header>
+
+    <article class="c-card c-stack api-guide">
+        <h2 class="c-card__title">What this API is for</h2>
+        <p class="c-card__meta">
+            Use this API to list subjects/courses, enroll users, and fetch protected course contents for client apps
+            (mobile, SPA, scripts, or backend integrations).
+        </p>
+
+        <div class="api-links">
+            <a class="c-btn c-btn--secondary" href="{{ api_root_url }}" target="_blank" rel="noopener">Open API Root</a>
+            <a class="c-btn c-btn--secondary" href="{{ courses_url }}" target="_blank" rel="noopener">Open Courses</a>
+            <a class="c-btn c-btn--secondary" href="{{ subjects_url }}" target="_blank" rel="noopener">Open Subjects</a>
+            <a class="c-btn c-btn--secondary" href="{{ token_auth_url }}" target="_blank" rel="noopener">Open Token Endpoint</a>
+        </div>
+    </article>
+
+    <article class="c-card c-stack">
+        <h2 class="c-card__title">Quick Start (3 Steps)</h2>
+        <ol class="api-steps" aria-label="Quick start steps">
+            <li class="api-step">
+                <span class="api-step__index" aria-hidden="true">1</span>
+                <div>
+                    <strong>Get a token</strong>
+                    <p class="c-card__meta">Generate via UI below or call <code>{{ token_auth_url }}</code> from terminal.</p>
+                </div>
+            </li>
+            <li class="api-step">
+                <span class="api-step__index" aria-hidden="true">2</span>
+                <div>
+                    <strong>Attach Authorization header</strong>
+                    <p class="c-card__meta"><code>Authorization: Token &lt;your_token&gt;</code></p>
+                </div>
+            </li>
+            <li class="api-step">
+                <span class="api-step__index" aria-hidden="true">3</span>
+                <div>
+                    <strong>Call protected endpoints</strong>
+                    <p class="c-card__meta">Try enroll and contents endpoints with sample commands below.</p>
+                </div>
+            </li>
+        </ol>
+    </article>
+
+    <div class="api-dual-layout">
+        <article class="c-card c-stack">
+            <h2 class="c-card__title">Option 1: Generate Token in UI</h2>
+            <p class="c-card__meta">Signed in as <strong>{{ request.user.username }}</strong></p>
+
+            {% if status_message %}
+                <p class="c-alert c-alert--info">{{ status_message }}</p>
+            {% endif %}
+
+            <div class="api-token-row">
+                <label for="api-token-field">Current token</label>
+                <div class="api-token-controls">
+                    <input id="api-token-field" type="text" value="{{ token }}" readonly>
+                    <button
+                        id="copy-token-btn"
+                        type="button"
+                        class="c-btn c-btn--secondary"
+                        data-copy-target="#api-token-field"
+                        data-copy-status="#copy-token-status"
+                        data-copy-status-copied="Token copied to clipboard."
+                        data-copy-status-failed="Clipboard access failed. Token selected so you can copy manually."
+                        data-copy-default="Copy token"
+                        data-copy-copied="Copied"
+                        data-copy-failed="Copy failed"
+                    >
+                        Copy token
+                    </button>
+                </div>
+
+                <label for="api-header-field">Ready-to-use auth header</label>
+                <div class="api-token-controls">
+                    <input id="api-header-field" type="text" value="Authorization: Token {{ token }}" readonly>
+                    <button
+                        id="copy-header-btn"
+                        type="button"
+                        class="c-btn c-btn--secondary"
+                        data-copy-target="#api-header-field"
+                        data-copy-status="#copy-token-status"
+                        data-copy-status-copied="Authorization header copied to clipboard."
+                        data-copy-status-failed="Clipboard access failed. Header selected so you can copy manually."
+                        data-copy-default="Copy header"
+                        data-copy-copied="Copied"
+                        data-copy-failed="Copy failed"
+                    >
+                        Copy header
+                    </button>
+                </div>
+
+                <p id="copy-token-status" class="api-copy-status c-card__meta">
+                    Keep this token private. If exposed, rotate it immediately.
+                </p>
+            </div>
+
+            <div class="c-card__actions">
+                <form method="post" class="c-inline-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="ensure">
+                    <button type="submit" class="c-btn c-btn--secondary">Refresh token</button>
+                </form>
+
+                <form method="post" class="c-inline-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="rotate">
+                    <button type="submit" class="c-btn c-btn--primary">Rotate token</button>
+                </form>
+            </div>
+        </article>
+
+        <article class="c-card c-stack">
+            <h2 class="c-card__title">Option 2: Generate Token in Terminal</h2>
+            <p class="c-card__meta">Use credentials once, then use token for all protected API calls.</p>
+
+            <h3 class="c-card__title">PowerShell (recommended on Windows)</h3>
+            <pre class="api-code"><code>$body = @{
+  username = "your_username"
+  password = "your_password"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Method Post `
+  -Uri "{{ token_auth_url }}" `
+  -ContentType "application/json" `
+  -Body $body</code></pre>
+
+            <h3 class="c-card__title">curl.exe (single line)</h3>
+            <pre class="api-code"><code>curl.exe -X POST {{ token_auth_url }} -H "Content-Type: application/json" -d "{\"username\":\"your_username\",\"password\":\"your_password\"}"</code></pre>
+        </article>
+    </div>
+
+    <article class="c-card c-stack">
+        <h2 class="c-card__title">Protected Endpoint Examples</h2>
+
+        <h3 class="c-card__title">Enroll in a course</h3>
+        <pre class="api-code"><code>curl.exe -X POST {{ sample_enroll_url }} -H "Authorization: Token your_generated_token_value"</code></pre>
+
+        <h3 class="c-card__title">Fetch enrolled course contents</h3>
+        <pre class="api-code"><code>curl.exe {{ sample_contents_url }} -H "Authorization: Token your_generated_token_value"</code></pre>
+
+        <p class="c-card__meta">
+            Tip: Open API root first to inspect available endpoints and route names.
+        </p>
+    </article>
+
+    <article class="c-card c-stack">
+        <h2 class="c-card__title">Common Errors and Fixes</h2>
+        <ul class="api-note-list">
+            <li>
+                <strong>401 Authentication credentials were not provided</strong><br>
+                Missing <code>Authorization</code> header. Add <code>Authorization: Token ...</code>.
+            </li>
+            <li>
+                <strong>401 Invalid token</strong><br>
+                Token is wrong, expired/rotated, or copied with extra spaces. Re-copy from this page.
+            </li>
+            <li>
+                <strong>403 Forbidden on contents endpoint</strong><br>
+                User is authenticated but not enrolled in that course.
+            </li>
+            <li>
+                <strong>JSON parse error in PowerShell curl</strong><br>
+                Use <code>Invoke-RestMethod</code> or carefully escape JSON in <code>curl.exe</code>.
+            </li>
+            <li>
+                <strong>404 endpoint not found</strong><br>
+                Verify base path is <code>/api/</code> and include trailing slash.
+            </li>
+        </ul>
+    </article>
+
+    <article class="c-card c-stack">
+        <h2 class="c-card__title">Security Notes</h2>
+        <ul class="api-note-list">
+            <li>Treat token like a password.</li>
+            <li>Rotate immediately if leaked to logs/screenshots/chat.</li>
+            <li>Use HTTPS in production.</li>
+            <li>Prefer token auth for integrations; use basic auth only for local quick checks.</li>
+            <li>Project reference docs: <code>docs/api.md</code></li>
+        </ul>
+    </article>
+    <strong>for more read <a href="https://github.com/worku404/worku-lms/blob/main/docs/api.md" target="_blank">Github Documentation</a></strong>
+</section>
+{% endblock %}
+
+{% block domready %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}My courses{% endblock %}
+{% block content %}
+    <section class="page page--my-courses c-stack">
+        <header class="page-heading">
+            <h1 class="page-title">My courses</h1>
+            <p class="page-subtitle">Continue your active modules and keep a consistent study rhythm.</p>
+        </header>
+        
+        <section class="module c-stack">
+            {% for course in courses %}
+                <article class="c-card c-card--course">
+                    <h2 class="c-card__title">{{ course.title }}</h2>
+                    <p class="c-card__meta">
+                        {{ course.modules.count }} modules available
+                    </p>
+                    <div
+                        class="c-progress"
+                        role="progressbar"
+                        aria-label="Course completion progress"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="{{ course.student_progress_percent|default:0|floatformat:0 }}"
+                    >
+                        <span
+                            class="c-progress__bar"
+                            style="width: {{ course.student_progress_percent|default:0 }}%;"
+                        ></span>
+                    </div>
+                    <p class="c-card__meta">
+                        {{ course.student_progress_percent|default:0|floatformat:0 }}%
+                    </p>
+                    <div class="c-card__actions">
+                        <a href="{% url 'student_course_detail' course.id %}" class="c-btn c-btn--primary">
+                            Continue learning
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="c-card c-alert c-alert--info">
+                    <h2 class="c-card__title">No enrollments yet</h2>
+                    <p class="c-card__meta">
+                        You are not enrolled in any courses yet.
+                        <a href="{% url 'course_list' %}">Browse courses</a> to get started.
+                    </p>
+                </div>
+            {% endfor %}
+        </section>
+    </section>
+{% endblock %}
+

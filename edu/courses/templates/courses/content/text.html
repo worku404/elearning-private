@@ -1,0 +1,10 @@
+{% load course_markdown %}
+<article
+    class="c-reader__content js-track-text"
+    {% if content %}
+    data-content-id="{{ content.id }}"
+    data-progress-url="{% url 'track_content_progress' content.id %}"
+    {% endif %}
+>
+    {{ item.content|markdown }}
+</article>

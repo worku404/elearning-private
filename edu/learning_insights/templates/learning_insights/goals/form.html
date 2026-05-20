@@ -1,0 +1,362 @@
+﻿{% extends "learning_insights/base.html" %}
+{% load course static %}
+
+{% block title %}{% if form.instance.pk %}Edit Goal{% else %}Create Goal{% endif %}{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/goals_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card li-container" aria-labelledby="goal-form-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <div class="li-card-head">
+        <div>
+            <p class="c-card__meta li-kicker">Learning Insights</p>
+            <h1 id="goal-form-title" class="c-card__title li-title">
+                {% if form.instance.pk %}Edit goal{% else %}Create a goal{% endif %}
+            </h1>
+            <p class="c-card__meta li-subtitle">
+                Define what you want to achieve, then track progress using study time and completion signals.
+            </p>
+        </div>
+        <div class="li-card-actions">
+            <a href="{% url 'learning_insights:goal_list' %}" class="c-btn c-btn--ghost">Back to goals</a>
+            <a href="{% url 'learning_insights:weekly_summary' %}" class="c-btn c-btn--ghost">Weekly summary</a>
+        </div>
+    </div>
+
+{% if form_mode == "create" %}
+    <div class="c-card li-section-top li-pad-card li-subcard-border" id="ai-planner">
+        <h2 class="c-card__title li-title">AI planner</h2>
+        <p class="c-card__meta li-subtitle">
+            Describe your goal or upcoming exam and the AI will create a plan from your enrolled courses.
+        </p>
+
+        <form method="post" action="{% url 'learning_insights:goal_ai_planner' %}" class="li-section-top li-grid--sm">
+            {% csrf_token %}
+
+            <div class="li-ai-prompt">
+                <textarea
+                    id="ai-prompt"
+                    name="prompt"
+                    class="li-ai-prompt__field"
+                    placeholder="Enter a prompt"
+                >{{ ai_prompt }}</textarea>
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="start"
+                    class="li-ai-prompt__send"
+                    aria-label="Send prompt"
+                    id="ai-prompt-send"
+                >
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M3.4 20.6 21 12 3.4 3.4l.9 7.2L14 12l-9.7 1.4.9 7.2Z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="li-row-end li-row-inline">
+                {% if ai_run %}
+                    <input type="hidden" name="run_id" value="{{ ai_run.id }}">
+                    <button
+                        type="submit"
+                        name="action"
+                        value="clear"
+                        class="c-btn c-btn--ghost"
+                        formnovalidate
+                    >
+                        Clear
+                    </button>
+                    <a href="{% url 'learning_insights:ai_run_detail' ai_run.id %}" class="c-btn c-btn--ghost">Open run</a>
+                {% endif %}
+            </div>
+        </form>
+
+        <script>
+            (function () {
+                const textarea = document.getElementById("ai-prompt");
+                const sendBtn = document.getElementById("ai-prompt-send");
+                if (!textarea) return;
+
+                const sync = function () {
+                    textarea.style.height = "auto";
+                    const next = Math.min(120, Math.max(36, textarea.scrollHeight || 36));
+                    textarea.style.height = next + "px";
+                    if (sendBtn) sendBtn.disabled = textarea.value.trim().length === 0;
+                };
+
+                textarea.addEventListener("input", sync);
+                textarea.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" && !event.shiftKey) {
+                        event.preventDefault();
+                        if (sendBtn && !sendBtn.disabled) {
+                            const form = sendBtn.closest("form");
+                            if (form) form.submit();
+                        }
+                    }
+                });
+                sync();
+            })();
+        </script>
+
+            {% if ai_run and ai_output %}
+                <div class="li-section-top">
+                    <p class="c-card__meta li-meta">
+                        Status: <strong>{{ ai_run.get_status_display|default:ai_run.status }}</strong>
+                        &middot; {{ ai_run.created_at|date:"M d, Y H:i" }}
+                    </p>
+                    {% if ai_run.summary_text %}
+                        <p class="li-prose">{{ ai_run.summary_text }}</p>
+                    {% endif %}
+                </div>
+
+                {% if ai_output.type == "clarification" and ai_output.questions %}
+                    <div class="li-section-top">
+                        <h3 class="c-card__title li-title-sm">Quick questions</h3>
+                        <p class="c-card__meta li-mt-sm">Answer these so the plan can be precise.</p>
+
+                        <form method="post" action="{% url 'learning_insights:goal_ai_planner' %}" class="li-section-top li-grid--sm">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="continue">
+                            <input type="hidden" name="run_id" value="{{ ai_run.id }}">
+                            <input type="hidden" name="prompt" value="{{ ai_prompt|escape }}">
+
+                            {% for q in ai_output.questions %}
+                                <div>
+                                    <label class="c-card__meta li-label--spaced">
+                                        {{ q.label }}
+                                    </label>
+                                    <input
+                                        type="{% if q.type == 'date' %}date{% elif q.type == 'number' %}number{% else %}text{% endif %}"
+                                        name="answer_{{ q.id }}"
+                                        class="c-search__input"
+                                        placeholder="{{ q.placeholder }}"
+                                        {% if q.required %}required{% endif %}
+                                    >
+                                </div>
+                            {% endfor %}
+
+                            <div class="li-row-end">
+                                <button type="submit" class="c-btn c-btn--primary">Continue</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% if ai_output.type == "plan" and ai_output.plan %}
+                    <div class="li-section-top">
+                        <h3 class="c-card__title li-title-sm">Proposed plan</h3>
+                        <p class="c-card__meta li-mt-sm">
+                            Period: <strong>{{ ai_output.period.start }}</strong> &rarr; <strong>{{ ai_output.period.end }}</strong>
+                            &middot; Risk: <strong>{{ ai_output.risk_level|default:"low" }}</strong>
+                        </p>
+
+                        {% if ai_output.focus_courses %}
+                            <div class="li-mt-lg">
+                                <p class="c-card__meta li-meta">Focus courses</p>
+                                <ul class="li-goals-form-list li-goals-form-list--sm">
+                                    {% for row in ai_output.focus_courses %}
+                                        <li>
+                                            <strong>{{ row.course_title|default:"General" }}</strong>
+                                            {% if row.why %}<span class="c-card__meta"> &mdash; {{ row.why }}</span>{% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <div class="li-section-top li-grid--sm">
+                            {% for day in ai_output.plan|slice:":7" %}
+                                <article class="c-card li-m0 li-pad-card li-subcard-border">
+                                    <p class="c-card__meta li-meta"><strong>{{ day.date }}</strong>{% if day.is_buffer_day %} &middot; Buffer day{% endif %}</p>
+                                    {% if day.items %}
+                                        <ul class="li-goals-form-list li-goals-form-list--md">
+                                            {% for item in day.items %}
+                                                <li>
+                                                    {% if item.minutes %}<strong>{{ item.minutes }}m</strong> {% endif %}
+                                                    {% if item.course_title %}{{ item.course_title }} &mdash; {% endif %}{{ item.task }}
+                                                    {% if item.notes %}<span class="c-card__meta"> ({{ item.notes }})</span>{% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p class="c-card__meta li-mt-md">No items.</p>
+                                    {% endif %}
+                                </article>
+                            {% endfor %}
+                            {% if ai_output.plan|length > 7 %}
+                                <p class="c-card__meta li-meta">Showing first 7 day(s). Apply to create goals for the full period.</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="li-section-top li-card-actions">
+                            <form method="post" action="{% url 'learning_insights:goal_ai_apply' ai_run.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="c-btn c-btn--primary">Apply plan (create goals)</button>
+                            </form>
+                            <a href="{% url 'learning_insights:ai_run_detail' ai_run.id %}#edit" class="c-btn c-btn--ghost">Edit plan</a>
+                        </div>
+
+                        {% if ai_output.recommendations %}
+                            <div class="li-section-top">
+                                <h3 class="c-card__title li-title-sm">Recommended courses</h3>
+                                <p class="c-card__meta li-mt-sm">Not enrolled yet &mdash; open a course to enroll.</p>
+                                <ul class="li-goals-form-list li-goals-form-list--lg">
+                                    {% for rec in ai_output.recommendations %}
+                                        <li>
+                                            <strong>{{ rec.course_title }}</strong>
+                                            {% if rec.why %}<span class="c-card__meta"> &mdash; {{ rec.why }}</span>{% endif %}
+                                            {% if rec.slug %}
+                                                <a class="c-btn c-btn--ghost li-goals-form-rec-link" href="{% url 'course_detail' rec.slug %}">Open</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <form method="post" novalidate class="li-section-top li-grid">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="c-card c-alert c-alert--danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="li-grid-fields">
+            <div class="c-card li-pad-card">
+                <h2 class="c-card__title li-title-sm-spaced">Goal details</h2>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.title.id_for_label }}" class="c-card__meta li-label">Title</label>
+                    {{ form.title }}
+                    {% for error in form.title.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.description.id_for_label }}" class="c-card__meta li-label">Description</label>
+                    {{ form.description }}
+                    {% for error in form.description.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.course.id_for_label }}" class="c-card__meta li-label">Course (optional)</label>
+                    {{ form.course }}
+                    {% for error in form.course.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="{{ form.parent.id_for_label }}" class="c-card__meta li-label">Parent goal (optional)</label>
+                    {{ form.parent }}
+                    {% for error in form.parent.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="c-card li-pad-card">
+                <h2 class="c-card__title li-title-sm-spaced">Period and target</h2>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.period_type.id_for_label }}" class="c-card__meta li-label">Period type</label>
+                    {{ form.period_type }}
+                    {% for error in form.period_type.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.start_date.id_for_label }}" class="c-card__meta li-label">Start date</label>
+                    {{ form.start_date }}
+                    {% for error in form.start_date.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.due_date.id_for_label }}" class="c-card__meta li-label">Due date</label>
+                    {{ form.due_date }}
+                    {% for error in form.due_date.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.target_type.id_for_label }}" class="c-card__meta li-label">Target type</label>
+                    {{ form.target_type }}
+                    {% for error in form.target_type.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.target_value.id_for_label }}" class="c-card__meta li-label">Target value</label>
+                    {{ form.target_value }}
+                    {% if form.target_value.help_text %}
+                        <p class="c-card__meta li-mt-sm">{{ form.target_value.help_text }}</p>
+                    {% endif %}
+                    {% for error in form.target_value.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="{{ form.current_value.id_for_label }}" class="c-card__meta li-label">Current value</label>
+                    {{ form.current_value }}
+                    {% if form.current_value.help_text %}
+                        <p class="c-card__meta li-mt-sm">{{ form.current_value.help_text }}</p>
+                    {% endif %}
+                    {% for error in form.current_value.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="c-card li-pad-card">
+                <h2 class="c-card__title li-title-sm-spaced">Priority and status</h2>
+
+                <div class="li-mb-lg">
+                    <label for="{{ form.priority.id_for_label }}" class="c-card__meta li-label">Priority</label>
+                    {{ form.priority }}
+                    {% for error in form.priority.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="{{ form.status.id_for_label }}" class="c-card__meta li-label">Status</label>
+                    {{ form.status }}
+                    {% for error in form.status.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="li-row-end">
+            <a href="{% url 'learning_insights:goal_list' %}" class="c-btn c-btn--ghost">Cancel</a>
+            <button type="submit" class="c-btn c-btn--primary">
+                {% if form.instance.pk %}Save changes{% else %}Create goal{% endif %}
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+

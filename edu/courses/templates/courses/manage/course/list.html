@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{# Browser tab title #}
+{% block title %}My courses{% endblock %}
+
+
+{% block content %}
+    {# Instructor dashboard: list only courses owned by current user #}
+    <h1>My Courses</h1>
+
+    <div class="module">
+        {% for course in object_list %}
+            <div class="course-info">
+                <h3>{{ course.title }}</h3>
+
+                {# Actions for this course #}
+                <p>
+                    <a href="{% url 'course_module_update' course.id %}">Edit modules</a>
+
+                    {# Show "Manage contents" only if at least one module exists #}
+                    {% if course.modules.count > 0 %}
+                        <a href="{% url 'module_content_list' course.modules.first.id %}">
+                            Manage contents
+                        </a>
+                    {% endif %}
+
+                    <a href="{% url 'course_edit' course.id %}">Edit</a>
+                    <a href="{% url 'course_delete' course.id %}">Delete</a>
+                </p>
+            </div>
+        {% empty %}
+            <p>You haven't created any courses yet.</p>
+        {% endfor %}
+
+        {# Primary CTA: create a new course #}
+        <p>
+            <a href="{% url 'course_create' %}" class="button">Create new course</a>
+        </p>
+    </div>
+{% endblock %}

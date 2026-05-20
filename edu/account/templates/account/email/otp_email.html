@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .code-box {
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 2px dashed #007bff;
+        }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #007bff;
+            font-family: monospace;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Email Verification Required</h2>
+            <p>Welcome to E-Learning Platform!</p>
+        </div>
+        
+        <p>Thank you for registering. To complete your account setup, please verify your email address using the code below:</p>
+        
+        <div class="code-box">
+            <p style="margin: 0 0 10px 0; color: #666;">Your Verification Code</p>
+            <div class="otp-code">{{ otp_code }}</div>
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+                <li>This code expires in <strong>10 minutes</strong></li>
+                <li>Do not share this code with anyone</li>
+                <li>Never enter this code on any website except E-Learning Platform</li>
+            </ul>
+        </div>
+        
+        <p>Enter this code on the verification page to activate your account and start learning!</p>
+        
+        <p><strong>Didn't request this?</strong> If you didn't create this account, you can safely ignore this email. Your email won't be used unless you complete the verification.</p>
+        
+        <div class="footer">
+            <p>This is an automated email. Please do not reply.</p>
+            <p>&copy; {{ site_name }} | All rights reserved</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿{% extends "learning_insights/base.html" %}
+{% load static %}
+
+{% block title %}AI Review | Learning Insights{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/ai_review.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card" aria-labelledby="ai-review-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <div class="li-card-head">
+        <div>
+            <p class="c-card__meta li-kicker">Learning Insights</p>
+            <h1 id="ai-review-title" class="c-card__title li-title">AI Review</h1>
+            <p class="c-card__meta li-subtitle">
+                Generate daily or weekly reviews with gap analysis, behavior insights, and actionable suggestions.
+            </p>
+        </div>
+        <div class="li-card-actions">
+            <a href="{% url 'learning_insights:overview' %}" class="c-btn c-btn--ghost">Back to insights</a>
+            <a href="{% url 'learning_insights:goal_create' %}#ai-planner" class="c-btn c-btn--ghost">AI planner</a>
+        </div>
+    </div>
+</section>
+
+<section class="c-card li-section-top">
+    <h2 class="c-card__title li-title">Generate</h2>
+    <form method="post" action="{% url 'learning_insights:ai_review_generate' %}" class="li-section-top li-card-actions">
+        {% csrf_token %}
+        <button type="submit" name="period" value="weekly" class="c-btn c-btn--primary">Generate weekly review</button>
+        <button type="submit" name="period" value="daily" class="c-btn c-btn--ghost">Generate daily review</button>
+        <button type="submit" name="period" value="improvement" class="c-btn c-btn--ghost">Improvement ideas</button>
+        <button type="submit" name="period" value="recovery" class="c-btn c-btn--ghost">Recovery plan</button>
+    </form>
+</section>
+
+{% if latest_run %}
+<section class="c-card li-section-top">
+    <h2 class="c-card__title li-title">Latest run</h2>
+    <p class="c-card__meta li-subtitle">
+        Type: <strong>{{ latest_run.get_kind_display|default:latest_run.kind }}</strong>
+        &middot; Status: <strong>{{ latest_run.get_status_display|default:latest_run.status }}</strong>
+        &middot; Created: {{ latest_run.created_at|date:"M d, Y H:i" }}
+    </p>
+    {% if latest_run.summary_text %}
+        <p class="li-prose">{{ latest_run.summary_text }}</p>
+    {% endif %}
+    <div class="li-section-top li-card-actions">
+        <a href="{% url 'learning_insights:ai_run_detail' latest_run.id %}" class="c-btn c-btn--secondary">Open summary</a>
+    </div>
+</section>
+{% endif %}
+
+<section class="c-card li-section-top">
+    <h2 class="c-card__title li-title">Recent runs</h2>
+    {% if runs %}
+        <div class="li-section-top li-grid--sm">
+            {% for run in runs %}
+                <article class="c-card li-m0 li-subcard-border">
+                    <p class="c-card__meta li-meta">
+                        {{ run.created_at|date:"M d, Y H:i" }} &middot;
+                        <strong>{{ run.get_kind_display|default:run.kind }}</strong> &middot;
+                        <strong>{{ run.get_status_display|default:run.status }}</strong>
+                    </p>
+                    {% if run.summary_text %}
+                        <p class="li-prose li-mt-md">{{ run.summary_text|truncatechars:220 }}</p>
+                    {% endif %}
+                    <div class="li-mt-lg li-card-actions">
+                        <a href="{% url 'learning_insights:ai_run_detail' run.id %}" class="c-btn c-btn--ghost">Open summary</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="c-card__meta li-section-top">No AI runs yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
+
+

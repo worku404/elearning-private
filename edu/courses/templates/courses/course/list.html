@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{# Browser tab title changes based on active subject filter #}
+{% block title %}
+    {% if subject %}
+        {{ subject.title }} courses
+    {% else %}
+        All courses
+    {% endif %}
+{% endblock %}
+{#  Public views (student/visitor facing) #}
+{% block content %}
+    <section class="page page--catalog c-stack">
+        <header class="page-heading">
+            <h1 class="page-title">
+                {% if subject %}
+                    {{ subject.title }} courses
+                {% else %}
+                    All courses
+                {% endif %}
+            </h1>
+            <p class="page-subtitle">
+                Find focused, university-level learning paths and continue where you left off.
+                {% if query %} Showing results for "{{ query }}".{% endif %}
+            </p>
+        </header>
+
+        <div class="catalog-layout">
+            <aside class="contents c-card c-filter-panel" aria-label="Subject filters">
+                <h2 class="c-card__title">Subjects</h2>
+
+                <ul id="modules" class="c-module-list">
+                    <li class="c-module-item {% if not subject %}selected{% endif %}">
+                        <a href="{% url 'course_list' %}">All subjects</a>
+                    </li>
+
+                    {% for s in subjects %}
+                        <li class="c-module-item {% if subject == s %}selected{% endif %}">
+                            <a href="{% url 'course_list_subject' s.slug %}">
+                                {{ s.title }}
+                                <span>{{ s.total_courses }} course{{ s.total_courses|pluralize }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </aside>
+
+            <section class="module c-stack course-listing" aria-label="Course results">
+                {% for course in courses %}
+                    {% with subject=course.subject %}
+                        <article class="c-card c-card--course">
+                            <h3 class="c-card__title">
+                                <a href="{% url 'course_detail' course.slug %}">
+                                    {{ course.title }}
+                                </a>
+                            </h3>
+                            <p class="c-card__meta">
+                                <a href="{% url 'course_list_subject' subject.slug %}">{{ subject }}</a>
+                                <span aria-hidden="true">•</span>
+                                {{ course.total_modules }} modules
+                                <span aria-hidden="true">•</span>
+                                Instructor: {{ course.owner.get_full_name }}
+                            </p>
+                            <div class="c-card__actions">
+                                {% if request.user.is_authenticated and course.id in enrolled_course_ids %}
+                                    <a href="{% url 'student_course_detail' course.id %}" class="c-btn c-btn--primary">
+                                        Continue learning
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'course_detail' course.slug %}" class="c-btn c-btn--secondary">Open course</a>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endwith %}
+                {% empty %}
+                    <div class="c-card c-alert c-alert--info">
+                        <h3 class="c-card__title">No courses found</h3>
+                        <p class="c-card__meta">Try another subject or use a different search phrase.</p>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </section>
+{% endblock %}

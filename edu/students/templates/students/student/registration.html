@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+    Sign up
+{% endblock %}
+{% block content %}
+<section class="page page--auth c-stack">
+    <header class="page-heading">
+        <h1 class="page-title">Sign up</h1>
+    </header>
+    <article class="module c-card auth-card">
+        <p class="c-card__meta">Enter your details to create an account.</p>
+        <form method="post" class="c-stack">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><button type="submit" class="c-btn c-btn--primary">Create my account</button></p>
+        </form>
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,258 @@
+﻿{% extends "learning_insights/base.html" %}
+{% load course static %}
+
+{% block title %}Monthly Summary{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/monthly_summary.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card" aria-labelledby="monthly-summary-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <div class="li-card-head">
+        <div>
+            <p class="c-card__meta li-kicker">Learning Insights</p>
+            <h1 id="monthly-summary-title" class="c-card__title li-title">Monthly Summary</h1>
+            <p class="c-card__meta li-subtitle">
+                {{ month.start|date:"F j, Y" }} &ndash; {{ month.end|date:"F j, Y" }}
+            </p>
+        </div>
+
+        <form method="get" class="li-card-filters">
+            <div>
+                <label for="month-picker" class="c-card__meta li-label">Month</label>
+                <input class="c-search__input li-input-min"
+                    id="month-picker"
+                    name="month"
+                    type="month"
+                    value="{{ month_value|default:'' }}"
+                >
+            </div>
+            <button type="submit" class="c-btn c-btn--primary">Load</button>
+            <a href="{% url 'learning_insights:monthly_summary' %}" class="c-btn c-btn--ghost">Current month</a>
+            <a href="{% url 'learning_insights:overview' %}" class="c-btn c-btn--ghost">Back</a>
+        </form>
+    </div>
+
+    {% if insights_started_on %}
+        <p class="c-card__meta li-section-top">
+            Insights started collecting on <strong>{{ insights_started_on|date:"M d, Y" }}</strong>.
+        </p>
+    {% endif %}
+</section>
+
+<section class="li-grid-auto li-section-top">
+    <article class="c-card">
+        <p class="c-card__meta">Site active time</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.site_seconds|default:0|duration_format }}</h2>
+        <p class="c-card__meta li-meta">Presence-based active time</p>
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Course study time</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.course_seconds|default:0|duration_format }}</h2>
+        <p class="c-card__meta li-meta">Tracked module time</p>
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Monthly status</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.status.label|default:"No data" }}</h2>
+        <p class="c-card__meta li-meta">Score: <strong>{{ summary.status.score|default:0 }}%</strong></p>
+        {% if summary.status.note %}
+            <p class="c-card__meta li-mt-sm">{{ summary.status.note }}</p>
+        {% endif %}
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Achievement</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.achievement_percent|default:0 }}%</h2>
+        <p class="c-card__meta li-meta">Weighted across active goals</p>
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Consistency</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.consistency_percent|default:0 }}%</h2>
+        <p class="c-card__meta li-meta">Active days / days in month</p>
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Planned vs actual</p>
+        <h2 class="c-card__title li-stat-value">{{ summary.planned_vs_actual_percent|default:0 }}%</h2>
+        <p class="c-card__meta li-meta">Time-based goals only; otherwise achievement</p>
+    </article>
+
+    <article class="c-card">
+        <p class="c-card__meta">Most productive day</p>
+        <h2 class="c-card__title li-stat-value">
+            {% if summary.productive_day %}
+                {{ summary.productive_day.label }}
+            {% else %}
+                &mdash;
+            {% endif %}
+        </h2>
+        <p class="c-card__meta li-meta">
+            {% if summary.productive_day %}
+                Score {{ summary.productive_day.score }}
+            {% else %}
+                Not enough activity yet
+            {% endif %}
+        </p>
+    </article>
+</section>
+
+<section class="li-grid-split li-section-top">
+    <article class="c-card" aria-labelledby="monthly-trend-title">
+        <h2 id="monthly-trend-title" class="c-card__title li-title">Daily trend</h2>
+        <p class="c-card__meta li-mt-sm">Course study minutes and site active minutes</p>
+        <div class="li-section-top li-chart li-chart--lg">
+            <canvas id="monthly-trend-chart" aria-label="Monthly trend chart" role="img"></canvas>
+        </div>
+    </article>
+
+    <article class="c-card" aria-labelledby="monthly-top-courses-title">
+        <h2 id="monthly-top-courses-title" class="c-card__title li-title">Top courses</h2>
+        <p class="c-card__meta li-mt-sm li-mb-lg">Ranked by tracked module time</p>
+
+        {% if top_courses %}
+            <ol class="li-monthly-top-courses-list">
+                {% for course_item in top_courses %}
+                    <li>
+                        <div class="li-divider-row">
+                            <div>
+                                <strong>{{ course_item.course_title }}</strong>
+                                <p class="c-card__meta li-mt-xs">
+                                    {{ course_item.total_seconds|default:0|duration_format }}
+                                </p>
+                            </div>
+                            {% if course_item.course_id %}
+                                <a href="{% url 'student_course_detail' course_item.course_id %}" class="c-btn c-btn--ghost">Open</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p class="c-card__meta">No tracked course study time for this month.</p>
+        {% endif %}
+
+        <div class="li-section-top">
+            <div class="li-chart">
+                <canvas id="monthly-course-chart" aria-label="Top courses chart" role="img"></canvas>
+            </div>
+        </div>
+    </article>
+</section>
+
+{% if summary.improvements %}
+<section class="c-card li-section-top" aria-labelledby="monthly-improvements-title">
+    <h2 id="monthly-improvements-title" class="c-card__title li-title">Needs improvement</h2>
+    <ul class="li-list li-list--tight">
+        {% for item in summary.improvements %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+{{ summary.daily_chart|json_script:"li-monthly-daily-chart-data" }}
+{{ summary.course_chart|json_script:"li-monthly-course-chart-data" }}
+{% endblock %}
+
+{% block include_js %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    (function () {
+        function readJsonScript(id, fallback) {
+            const node = document.getElementById(id);
+            if (!node) return fallback;
+            try {
+                return JSON.parse(node.textContent);
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        const dailyData = readJsonScript("li-monthly-daily-chart-data", null);
+        const courseData = readJsonScript("li-monthly-course-chart-data", null);
+
+        const dailyCanvas = document.getElementById("monthly-trend-chart");
+        if (dailyData && dailyCanvas) {
+            new Chart(dailyCanvas, {
+                type: "line",
+                data: {
+                    labels: dailyData.labels || [],
+                    datasets: [
+                        {
+                            label: "Course study minutes",
+                            data: dailyData.study_minutes || [],
+                            borderColor: "rgba(255, 209, 102, 1)",
+                            backgroundColor: "rgba(255, 209, 102, 0.12)",
+                            tension: 0.35,
+                            pointRadius: 2,
+                            pointHoverRadius: 3,
+                        },
+                        {
+                            label: "Site active minutes",
+                            data: dailyData.site_minutes || [],
+                            borderColor: "rgba(42, 157, 102, 1)",
+                            backgroundColor: "rgba(42, 157, 102, 0.12)",
+                            tension: 0.35,
+                            pointRadius: 2,
+                            pointHoverRadius: 3,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { color: "#d7dbe7" }, grid: { color: "rgba(255,255,255,0.06)" } },
+                        y: { ticks: { color: "#d7dbe7" }, grid: { color: "rgba(255,255,255,0.06)" } },
+                    },
+                    plugins: {
+                        legend: { labels: { color: "#d7dbe7" } },
+                    },
+                },
+            });
+        }
+
+        const courseCanvas = document.getElementById("monthly-course-chart");
+        if (courseData && courseCanvas) {
+            new Chart(courseCanvas, {
+                type: "doughnut",
+                data: {
+                    labels: courseData.labels || [],
+                    datasets: [
+                        {
+                            label: "Minutes",
+                            data: courseData.minutes || [],
+                            backgroundColor: [
+                                "rgba(255, 209, 102, 0.85)",
+                                "rgba(42, 157, 102, 0.75)",
+                                "rgba(138, 164, 255, 0.75)",
+                                "rgba(255, 158, 197, 0.75)",
+                                "rgba(255, 123, 123, 0.7)",
+                            ],
+                            borderColor: "rgba(0,0,0,0.15)",
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: "#d7dbe7" } },
+                    },
+                },
+            });
+        }
+    })();
+</script>
+{% endblock %}
+
+
+

@@ -1,0 +1,245 @@
+/* ===================================================== */
+/* Learning Insights: reusable components                */
+/* ===================================================== */
+
+.li-kicker {
+    margin: 0 0 var(--li-kicker-gap) 0;
+}
+
+.li-title {
+    margin: 0;
+}
+
+.li-meta {
+    margin: 0;
+}
+
+.li-subtitle {
+    margin-top: var(--space-2);
+}
+
+.li-prose {
+    margin-top: var(--space-3);
+    line-height: var(--li-prose-lh);
+}
+
+.li-stat-value {
+    margin: 0 0 var(--li-stat-gap) 0;
+}
+
+.li-label {
+    display: block;
+    margin-bottom: var(--space-1);
+}
+
+.li-input-min {
+    min-width: 180px;
+}
+
+.li-input-min--sm {
+    min-width: 160px;
+}
+
+.li-input-min--md {
+    min-width: 220px;
+}
+
+.li-error-text {
+    color: var(--color-error);
+}
+
+.li-subcard {
+    margin: 0;
+    padding: var(--li-subcard-padding);
+    border: 1px solid var(--li-subcard-border);
+    background: var(--li-subcard-bg);
+    border-radius: var(--li-subcard-radius);
+    box-shadow: none;
+}
+
+.li-subcard--sm {
+    padding: var(--li-subcard-padding-sm);
+}
+
+.li-code-block {
+    margin-top: var(--space-3);
+    white-space: pre-wrap;
+    line-height: 1.5;
+    max-height: var(--li-code-max-h);
+    overflow: auto;
+    border: 1px solid var(--li-code-border);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--li-code-bg);
+    color: var(--color-text);
+    font-family: var(
+        --assistant-code-font-family,
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace
+    );
+    font-size: 0.9rem;
+}
+
+.li-details-summary {
+    cursor: pointer;
+}
+
+.li-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--li-badge-padding);
+    border-radius: var(--li-badge-radius);
+    font-size: var(--li-badge-font);
+    line-height: 1.1;
+}
+
+.li-badge--new {
+    background: var(--li-badge-new-bg);
+    color: var(--li-badge-new-color);
+}
+
+.li-badge--tag {
+    background: var(--li-badge-tag-bg);
+    color: var(--color-text);
+}
+
+.li-divider-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.li-section-divider {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--li-subcard-border);
+}
+
+.li-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.li-pagination--center {
+    justify-content: center;
+}
+
+.li-btn-static {
+    pointer-events: none;
+}
+
+.li-chart {
+    position: relative;
+    min-height: var(--li-chart-min-h);
+}
+
+.li-chart--lg {
+    min-height: var(--li-chart-min-h-lg);
+}
+
+.li-m0 {
+    margin: 0;
+}
+
+.li-mt-xs {
+    margin-top: var(--li-meta-gap-xs);
+}
+
+.li-mt-sm {
+    margin-top: var(--li-meta-gap);
+}
+
+.li-mt-md {
+    margin-top: var(--space-2);
+}
+
+.li-mt-lg {
+    margin-top: var(--li-meta-gap-md);
+}
+
+.li-mt-xl {
+    margin-top: var(--space-4);
+}
+
+.li-mt-xxl {
+    margin-top: 1.25rem;
+}
+
+.li-mb-sm {
+    margin-bottom: var(--li-meta-gap);
+}
+
+.li-mb-xs {
+    margin-bottom: var(--li-meta-gap-xs);
+}
+
+.li-mb-md {
+    margin-bottom: var(--li-meta-gap-md);
+}
+
+.li-mb-lg {
+    margin-bottom: var(--space-4);
+}
+
+.li-pad-card {
+    padding: var(--space-4);
+}
+
+.li-title-sm {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.li-title-sm-spaced {
+    margin: 0 0 var(--space-4) 0;
+    font-size: 1rem;
+}
+
+.li-meta-line {
+    line-height: var(--li-prose-lh);
+}
+
+.li-link-reset {
+    text-decoration: none;
+    color: inherit;
+}
+
+.li-text-success {
+    color: var(--li-text-success);
+}
+
+.li-text-warning {
+    color: var(--li-text-warning);
+}
+
+.li-text-danger {
+    color: var(--li-text-danger);
+}
+
+.li-text-highlight {
+    color: var(--li-text-highlight);
+}
+
+.li-subcard-border {
+    border: 1px solid var(--li-soft-border);
+}
+
+.li-subcard-surface {
+    background: var(--li-soft-surface);
+}
+
+.li-label--spaced {
+    display: block;
+    margin-bottom: var(--li-meta-gap);
+}
+

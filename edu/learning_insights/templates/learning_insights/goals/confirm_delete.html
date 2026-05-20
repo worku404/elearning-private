@@ -1,0 +1,30 @@
+﻿{% extends "learning_insights/base.html" %}
+{% load course static %}
+
+{% block title %}Delete Goal{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/goals_confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card li-container li-container--narrow" aria-labelledby="delete-goal-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <p class="c-card__meta li-kicker">Learning Insights</p>
+    <h1 id="delete-goal-title" class="c-card__title li-title">Delete goal</h1>
+
+    <p class="c-card__meta li-mt-lg">
+        You are about to delete <strong>{{ object.title }}</strong>. This cannot be undone.
+    </p>
+
+    <form method="post" class="li-section-top li-row-end">
+        {% csrf_token %}
+        <a href="{% url 'learning_insights:goal_list' %}" class="c-btn c-btn--ghost">Cancel</a>
+        <button type="submit" class="c-btn c-btn--secondary">Delete</button>
+    </form>
+</section>
+{% endblock %}
+
+
+

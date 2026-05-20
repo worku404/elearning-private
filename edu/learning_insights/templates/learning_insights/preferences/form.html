@@ -1,0 +1,224 @@
+﻿{% extends "learning_insights/base.html" %}
+{% load course static %}
+
+{% block title %}Preferences | Learning Insights{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/preferences_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card" aria-labelledby="preferences-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <div class="li-card-head">
+        <div>
+            <p class="c-card__meta li-kicker">Learning Insights</p>
+            <h1 id="preferences-title" class="c-card__title li-title">Preferences</h1>
+            <p class="c-card__meta li-subtitle">
+                Configure timezone, week start day, and in-app reminders.
+            </p>
+        </div>
+        <a href="{% url 'learning_insights:overview' %}" class="c-btn c-btn--ghost">Back to insights</a>
+    </div>
+</section>
+
+<section class="c-card li-section-top" aria-labelledby="preferences-form-title">
+    <h2 id="preferences-form-title" class="c-card__title li-title">Notification settings</h2>
+
+    {% if form.non_field_errors %}
+        <div class="c-card c-alert c-alert--danger li-section-top" role="alert">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="post" novalidate class="li-section-top li-grid">
+        {% csrf_token %}
+
+        <div class="li-grid-fields">
+            <div class="c-card li-pad-card">
+                <label for="{{ form.timezone.id_for_label }}" class="c-card__meta li-label">Timezone</label>
+                {{ form.timezone }}
+                {% if form.timezone.help_text %}
+                    <p class="c-card__meta li-mt-sm">{{ form.timezone.help_text }}</p>
+                {% endif %}
+                {% for error in form.timezone.errors %}
+                    <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="c-card li-pad-card">
+                <label for="{{ form.week_start_day.id_for_label }}" class="c-card__meta li-label">Week starts on</label>
+                {{ form.week_start_day }}
+                {% if form.week_start_day.help_text %}
+                    <p class="c-card__meta li-mt-sm">{{ form.week_start_day.help_text }}</p>
+                {% endif %}
+                {% for error in form.week_start_day.errors %}
+                    <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="li-grid-fields">
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">In-app notifications</h3>
+                        <p class="c-card__meta li-mt-sm">Enable insight notifications inside the website.</p>
+                    </div>
+                    <label for="{{ form.in_app_enabled.id_for_label }}">
+                        {{ form.in_app_enabled }}
+                    </label>
+                </div>
+                {% for error in form.in_app_enabled.errors %}
+                    <p class="c-card__meta li-mt-lg li-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">Telegram notifications</h3>
+                        <p class="c-card__meta li-mt-sm">Optional delivery via Telegram.</p>
+                        <div class="li-mt-lg li-card-actions">
+                            {% if subscription %}
+                                <button
+                                    type="submit"
+                                    name="action"
+                                    value="disconnect"
+                                    formaction="{% url 'learning_insights:telegram_connect' %}"
+                                    class="c-btn c-btn--ghost"
+                                >
+                                    Disconnect
+                                </button>
+                                <a href="{% url 'learning_insights:telegram_connect' %}" class="c-btn c-btn--ghost">Manage</a>
+                            {% else %}
+                                <a href="{% url 'learning_insights:telegram_connect' %}" class="c-btn c-btn--ghost">Connect</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <label for="{{ form.telegram_enabled.id_for_label }}">
+                        {{ form.telegram_enabled }}
+                    </label>
+                </div>
+
+                <div class="li-section-top li-grid">
+                    <div>
+                        <h4 class="c-card__title li-title-sm">Daily summary windows</h4>
+                        <p class="c-card__meta li-mt-sm">
+                            Evening recap summarizes today. Morning fallback summarizes yesterday if the evening recap did not send.
+                        </p>
+                    </div>
+
+                    <div class="li-grid-fields--md">
+                        <div>
+                            <label for="{{ form.telegram_evening_summary_start.id_for_label }}" class="c-card__meta li-label">Evening start</label>
+                            {{ form.telegram_evening_summary_start }}
+                            {% for error in form.telegram_evening_summary_start.errors %}
+                                <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.telegram_evening_summary_end.id_for_label }}" class="c-card__meta li-label">Evening end</label>
+                            {{ form.telegram_evening_summary_end }}
+                            {% for error in form.telegram_evening_summary_end.errors %}
+                                <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.telegram_morning_summary_start.id_for_label }}" class="c-card__meta li-label">Morning start</label>
+                            {{ form.telegram_morning_summary_start }}
+                            {% for error in form.telegram_morning_summary_start.errors %}
+                                <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <label for="{{ form.telegram_morning_summary_end.id_for_label }}" class="c-card__meta li-label">Morning end</label>
+                            {{ form.telegram_morning_summary_end }}
+                            {% for error in form.telegram_morning_summary_end.errors %}
+                                <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% for error in form.telegram_enabled.errors %}
+                    <p class="c-card__meta li-mt-lg li-error-text">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">Daily reminders</h3>
+                        <p class="c-card__meta li-mt-sm">Show a daily planning reminder.</p>
+                    </div>
+                    <label for="{{ form.daily_enabled.id_for_label }}">
+                        {{ form.daily_enabled }}
+                    </label>
+                </div>
+                <div class="li-section-top">
+                    <label for="{{ form.daily_time.id_for_label }}" class="c-card__meta li-label">Daily reminder time</label>
+                    {{ form.daily_time }}
+                    {% for error in form.daily_time.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">Weekly reminders</h3>
+                        <p class="c-card__meta li-mt-sm">Show a weekly reminder at week start.</p>
+                    </div>
+                    <label for="{{ form.weekly_enabled.id_for_label }}">
+                        {{ form.weekly_enabled }}
+                    </label>
+                </div>
+                <div class="li-section-top">
+                    <label for="{{ form.weekly_time.id_for_label }}" class="c-card__meta li-label">Weekly reminder time</label>
+                    {{ form.weekly_time }}
+                    {% for error in form.weekly_time.errors %}
+                        <p class="c-card__meta li-mt-sm li-error-text">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">Daily achievement</h3>
+                        <p class="c-card__meta li-mt-sm">Receive daily achievement updates.</p>
+                    </div>
+                    <label for="{{ form.daily_achievement_enabled.id_for_label }}">
+                        {{ form.daily_achievement_enabled }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="c-card li-pad-card">
+                <div class="li-divider-row">
+                    <div>
+                        <h3 class="c-card__title li-title-sm">Weekly achievement</h3>
+                        <p class="c-card__meta li-mt-sm">Receive weekly status and summary notifications.</p>
+                    </div>
+                    <label for="{{ form.weekly_achievement_enabled.id_for_label }}">
+                        {{ form.weekly_achievement_enabled }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="li-row-end">
+            <a href="{% url 'learning_insights:overview' %}" class="c-btn c-btn--ghost">Cancel</a>
+            <button type="submit" class="c-btn c-btn--primary">Save</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+

@@ -1,0 +1,13 @@
+<div class="form-group {% if field.errors %}error{% endif %}">
+    <div class="input-wrapper">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <span class="focus-border"></span>
+    </div>
+    {% if show_help and field.help_text %}
+    <small class="field-help">{{ field.help_text|safe }}</small>
+    {% endif %}
+    {% if field.errors %}
+    <span class="error-message show">{{ field.errors.0 }}</span>
+    {% endif %}
+</div>

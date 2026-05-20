@@ -1,0 +1,25 @@
+{# Override Django's ClearableFileInput to show image preview instead of a path. #}
+{# This is global across the project because APP_DIRS=True. #}
+
+{% if widget.is_initial %}
+  <div class="c-file-current">
+    {% if widget.value and widget.value.url %}
+      <img
+        src="{{ widget.value.url }}"
+        alt="Current file"
+        style="max-width: 120px; height: auto; border-radius: 10px; border: 1px solid var(--color-border);"
+      >
+    {% endif %}
+    {% if not widget.required %}
+      <div style="margin-top: 8px;">
+        <label for="{{ widget.checkbox_id }}">
+          <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}>
+          Clear
+        </label>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+

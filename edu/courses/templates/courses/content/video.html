@@ -1,0 +1,23 @@
+{% load embed_video_tags %}
+<div
+    class="c-video{% if content %} js-track-video{% endif %}"
+    {% if content %}
+    data-content-id="{{ content.id }}"
+    data-progress-url="{% url 'track_content_progress' content.id %}"
+    data-resume-time="{{ content.student_last_position.current_time|default:0 }}"
+    {% endif %}
+>
+    <div class="c-video__frame">
+        {% if item.file %}
+            <video
+                controls
+                preload="metadata"
+                src="{% if content %}{% url 'student_video_stream' item.id %}{% else %}{{ item.file.url }}{% endif %}"
+            >
+                Your browser does not support the video tag.
+            </video>
+        {% else %}
+            {% video item.url 'small' %}
+        {% endif %}
+    </div>
+</div>

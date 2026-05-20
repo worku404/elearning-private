@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <section class="page page--auth c-stack">
+        <header class="page-heading">
+            <h1 class="page-title">Create Account</h1>
+        </header>
+        <article class="module c-card auth-card">
+                <p class="c-card__meta">Sign up to start learning today.</p>
+            <form method="post" class="c-stack">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <p>
+                    <label for="{{ user_form.username.id_for_label }}">Username</label>
+                    {{ user_form.username }}
+                    {% if user_form.username.errors %}
+                        <span style="color: red;">{{ user_form.username.errors.0 }}</span>
+                    {% endif %}
+                </p>
+
+                <!-- First Name -->
+                <p>
+                    <label for="{{ user_form.first_name.id_for_label }}" >First Name</label>
+                    {{ user_form.first_name }}
+                </p>
+
+                <!-- Last Name -->
+                <p>
+                    <label for="{{ user_form.last_name.id_for_label }}">Last Name</label>
+                    {{ user_form.last_name }}
+                </p>
+
+                <!-- Email -->
+                <p>
+                    <label for="{{ user_form.email.id_for_label }}">Email Address</label>
+                    {{ user_form.email }}
+                    {% if user_form.email.errors %}
+                        <span style="color: red;">{{ user_form.email.errors.0 }}</span>
+                    {% endif %}
+                    <small class="c-card__meta">We'll send a verification code to this email.</small>
+                </p>
+
+                <!-- Password -->
+                <p>
+                    <label for="{{ user_form.password.id_for_label }}">Password</label>
+                    {{ user_form.password }}
+                    {% if user_form.password.errors %}
+                        <span style="color: red;">{{ user_form.password.errors.0 }}</span>
+                    {% endif %}
+                    <small class="c-card__meta">Minimum 8 characters, cannot be all numeric.</small>
+                </p>
+
+                <!-- Confirm Password -->
+                <p>
+                    <label for="{{ user_form.password2.id_for_label }}">Confirm Password</label>
+                    {{ user_form.password2 }}
+                    {% if user_form.password2.errors %}
+                        <span style="color: red;">{{ user_form.password2.errors.0 }}</span>
+                    {% endif %}
+                </p>
+
+                <p><button type="submit" class="c-btn c-btn--primary">Create Account</button></p>
+            </form>
+
+            <p>Already have an account? <a href="{% url 'login' %}" class="c-btn">Log in here</a></p>
+        </article>
+    </section>
+{% endblock %}

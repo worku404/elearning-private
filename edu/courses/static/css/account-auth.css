@@ -1,0 +1,186 @@
+.account-shell {
+    max-width: 760px;
+    margin: 0 auto;
+    display: grid;
+    gap: 18px;
+}
+
+.account-shell__header h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
+}
+
+.account-shell__header p {
+    margin: 8px 0 0;
+    color: var(--color-text-muted);
+}
+
+.account-card {
+    border: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-surface) 92%, var(--color-bg)),
+        color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface))
+    );
+    border-radius: 18px;
+    padding: clamp(16px, 2vw, 28px);
+    box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.12);
+}
+
+.account-form {
+    display: grid;
+    gap: 12px;
+}
+
+.account-form__section-title {
+    margin: 10px 0 4px;
+    font-size: 1.05rem;
+    color: var(--color-text);
+}
+
+.account-form .form-group {
+    margin: 0;
+}
+
+.account-form .input-wrapper {
+    position: relative;
+}
+
+.account-form .input-wrapper input,
+.account-form .input-wrapper select,
+.account-form .input-wrapper textarea {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 12px 14px;
+    outline: none;
+}
+
+.account-form .input-wrapper input[type="file"] {
+    padding: 10px;
+}
+
+.account-form .input-wrapper label {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+}
+
+.account-form .field-help {
+    color: var(--color-text-muted);
+}
+
+.account-form .error-message {
+    display: block;
+    color: var(--color-error);
+    margin-top: 5px;
+}
+
+.account-submit-btn {
+    margin-top: 10px;
+    border: 0;
+    border-radius: 12px;
+    padding: 11px 16px;
+    background: linear-gradient(
+        110deg,
+        color-mix(in srgb, var(--color-accent) 70%, #7b6bff),
+        color-mix(in srgb, var(--color-primary) 65%, #8b5dff)
+    );
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.account-submit-btn:hover {
+    filter: brightness(1.06);
+}
+
+.auth-page {
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.auth-page__title {
+    margin: 0 0 6px;
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2rem);
+}
+
+.auth-page__subtitle {
+    margin: 0 0 16px;
+    color: var(--color-text-muted);
+}
+
+.auth-card {
+    border: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+    border-radius: 18px;
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--color-surface) 92%, var(--color-bg)),
+        color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface))
+    );
+    box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.12);
+    padding: clamp(16px, 2vw, 24px);
+}
+
+.auth-form {
+    display: grid;
+    gap: 10px;
+}
+
+.auth-form p {
+    margin: 0;
+}
+
+.auth-form label {
+    display: block;
+    margin: 0 0 7px;
+    color: var(--color-text-muted);
+}
+
+.auth-form input {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: 11px 13px;
+}
+
+.auth-btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 11px 16px;
+    background: linear-gradient(
+        110deg,
+        color-mix(in srgb, var(--color-accent) 70%, #7b6bff),
+        color-mix(in srgb, var(--color-primary) 65%, #8b5dff)
+    );
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    filter: brightness(1.06);
+}
+
+.auth-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.auth-links a {
+    color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+    .account-card,
+    .auth-card {
+        border-radius: 14px;
+    }
+}

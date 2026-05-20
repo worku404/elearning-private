@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{# Browser tab title #}
+{% block title %}
+    Edit modules for "{{ course.title }}"
+{% endblock %}
+
+
+{% block content %}
+    {# This page edits all modules belonging to one course using a formset #}
+    <h1>Edit modules for "{{ course.title }}"</h1>
+
+    <div class="module">
+        <h2>Course modules</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {# Required hidden fields for formset validation (TOTAL_FORMS, etc.) #}
+            {{ formset.management_form }}
+
+            {# Render module rows (existing + empty extra forms) #}
+            {{ formset }}
+
+            <input type="submit" value="Save modules">
+        </form>
+    </div>
+{% endblock %}

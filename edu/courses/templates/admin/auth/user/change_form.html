@@ -1,0 +1,32 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+
+    {% if show_enroll_all_courses_button and enroll_all_courses_url %}
+        <li>
+            <form method="post" action="{{ enroll_all_courses_url }}" style="display: inline;">
+                {% csrf_token %}
+                <button
+                    type="submit"
+                    class="button"
+                    onclick="return confirm('Are you sure you want to enroll this user in all courses?');"
+                    style="
+                        background: #2d8fdd;
+                        color: white;
+                        border: none;
+                        border-radius: 15px;
+                        padding: 6px 14px;
+                        font-size: 11px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                    "
+                >
+                    Enroll in all courses
+                </button>
+            </form>
+        </li>
+    {% endif %}
+{% endblock %}

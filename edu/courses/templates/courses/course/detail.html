@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load course_markdown %}
+
+{# Browser tab title for this course page #}
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+
+{% block content %}
+    {% with subject=object.subject %}
+        <article class="page page--course c-stack">
+            <header class="page-heading">
+                <h1 class="page-title">{{ object.title }}</h1>
+                <p class="page-subtitle">
+                    <a href="{% url 'course_list_subject' subject.slug %}">{{ subject.title }}</a>
+                    <span aria-hidden="true">•</span>
+                    {{ object.modules.count }} modules
+                    <span aria-hidden="true">•</span>
+                    Instructor: {{ object.owner.get_full_name }}
+                </p>
+            </header>
+
+            <section class="module c-card c-reader">
+                <h2 class="c-card__title">Overview</h2>
+                <div class="c-reader__content">
+                    {{ object.overview|markdown }}
+                </div>
+
+                <div class="c-card__actions">
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'student_enroll_course' %}" method="post" class="c-inline-form">
+                            {% csrf_token %}
+                            {{ enroll_form }}
+                            <button type="submit" class="c-btn c-btn--primary">Enroll now</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'student_registration' %}" class="c-btn c-btn--primary">
+                            Register to enroll
+                        </a>
+                    {% endif %}
+                </div>
+            </section>
+        </article>
+    {% endwith %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% with url_name=request.resolver_match.url_name|default:"" %}
+<div class="li-card-actions">
+    <a href="{% url 'learning_insights:daily_summary' %}" class="c-btn {% if url_name == 'daily_summary' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Daily summary</a>
+    <a href="{% url 'learning_insights:weekly_summary' %}" class="c-btn {% if url_name == 'weekly_summary' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Weekly summary</a>
+    <a href="{% url 'learning_insights:monthly_summary' %}" class="c-btn{%if  url_name == 'monthly_summary' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Monthly summary</a>
+    <a href="{% url 'learning_insights:goal_list' %}" class="c-btn{% if url_name == 'goal_list' or url_name == 'goal_create' or url_name == 'goal_update' or url_name == 'goal_delete' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Goals</a>
+    <a href="{% url 'learning_insights:notification_center' %}" class="c-btn{% if url_name == 'notification_center' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Notifications</a>
+    <a href="{% url 'learning_insights:preferences' %}" class="c-btn{% if url_name == 'preferences' or url_name == 'telegram_connect' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">Preferences</a>
+    <a href="{% url 'learning_insights:ai_review' %}" class="c-btn{% if url_name == 'ai_review' or url_name == 'ai_review_generate' or url_name == 'ai_run_detail' or url_name == 'ai_run_apply' %} c-btn--primary{% else %} c-btn--ghost{% endif %}">AI Review</a>
+</div>
+{% endwith %}

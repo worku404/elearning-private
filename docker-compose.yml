@@ -1,0 +1,120 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      
+  cache:
+    image: redis:7.2.4
+    restart: always
+    volumes:
+      - ./data/cache:/data
+      
+  piston:
+    image: ghcr.io/engineer-man/piston:latest
+    restart: always
+    privileged: true
+    ports:
+      - "2000:2000"
+    volumes:
+      - piston_data:/piston
+    environment:
+      - PISTON_LOG_LEVEL=INFO
+    tmpfs:
+      - /tmp:exec
+      
+  web:
+    build: .
+    command: ["./wait-for-it.sh", "db:5432", "--",
+            "uwsgi", "--ini", "/code/config/uwsgi/uwsgi.ini"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=edu.settings.prod
+      - PISTON_API_URL=http://172.17.0.1:2000/api/v2/execute
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - REDIS_URL=${REDIS_URL:-redis://cache:6379/1}
+      - REDIS_HOST=${REDIS_HOST:-cache}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_DB=${REDIS_DB:-0}
+    depends_on:
+      - db
+      - cache
+      - piston
+    ports:
+      - "8000:8000"
+      
+  nginx:
+    image: nginx:1.25.5
+    restart: always
+    volumes:
+      - ./config/nginx:/etc/nginx/templates
+      - .:/code
+    environment:
+      - SERVER_NAME=${SERVER_NAME:-educaproject.com}
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+      
+  daphne:
+    build: .
+    working_dir: /code/edu/
+    command: ["../wait-for-it.sh", "db:5432", "--",
+            "daphne", "-b", "0.0.0.0", "-p", "9001",
+            "edu.asgi:application"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=edu.settings.prod
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - REDIS_URL=${REDIS_URL:-redis://cache:6379/1}
+      - REDIS_HOST=${REDIS_HOST:-cache}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_DB=${REDIS_DB:-0}
+    depends_on:
+      - db
+      - cache
+      
+  worker:
+    build: .
+    working_dir: /code/edu/
+    command: ["../wait-for-it.sh", "db:5432", "--",
+            "python", "manage.py", "learning_insights_worker",
+            "--settings=edu.settings.prod"]
+    restart: always
+    volumes:
+      - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=edu.settings.prod
+      - POSTGRES_DB=${POSTGRES_DB:-postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_HOST=${POSTGRES_HOST:-db}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - REDIS_URL=${REDIS_URL:-redis://cache:6379/1}
+      - REDIS_HOST=${REDIS_HOST:-cache}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_DB=${REDIS_DB:-0}
+    depends_on:
+      - db
+      - cache
+
+volumes:
+  piston_data:

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    <section class="page page--catalog c-stack">
+        <header class="page-heading">
+            <h1 class="page-title">Search results</h1>
+            <p class="page-subtitle">
+                {% if query %}
+                    Showing results for "{{ query }}".
+                {% else %}
+                    Enter a search term to see results.
+                {% endif %}
+            </p>
+        </header>
+
+        {% if query %}
+            <div class="c-stack">
+                <section class="c-card c-stack" aria-label="Content results">
+                    <h2 class="c-card__title">Course content</h2>
+                    {% if request.user.is_authenticated %}
+                        {% if content_results %}
+                            <ul class="c-stack" role="list">
+                                {% for entry in content_results %}
+                                    <li class="c-card c-card--compact">
+                                        <h3 class="c-card__title">{{ entry.item_title|default:"Untitled content" }}</h3>
+                                        <p class="c-card__meta">
+                                            {{ entry.course.title }}
+                                            <span aria-hidden="true">•</span>
+                                            Module: {{ entry.module.title }}
+                                            {% if entry.page_number %}
+                                                <span aria-hidden="true">•</span>
+                                                Page {{ entry.page_number }}
+                                            {% endif %}
+                                        </p>
+                                        {% if entry.snippet %}
+                                            <p class="c-card__meta">{{ entry.snippet|safe }}</p>
+                                        {% endif %}
+                                        <div class="c-card__actions">
+                                            <a
+                                                class="c-btn c-btn--secondary"
+                                                href="{% url 'student_course_detail_module' entry.course.id entry.module.id %}?content_id={{ entry.content_id }}&q={{ query|urlencode }}{% if entry.page_number %}&page={{ entry.page_number }}{% endif %}"
+                                            >
+                                                Open
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="c-card__meta">No matching course content found.</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="c-card__meta">Sign in to search inside course content.</p>
+                    {% endif %}
+                </section>
+
+                <section class="c-card c-stack" aria-label="Notes results">
+                    <h2 class="c-card__title">Notes</h2>
+                    {% if request.user.is_authenticated %}
+                        {% if note_results %}
+                            <ul class="c-stack" role="list">
+                                {% for entry in note_results %}
+                                    <li class="c-card c-card--compact">
+                                        <h3 class="c-card__title">{{ entry.note.title }}</h3>
+                                        {% with tags=entry.note.tags.all %}
+                                            {% if tags %}
+                                                <p class="c-card__meta">
+                                                    Tags:
+                                                    {% for tag in tags %}
+                                                        {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                </p>
+                                            {% endif %}
+                                        {% endwith %}
+                                        {% if entry.snippet %}
+                                            <p class="c-card__meta">{{ entry.snippet|safe }}</p>
+                                        {% endif %}
+                                        <div class="c-card__actions">
+                                            <a
+                                                class="c-btn c-btn--secondary"
+                                                href="{% url 'global_search' %}?q={{ query|urlencode }}&note_id={{ entry.note_id }}&note_q={{ query|urlencode }}"
+                                            >
+                                                Open note
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="c-card__meta">No matching notes found.</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="c-card__meta">Sign in to search your notes.</p>
+                    {% endif %}
+                </section>
+
+                <section class="c-card c-stack" aria-label="Course results">
+                    <h2 class="c-card__title">Courses</h2>
+                    {% if course_results %}
+                        <ul class="c-stack" role="list">
+                            {% for course in course_results %}
+                                <li class="c-card c-card--compact">
+                                    <h3 class="c-card__title">
+                                        <a href="{% url 'course_detail' course.slug %}">{{ course.title }}</a>
+                                    </h3>
+                                    <p class="c-card__meta">
+                                        {{ course.subject }}
+                                        <span aria-hidden="true">•</span>
+                                        {{ course.total_modules }} modules
+                                    </p>
+                                    <div class="c-card__actions">
+                                        {% if request.user.is_authenticated and course.id in enrolled_course_ids %}
+                                            <a href="{% url 'student_course_detail' course.id %}" class="c-btn c-btn--primary">
+                                                Continue learning
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'course_detail' course.slug %}" class="c-btn c-btn--secondary">Open course</a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="c-card__meta">No matching courses found.</p>
+                    {% endif %}
+                </section>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

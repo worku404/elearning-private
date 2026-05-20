@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit your account{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account-auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account-shell">
+    <header class="account-shell__header">
+        <h1>Edit Profile</h1>
+        <p>Update your personal info and profile photo.</p>
+    </header>
+
+    <article class="account-card">
+        <form method="post" enctype="multipart/form-data" novalidate class="account-form">
+            {% csrf_token %}
+
+            <h2 class="account-form__section-title">Basic information</h2>
+            {% for field in user_form %}
+                {% include "includes/auth/form_field.html" with field=field %}
+            {% endfor %}
+
+            <h2 class="account-form__section-title">Profile details</h2>
+            {% for field in profile_form %}
+                {% include "includes/auth/form_field.html" with field=field %}
+            {% endfor %}
+
+            <button type="submit" class="account-submit-btn">Save Changes</button>
+        </form>
+    </article>
+</section>
+{% endblock %}

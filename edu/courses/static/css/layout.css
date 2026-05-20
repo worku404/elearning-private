@@ -1,0 +1,313 @@
+.app-body {
+    --util-width: var(--rail-right);
+    /* Keep default rail widths unless the AI sidebar is expanded. */
+    --rail-left-current: var(--rail-left);
+    --workspace-modules-min-current: var(--course-modules-min);
+    --workspace-modules-max-current: var(--course-modules-max);
+}
+
+
+.skip-link {
+    position: absolute;
+    left: var(--space-4);
+    top: -120px;
+    z-index: 2000;
+    background: var(--color-accent);
+    color: #fff;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    transition: top 0.12s ease-in-out;
+}
+
+.skip-link:focus-visible {
+    top: var(--space-4);
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background: linear-gradient(120deg, var(--color-primary) 0%, #2f9e63 100%);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 70%, black);
+}
+
+.topbar__inner {
+    min-height: var(--topbar-height);
+    margin: 0 auto;
+    padding: var(--space-3) 0;
+    max-width: 1600px;
+    display: grid;
+    grid-template-columns: auto minmax(280px, 500px) 1fr auto;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.topbar__brand-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+}
+
+/* Brand Container - Styling applied by modern.css */
+.topbar__brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-icon,
+.brand-text,
+.brand-divider,
+.brand-secondary {
+    /* Styles defined in modern.css */
+}
+
+.topbar__actions {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.topbar__actions form {
+    margin: 0;
+}
+
+.c-search.topbar__search {
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.exam-countdown {
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+/* Desktop: drawer contains search, countdown, and actions - kept on one line */
+.topbar__menu-toggle {
+    display: none;
+}
+
+.topbar__drawer {
+    grid-column: 2 / 4;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+.l-shell {
+    max-width: 1700px;
+    margin: 0;
+    margin-right: auto;
+    padding: var(--space-4);
+    padding-left: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: var(--rail-left-current) minmax(0, 1fr) var(--util-width);
+    align-items: start;
+    transition: grid-template-columns 0.2s ease;
+    width: 100%;
+}
+
+.l-rail,
+.l-main,
+.l-util {
+    min-width: 0;
+}
+
+.l-main {
+    width: 100%;
+}
+
+.l-rail--left {
+    position: sticky;
+    top: calc(var(--topbar-height) + var(--space-4));
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--topbar-height) - (2 * var(--space-4)));
+    gap: var(--space-4);
+}
+
+.l-main__inner {
+    max-width: var(--main-max);
+    width: 100%;
+    display: grid;
+    gap: var(--space-5);
+    justify-items: stretch;
+}
+
+body.assistant-sidebar-open .l-main__inner {
+    max-width: none;
+}
+
+body.assistant-sidebar-open .l-shell {
+    max-width: none;
+}
+
+.l-util {
+    position: sticky;
+    top: var(--topbar-height);
+
+
+}
+
+@media (max-width: 1200px) {
+    :root {
+        --rail-left: 240px;
+        --rail-right: 340px;
+    }
+
+    .topbar__inner {
+        grid-template-columns: auto minmax(260px, 1fr) auto;
+        padding-inline: var(--space-4);
+    }
+}
+
+@media (max-width: 900px) {
+    /* One slim row: logo + online badge + hamburger; everything else in drawer */
+    .topbar__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto auto;
+        gap: var(--space-2);
+        align-items: center;
+        min-height: 0;
+        padding-block: var(--space-2);
+    }
+
+    .topbar__brand-wrap {
+        grid-column: 1;
+        grid-row: 1;
+        width: auto;
+        max-width: 100%;
+        justify-content: flex-start;
+        gap: var(--space-2);
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .topbar__brand {
+        min-width: 0;
+        flex: 0 1 auto;
+        max-width: 100%;
+    }
+
+    .brand-text {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .topbar__menu-toggle {
+        grid-column: 2;
+        grid-row: 1;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.12);
+        color: #fff;
+        cursor: pointer;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .topbar__menu-toggle:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+    }
+
+    .topbar__menu-bar {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 1px;
+        background: currentColor;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        transform-origin: center;
+    }
+
+    .topbar--drawer-open .topbar__menu-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .topbar--drawer-open .topbar__menu-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .topbar--drawer-open .topbar__menu-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .topbar__drawer {
+        display: none;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-3);
+        width: 100%;
+        padding-top: var(--space-2);
+        margin-top: 2px;
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .topbar--drawer-open .topbar__drawer {
+        display: flex;
+    }
+
+    .topbar__drawer .topbar__search {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .topbar__drawer .topbar__search .c-btn {
+        width: auto;
+        flex: 0 0 auto;
+    }
+
+    .topbar__drawer .topbar__actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: var(--space-2);
+    }
+
+    .topbar__drawer .topbar__actions .c-btn {
+        flex: 1 1 auto;
+        min-width: min(100%, 132px);
+        justify-content: center;
+    }
+
+    .topbar__drawer .topbar__actions .account-fab {
+        flex: 0 0 auto;
+    }
+
+    .l-shell {
+        grid-template-columns: 1fr;
+        padding: var(--space-3);
+    }
+
+    .l-rail--left {
+        position: static;
+        display: grid;
+        min-height: 0;
+    }
+
+    .l-util {
+        position: static;
+    }
+
+}

@@ -1,0 +1,218 @@
+{% extends "learning_insights/base.html" %}
+{% load course static %}
+
+{% block title %}Goals | Learning Insights{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'learning_insights/css/templates/goals_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="c-card li-goals-hero" aria-labelledby="goals-title">
+    {% include "learning_insights/partials/topbar.html" %}
+    <div class="li-card-head li-goals-hero__head">
+        <div>
+            <p class="c-card__meta li-kicker">Learning Insights</p>
+            <h1 id="goals-title" class="c-card__title li-title">Goals</h1>
+            <p class="c-card__meta li-subtitle">
+                Track daily, weekly, monthly, and long-term goals in one place.
+            </p>
+        </div>
+        <div class="li-card-actions li-goals-hero__actions">
+            <a href="{% url 'learning_insights:goal_create' %}" class="c-btn c-btn--primary">New goal</a>
+            <a href="{% url 'learning_insights:overview' %}" class="c-btn c-btn--ghost">Overview</a>
+        </div>
+    </div>
+</section>
+
+<section class="li-grid-auto li-goals-summary li-section-top" aria-label="Goal summary">
+    <article class="c-card">
+        <p class="c-card__meta">Total</p>
+        <h2 class="c-card__title li-title">{{ summary.total|default:0 }}</h2>
+    </article>
+    <article class="c-card">
+        <p class="c-card__meta">Completed</p>
+        <h2 class="c-card__title li-m0 li-text-success">{{ summary.completed|default:0 }}</h2>
+    </article>
+    <article class="c-card">
+        <p class="c-card__meta">In progress</p>
+        <h2 class="c-card__title li-m0 li-text-warning">{{ summary.in_progress|default:0 }}</h2>
+    </article>
+    <article class="c-card">
+        <p class="c-card__meta">Overdue</p>
+        <h2 class="c-card__title li-m0 li-text-danger">{{ summary.overdue|default:0 }}</h2>
+    </article>
+    <article class="c-card">
+        <p class="c-card__meta">Missed</p>
+        <h2 class="c-card__title li-m0 li-text-danger">{{ summary.missed|default:0 }}</h2>
+    </article>
+</section>
+
+<section class="c-card li-section-top li-goals-filters" aria-labelledby="goal-filters-title">
+    <h2 id="goal-filters-title" class="c-card__title li-title">Filters</h2>
+
+    <form method="get" class="li-section-top li-grid-fields--sm-lg li-goals-filters__form">
+        <div>
+            <label for="filter-period" class="c-card__meta li-label">Period</label>
+            <select id="filter-period" name="period" class="c-search__input">
+                <option value="">All</option>
+                {% for value, label in period_choices %}
+                    <option value="{{ value }}"{% if filters.period == value %} selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="filter-status" class="c-card__meta li-label">Status</label>
+            <select id="filter-status" name="status" class="c-search__input">
+                <option value="">All</option>
+                {% for value, label in status_choices %}
+                    <option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="filter-course" class="c-card__meta li-label">Course</label>
+            <select id="filter-course" name="course" class="c-search__input">
+                <option value="">All</option>
+                {% for course in enrolled_courses %}
+                    <option value="{{ course.id }}"{% if filters.course == course.id|stringformat:"s" %} selected{% endif %}>{{ course.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="filter-priority" class="c-card__meta li-label">Priority</label>
+            <select id="filter-priority" name="priority" class="c-search__input">
+                <option value="">All</option>
+                {% for value, label in priority_choices %}
+                    <option value="{{ value }}"{% if filters.priority == value %} selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="li-card-actions li-goals-filters__actions">
+            <button type="submit" class="c-btn c-btn--secondary">Apply</button>
+            <a href="{% url 'learning_insights:goal_list' %}" class="c-btn c-btn--ghost">Reset</a>
+        </div>
+    </form>
+</section>
+
+<section class="li-section-top li-goals-results">
+    {% if goals %}
+        <div class="li-grid">
+            {% for goal in goals %}
+                <article class="c-card li-goal-card" aria-labelledby="goal-{{ goal.id }}-title">
+                    <div class="li-card-head li-goal-card__header">
+                        <div class="li-col-fluid">
+                            <h2 id="goal-{{ goal.id }}-title" class="c-card__title li-title">
+                                    <a href="{% url 'student_course_detail' goal.course_id %}" class="li-link-reset">
+                                        <strong>{{ goal.title }}</strong>
+                                    </a>
+                            </h2>
+                            <div class="li-goal-card__badges">
+                                <span class="li-goal-chip">{{ goal.get_period_type_display }}</span>
+                                <span class="li-goal-chip {{ goal.get_status_display }}">{{ goal.get_status_display }}</span>
+                                {% if goal.course %}
+                                    <span class="li-goal-chip">{{ goal.course.title }}</span>
+                                {% endif %}
+                                <span class="li-goal-chip">Priority: {{ goal.get_priority_display }}</span>
+                            </div>
+                            <p class="c-card__meta li-mt-sm li-goal-card__schedule">
+                                {{ goal.start_date|date:"M d, Y" }} &rarr; {{ goal.due_date|date:"M d, Y" }}
+                            </p>
+                        </div>
+                        <div class="li-input-min--md li-goal-card__progress">
+                            {% with percent=goal.progress_percent|default:0 %}
+                                <div class="li-goal-progress__head">
+                                    <p class="c-card__meta li-m0">Progress</p>
+                                    <strong class="li-goal-progress__value">{{ percent|floatformat:0 }}%</strong>
+                                </div>
+                                <div
+                                    class="c-progress"
+                                    role="progressbar"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    aria-valuenow="{{ percent }}"
+                                    aria-label="Progress for {{ goal.title }}"
+                                >
+                                    <span class="c-progress__bar" style="width: {{ percent }}%;"></span>
+                                </div>
+                                {% if goal.target_type == "minutes" %}
+                                    <p class="c-card__meta li-mt-md li-goal-progress__values">
+                                        {{ goal.current_value|default:0|floatformat:0 }}m of {{ goal.target_value|default:0|floatformat:0 }}m
+                                    </p>
+                                    <p class="c-card__meta li-goal-progress__values">
+                                        Remaining {{ goal.remaining_value|default:0|floatformat:0 }}m
+                                    </p>
+                                {% else %}
+                                    <p class="c-card__meta li-mt-md li-goal-progress__values">
+                                        {{ goal.current_value|default:0 }} / {{ goal.target_value|default:0 }}
+                                    </p>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </div>
+
+                    <div class="li-row-divider li-goal-card__actions">
+                        <div class="li-row-actions-sm">
+                            <a href="{% url 'learning_insights:goal_update' goal.id %}" class="c-btn c-btn--ghost">Edit</a>
+                            <a href="{% url 'learning_insights:goal_delete' goal.id %}" class="c-btn c-btn--secondary">Delete</a>
+                        </div>
+                        <div class="li-row-actions-sm">
+                            {% if goal.status != "completed" %}
+                                <form method="post" action="{% url 'learning_insights:goal_action' goal.id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="complete">
+                                    <button type="submit" class="c-btn c-btn--ghost">Mark complete</button>
+                                </form>
+                            {% endif %}
+                            <form method="post" action="{% url 'learning_insights:goal_action' goal.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="carry_forward">
+                                <button type="submit" class="c-btn c-btn--ghost">Carry forward</button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+            <nav aria-label="Goal pagination" class="li-section-top li-pagination li-pagination--center li-goals-pagination">
+                {% if page_obj.has_previous %}
+                    <a
+                        class="c-btn c-btn--ghost"
+                        href="?page={{ page_obj.previous_page_number }}{% if filters.status %}&status={{ filters.status }}{% endif %}{% if filters.period %}&period={{ filters.period }}{% endif %}{% if filters.course %}&course={{ filters.course }}{% endif %}{% if filters.priority %}&priority={{ filters.priority }}{% endif %}"
+                    >
+                        Previous
+                    </a>
+                {% endif %}
+                <span class="c-btn c-btn--ghost li-btn-static">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a
+                        class="c-btn c-btn--ghost"
+                        href="?page={{ page_obj.next_page_number }}{% if filters.status %}&status={{ filters.status }}{% endif %}{% if filters.period %}&period={{ filters.period }}{% endif %}{% if filters.course %}&course={{ filters.course }}{% endif %}{% if filters.priority %}&priority={{ filters.priority }}{% endif %}"
+                    >
+                        Next
+                    </a>
+                {% endif %}
+            </nav>
+        {% endif %}
+    {% else %}
+        <article class="c-card li-goals-empty">
+            <h2 class="c-card__title li-title">No goals yet</h2>
+            <p class="c-card__meta li-subtitle">
+                Create your first goal to track achievement and planned versus actual progress.
+            </p>
+            <div class="li-section-top">
+                <a href="{% url 'learning_insights:goal_create' %}" class="c-btn c-btn--primary">Create goal</a>
+            </div>
+        </article>
+    {% endif %}
+</section>
+{% endblock %}
