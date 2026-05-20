@@ -2,10 +2,9 @@
   --copy-btn-size: 2rem;
   --copy-btn-icon-size: 14px;
   --copy-btn-bg: color-mix(in srgb, var(--color-surface, #ffffff) 85%, transparent);
-  --copy-btn-border: color-mix(in srgb, var(--color-border, #c9d5df) 70%, transparent);
-  --copy-btn-border-strong: color-mix(in srgb, var(--color-accent, #2563eb) 55%, transparent);
+  --copy-btn-border: transparent;
+  --copy-btn-border-strong: transparent;
   --copy-btn-color: var(--color-text-muted, #64748b);
-  --copy-btn-hover-bg: color-mix(in srgb, var(--color-secondary-surface, #eaf5ef) 70%, transparent);
   --copy-btn-hover-color: var(--color-text, #1b2630);
   --copy-btn-success: var(--color-primary, #16a34a);
   --copy-btn-error: var(--color-error, #dc2626);
@@ -14,7 +13,6 @@
 
 body.theme-dark {
   --copy-btn-bg: color-mix(in srgb, var(--color-surface, #121c2a) 80%, transparent);
-  --copy-btn-hover-bg: color-mix(in srgb, var(--color-surface-soft, #172434) 80%, transparent);
 }
 
 .copy-overlay-host {
@@ -37,7 +35,7 @@ body.theme-dark {
   min-width: var(--copy-btn-size);
   min-height: var(--copy-btn-size);
   padding: 0;
-  border: 1px solid var(--copy-btn-border);
+  border: 0;
   border-radius: 999px;
   background: var(--copy-btn-bg);
   color: var(--copy-btn-color);
@@ -55,8 +53,7 @@ body.theme-dark {
 .llm-copy-btn:hover:not(:disabled),
 .llm-copy-btn:focus-visible {
   color: var(--copy-btn-hover-color);
-  background: var(--copy-btn-hover-bg);
-  border-color: var(--copy-btn-border-strong);
+  border-color: transparent;
 }
 
 .llm-copy-btn:focus-visible {
@@ -88,7 +85,7 @@ body.theme-dark {
 
 .llm-copy-btn.is-copied {
   color: var(--copy-btn-success);
-  border-color: color-mix(in srgb, var(--copy-btn-success) 60%, transparent);
+  border-color: transparent;
   background: color-mix(in srgb, var(--copy-btn-success) 14%, transparent);
 }
 
@@ -102,7 +99,7 @@ body.theme-dark {
 
 .llm-copy-btn.is-copy-failed {
   color: var(--copy-btn-error);
-  border-color: color-mix(in srgb, var(--copy-btn-error) 60%, transparent);
+  border-color: transparent;
   background: color-mix(in srgb, var(--copy-btn-error) 12%, transparent);
 }
 

@@ -570,6 +570,9 @@ function detectRunLanguage(codeEl) {
 }
 
 const enhanceCourseCodeBlocks = () => {
+    const copyIconMarkup = window.copyUtils && window.copyUtils.copyIconMarkup
+        ? window.copyUtils.copyIconMarkup
+        : "";
     document.querySelectorAll(".c-content-render pre").forEach((preEl) => {
         // ── wrap ──────────────────────────────────────────────────────────
         let wrap = preEl.parentElement;
@@ -581,6 +584,28 @@ const enhanceCourseCodeBlocks = () => {
         }
 
         const codeEl = preEl.querySelector("code");
+
+        if (copyIconMarkup && !wrap.querySelector(".llm-copy-code")) {
+            const copyBtn = document.createElement("button");
+            copyBtn.type = "button";
+            copyBtn.className = "llm-copy-btn llm-copy-code";
+            copyBtn.setAttribute("aria-label", "Copy code");
+            copyBtn.setAttribute("title", "Copy code");
+            copyBtn.setAttribute("data-copy-default", "Copy code");
+            copyBtn.setAttribute("data-copy-copied", "Copied");
+            copyBtn.setAttribute("data-copy-failed", "Copy failed");
+            copyBtn.innerHTML = copyIconMarkup;
+            copyBtn.style.position = "absolute";
+            copyBtn.style.top = "0.75rem";
+            copyBtn.style.right = "0.75rem";
+            copyBtn.style.zIndex = "5";
+            copyBtn._copyTarget = codeEl || preEl;
+            wrap.appendChild(copyBtn);
+        }
+            runBtn.style.position = "absolute";
+            runBtn.style.top = "0.75rem";
+            runBtn.style.right = "3rem";
+            runBtn.style.zIndex = "5";
 
         // ── run button (only for Python / JS / C++) ───────────────────────
         const lang = detectRunLanguage(codeEl);
@@ -738,22 +763,6 @@ const enhanceCourseCodeBlocks = () => {
         }
     });
 
-    if (window.copyUtils && typeof window.copyUtils.registerCodeCopyOverlay === "function") {
-        const codeRoot = moduleContainer || document;
-        const overlayHost = moduleContainer || document.body;
-        window.copyUtils.registerCodeCopyOverlay({
-            root: codeRoot,
-            host: overlayHost,
-            scrollContainer: window,
-            codeSelector: ".c-content-render pre",
-            anchorSelector: ".llm-code-block-wrap",
-            offsetX: 12,
-            offsetY: 12,
-        });
-    }
-    if (window.copyUtils && typeof window.copyUtils.refreshCodeCopyOverlays === "function") {
-        window.copyUtils.refreshCodeCopyOverlays();
-    }
 };
 
 trackVisibleText(false);

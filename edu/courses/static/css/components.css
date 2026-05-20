@@ -2100,7 +2100,7 @@ body.theme-dark {
     min-height: 2rem;
 
     padding: 0;
-    border: 1px solid var(--code-runner-border);
+    border: 0;
     border-radius: 999px;
 
     background: color-mix(in srgb, var(--code-runner-bg-elevated) 88%, transparent);
@@ -2120,7 +2120,6 @@ body.theme-dark {
 
 .code-run-btn:hover {
     color: var(--code-runner-accent);
-    border-color: var(--code-runner-border-strong);
     background: var(--code-runner-accent-soft);
 }
 
@@ -2140,6 +2139,14 @@ body.theme-dark {
    Copy and Run button placement
    ========================================================================== */
 
+/* Copy button stays at the far right */
+.llm-copy-code {
+  position: absolute !important;
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  z-index: 5;
+}
+
 /* Run button sits directly next to copy button on its left */
 .code-run-btn {
     position: absolute !important;
@@ -2152,14 +2159,14 @@ body.theme-dark {
 
     background: color-mix(in srgb, var(--code-runner-accent) 14%, var(--code-runner-bg-elevated));
     color: var(--code-runner-accent);
-    border-color: color-mix(in srgb, var(--code-runner-accent) 42%, transparent);
+    border-color: transparent;
 }
 
 .code-run-btn:hover {
     transform: translateY(-1px);
     color: #ffffff;
     background: var(--code-runner-accent);
-    border-color: var(--code-runner-accent-hover);
+  border-color: transparent;
 }
 
 .code-run-btn:active {
@@ -2348,6 +2355,11 @@ body.theme-dark {
     .llm-code-block-wrap pre {
         padding: 2.8rem 0.9rem 1rem;
     }
+
+  .llm-copy-code {
+    top: 0.65rem !important;
+    right: 0.65rem !important;
+  }
 
     .code-run-btn {
         top: 0.65rem !important;
