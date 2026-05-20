@@ -229,7 +229,14 @@ const updateOverlay = (state) => {
   if (!state || !state.root || !state.layer) return;
   const codeBlocks = Array.from(state.root.querySelectorAll(state.codeSelector));
   state.layer.innerHTML = "";
-  if (!codeBlocks.length) return;
+  if (!codeBlocks.length) {
+    if (state.scrollContainer && state.scrollContainer.style) {
+      state.scrollContainer.style.paddingBottom = "";
+    }
+    return;
+  }
+
+  let anyOutputVisible = false;
 
   const layerRect = state.layer.getBoundingClientRect();
   codeBlocks.forEach((codeEl) => {
@@ -371,6 +378,20 @@ const updateOverlay = (state) => {
           codeEl.dataset.runStatus = "idle";
           // Re-schedule update to refresh spinner and show output panel
           state.scheduleUpdate();
+
+          // Wait a frame for DOM update & padding to apply, then scroll to bottom
+          setTimeout(() => {
+            if (state.scrollContainer) {
+              const container = state.scrollContainer;
+              const targetScrollTop = codeEl.offsetTop + codeEl.offsetHeight + 180 - container.clientHeight;
+              if (targetScrollTop > container.scrollTop) {
+                container.scrollTo({
+                  top: targetScrollTop,
+                  behavior: "smooth"
+                });
+              }
+            }
+          }, 80);
         }
       });
 
@@ -405,6 +426,7 @@ const updateOverlay = (state) => {
 
       // 5. Output Panel
       if (codeEl.dataset.runOutputVisible === "true") {
+        anyOutputVisible = true;
         const outputPanel = document.createElement("div");
         outputPanel.className = "code-output-panel";
         if (codeEl.dataset.runOutputError === "true") {
@@ -461,6 +483,14 @@ const updateOverlay = (state) => {
       state.layer.appendChild(copyBtn);
     }
   });
+
+  if (state.scrollContainer && state.scrollContainer.style) {
+    if (anyOutputVisible) {
+      state.scrollContainer.style.paddingBottom = "260px";
+    } else {
+      state.scrollContainer.style.paddingBottom = "";
+    }
+  }
 };
 
 const scheduleOverlayUpdate = (state) => {

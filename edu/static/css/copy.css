@@ -164,6 +164,7 @@ body.theme-dark {
   background-position: right 0.45rem center;
   background-size: 0.65rem;
   height: 2rem;
+  min-width: 6.5rem !important;
   display: inline-block !important;
   box-sizing: border-box !important;
   transition: border-color 0.16s, color 0.16s;
