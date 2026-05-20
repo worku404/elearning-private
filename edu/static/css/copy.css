@@ -1,0 +1,138 @@
+:root {
+  --copy-btn-size: 2rem;
+  --copy-btn-icon-size: 14px;
+  --copy-btn-bg: color-mix(in srgb, var(--color-surface, #ffffff) 85%, transparent);
+  --copy-btn-border: color-mix(in srgb, var(--color-border, #c9d5df) 70%, transparent);
+  --copy-btn-border-strong: color-mix(in srgb, var(--color-accent, #2563eb) 55%, transparent);
+  --copy-btn-color: var(--color-text-muted, #64748b);
+  --copy-btn-hover-bg: color-mix(in srgb, var(--color-secondary-surface, #eaf5ef) 70%, transparent);
+  --copy-btn-hover-color: var(--color-text, #1b2630);
+  --copy-btn-success: var(--color-primary, #16a34a);
+  --copy-btn-error: var(--color-error, #dc2626);
+  --copy-btn-focus-shadow: 0 0 0 3px var(--color-focus-ring, rgba(37, 99, 235, 0.35));
+}
+
+body.theme-dark {
+  --copy-btn-bg: color-mix(in srgb, var(--color-surface, #121c2a) 80%, transparent);
+  --copy-btn-hover-bg: color-mix(in srgb, var(--color-surface-soft, #172434) 80%, transparent);
+}
+
+.copy-overlay-host {
+  position: relative;
+}
+
+.copy-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.llm-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--copy-btn-size);
+  height: var(--copy-btn-size);
+  min-width: var(--copy-btn-size);
+  min-height: var(--copy-btn-size);
+  padding: 0;
+  border: 1px solid var(--copy-btn-border);
+  border-radius: 999px;
+  background: var(--copy-btn-bg);
+  color: var(--copy-btn-color);
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    color 0.16s ease,
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.llm-copy-btn:hover:not(:disabled),
+.llm-copy-btn:focus-visible {
+  color: var(--copy-btn-hover-color);
+  background: var(--copy-btn-hover-bg);
+  border-color: var(--copy-btn-border-strong);
+}
+
+.llm-copy-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--copy-btn-focus-shadow);
+}
+
+.llm-copy-btn:disabled,
+.llm-copy-btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.llm-copy-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.llm-copy-btn__icon svg {
+  width: var(--copy-btn-icon-size);
+  height: var(--copy-btn-icon-size);
+}
+
+.llm-copy-btn__icon--check {
+  display: none;
+}
+
+.llm-copy-btn.is-copied {
+  color: var(--copy-btn-success);
+  border-color: color-mix(in srgb, var(--copy-btn-success) 60%, transparent);
+  background: color-mix(in srgb, var(--copy-btn-success) 14%, transparent);
+}
+
+.llm-copy-btn.is-copied .llm-copy-btn__icon--copy {
+  display: none;
+}
+
+.llm-copy-btn.is-copied .llm-copy-btn__icon--check {
+  display: inline-flex;
+}
+
+.llm-copy-btn.is-copy-failed {
+  color: var(--copy-btn-error);
+  border-color: color-mix(in srgb, var(--copy-btn-error) 60%, transparent);
+  background: color-mix(in srgb, var(--copy-btn-error) 12%, transparent);
+}
+
+.llm-copy-message {
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.2rem;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.copy-overlay-layer .llm-copy-btn {
+  position: absolute;
+  pointer-events: auto;
+  transform: translate(-100%, 0);
+}
+
+@media (max-width: 640px) {
+  .llm-copy-btn {
+    width: 2.05rem;
+    height: 2.05rem;
+    min-width: 2.05rem;
+    min-height: 2.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .llm-copy-btn {
+    transition: none;
+  }
+}

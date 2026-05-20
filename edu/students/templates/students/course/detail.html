@@ -740,13 +740,15 @@ const enhanceCourseCodeBlocks = () => {
 
     if (window.copyUtils && typeof window.copyUtils.registerCodeCopyOverlay === "function") {
         const codeRoot = moduleContainer || document;
+        const overlayHost = moduleContainer || document.body;
         window.copyUtils.registerCodeCopyOverlay({
             root: codeRoot,
-            host: codeRoot,
+            host: overlayHost,
             scrollContainer: window,
             codeSelector: ".c-content-render pre",
-            offsetX: 8,
-            offsetY: 8,
+            anchorSelector: ".llm-code-block-wrap",
+            offsetX: 12,
+            offsetY: 12,
         });
     }
     if (window.copyUtils && typeof window.copyUtils.refreshCodeCopyOverlays === "function") {

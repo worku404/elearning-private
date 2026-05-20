@@ -1,0 +1,8 @@
+/* Learning Insights: monthly summary template */
+
+.li-monthly-top-courses-list {
+    display: grid;
+    gap: 0.85rem;
+    padding-left: 1.25rem;
+    margin: 0;
+}

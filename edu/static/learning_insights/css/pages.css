@@ -1,0 +1,24 @@
+/* ===================================================== */
+/* Learning Insights: cross-page patterns                */
+/* ===================================================== */
+
+.li-panel {
+	border: 1px solid var(--li-soft-border);
+	border-radius: 14px;
+	background: var(--li-surface-soft);
+	border-color: var(--li-border-strong);
+}
+
+.li-panel--padded {
+	padding: 0.9rem 1rem;
+}
+
+.li-note {
+	line-height: var(--li-prose-lh);
+}
+
+.li-badge--success {
+	background: var(--li-text-success);
+	color: #ffffff;
+}
+

@@ -1,0 +1,451 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --font-body: "Sora", "Segoe UI", sans-serif;
+    --font-heading: "Sora", "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    --color-primary: #1f7a4e;
+    --color-primary-hover: #18613e;
+    --color-secondary-surface: #eaf5ef;
+    --color-accent: #2a6fb3;
+    --color-warning: #a06a00;
+    --color-error: #b3261e;
+    --color-text: #1b2630;
+    --color-text-muted: #51606f;
+    --color-border: #c9d5df;
+    --color-bg: #f4f7fa;
+    --color-surface: #ffffff;
+    --color-surface-soft: #f8fbfd;
+    --color-focus-ring: color-mix(in srgb, var(--color-accent) 65%, white);
+    --color-shadow: 15 23 42;
+
+    --llm-text: var(--color-text);
+    --llm-bold: var(--color-text);
+    --llm-bold-underline: #ECC361;
+    --llm-heading: #1678DE;
+    --llm-inline-code-text: #E1BB5F;
+    --llm-inline-code-bg: #152130;
+    --llm-inline-code-border: #152130;
+    --llm-code-block-bg: color-mix(in srgb, #212121 70%);
+    --llm-code-block-border: var(--color-border);
+
+    /* Assistant design tokens (light/default) */
+    --assistant-app-bg: var(--color-bg);
+    --assistant-panel-bg: var(--color-surface);
+    --assistant-panel-border: color-mix(in srgb, var(--color-border) 85%, #ffffff);
+    --assistant-history-bg: color-mix(in srgb, var(--color-surface) 94%, var(--color-secondary-surface));
+    --assistant-history-border: color-mix(in srgb, var(--color-border) 80%, #ffffff);
+    --assistant-composer-bg: color-mix(in srgb, var(--color-surface) 92%, var(--color-secondary-surface));
+    --assistant-input-border: color-mix(in srgb, var(--color-border) 75%, #ffffff);
+    --assistant-sidebar-bg: var(--assistant-panel-bg);
+    --assistant-toolbar-bg: color-mix(in srgb, var(--color-surface) 96%, var(--color-secondary-surface));
+    --assistant-toolbar-border: color-mix(in srgb, var(--color-border) 80%, #ffffff);
+    --assistant-code-bg: color-mix(in srgb, #f5f7fb 92%, #d9e4f1);
+    --assistant-code-border: color-mix(in srgb, var(--color-border) 78%, #ffffff);
+    --assistant-inline-code-bg: color-mix(in srgb, var(--color-secondary-surface) 72%, #ffffff);
+    --assistant-inline-code-border: color-mix(in srgb, var(--color-border) 70%, #ffffff);
+
+    --assistant-text-color: var(--color-text);
+    --assistant-text-muted: var(--color-text-muted);
+    --assistant-heading-color: color-mix(in srgb, var(--color-accent) 75%, var(--color-text));
+    --assistant-user-text-color: var(--color-text);
+    --assistant-ai-text-color: var(--color-text);
+    --assistant-font-family: var(--font-body, "Sora", "Segoe UI", sans-serif);
+    --assistant-font-style: normal;
+    --assistant-font-size: var(--fs-1);
+    --assistant-line-height: 1.6;
+    --assistant-letter-spacing: 0.01em;
+    --assistant-heading-font-size: 1.05rem;
+    --assistant-heading-font-weight: 650;
+
+    --assistant-code-font-family: var(
+        --font-mono,
+        "IBM Plex Mono",
+        "Cascadia Mono",
+        "Fira Code",
+        "JetBrains Mono",
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        "Liberation Mono",
+        monospace
+    );
+    --assistant-code-font-size: 0.9rem;
+    --assistant-code-line-height: 1.55;
+    --assistant-code-text-color: color-mix(in srgb, var(--color-text) 88%, #0b1624);
+
+    --assistant-user-bubble-bg: color-mix(in srgb, var(--color-secondary-surface) 78%, #ffffff);
+    --assistant-user-bubble-border: color-mix(in srgb, var(--color-border) 65%, var(--color-secondary-surface));
+    --assistant-ai-bubble-bg: color-mix(in srgb, var(--color-surface) 96%, #f7f9fc);
+    --assistant-ai-bubble-border: color-mix(in srgb, var(--color-border) 78%, #ffffff);
+    --assistant-history-item-bg: color-mix(in srgb, var(--assistant-history-bg) 88%, #ffffff);
+    --assistant-history-item-border: color-mix(in srgb, var(--color-border) 60%, transparent);
+    --assistant-history-item-hover-bg: color-mix(in srgb, var(--assistant-history-bg) 70%, var(--color-secondary-surface));
+    --assistant-history-item-hover-scale: 1.015;
+
+    --assistant-button-bg: color-mix(in srgb, var(--color-surface) 90%, var(--color-secondary-surface));
+    --assistant-button-color: var(--color-text);
+    --assistant-button-border: color-mix(in srgb, var(--color-border) 80%, #ffffff);
+    --assistant-button-hover-bg: color-mix(in srgb, var(--color-secondary-surface) 70%, #ffffff);
+    --assistant-send-bg: var(--color-primary);
+    --assistant-send-border: color-mix(in srgb, var(--color-primary) 75%, black);
+    --assistant-send-color: #ffffff;
+    --assistant-send-hover-bg: var(--color-primary-hover);
+    --assistant-stop-bg: color-mix(in srgb, var(--color-error) 18%, #ffffff);
+    --assistant-stop-border: color-mix(in srgb, var(--color-error) 55%, var(--color-border));
+    --assistant-stop-color: var(--color-error);
+    --assistant-icon-color: var(--color-text-muted);
+    --assistant-icon-hover-color: var(--color-text);
+    --assistant-scroll-btn-bg: var(--color-surface);
+    --assistant-scroll-btn-border: color-mix(in srgb, var(--color-border) 80%, #ffffff);
+    --assistant-scroll-btn-color: var(--color-text);
+
+    --assistant-panel-padding: var(--space-3);
+    --assistant-toolbar-gap: var(--space-2);
+    --assistant-history-padding: var(--space-3);
+    --assistant-history-gap: var(--space-3);
+    --assistant-entry-gap: var(--space-2);
+    --assistant-message-gap: var(--space-2);
+    --assistant-element-gap: var(--space-2);
+    --assistant-bubble-padding: var(--space-3);
+    --assistant-composer-padding: var(--space-3);
+    --assistant-input-padding: 0.7rem 0.9rem;
+    --assistant-code-padding: 0.75rem;
+
+    --assistant-radius-sm: 10px;
+    --assistant-radius-md: 14px;
+    --assistant-radius-lg: 18px;
+    --assistant-panel-shadow: 0 18px 40px rgba(var(--color-shadow), 0.12);
+    --assistant-history-item-shadow: 0 12px 26px rgba(var(--color-shadow), 0.12);
+    --assistant-composer-shadow: 0 12px 28px rgba(var(--color-shadow), 0.12);
+
+    --assistant-sidebar-width: 420px;
+    --assistant-sidebar-min-width: 360px;
+    --assistant-sidebar-max-width: 720px;
+    --assistant-resize-handle-width: 10px;
+    --assistant-content-offset: var(--assistant-sidebar-width);
+
+    --assistant-transition-fast: 0.12s ease;
+    --assistant-transition-medium: 0.24s ease;
+    --assistant-transition-slow: 0.45s ease;
+
+    --assistant-scrollbar-thumb: color-mix(in srgb, var(--color-text) 20%, transparent);
+    --assistant-scrollbar-track: color-mix(in srgb, var(--color-border) 40%, transparent);
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+
+    --fs-0: 0.875rem;
+    --fs-1: 1.2rem;
+    --fs-2: 1.2rem;
+    --fs-3: 1.44rem;
+    --fs-4: 1.728rem;
+    --fs-5: 2.074rem;
+
+    --lh-reading: 1.6;
+    --lh-ui: 1.42;
+
+    --rail-left: 280px;
+    --rail-right: 380px;
+    /* Compact rail widths used while the AI sidebar is open. */
+    --rail-left-compact: 232px;
+    --course-modules-min: 220px;
+    --course-modules-max: 280px;
+    --course-modules-min-compact: 190px;
+    --course-modules-max-compact: 240px;
+    --topbar-height: 74px;
+    --main-max: 1100px;
+    --reading-max: 65ch;
+
+    --bp-sm: 640px;
+    --bp-md: 900px;
+    --bp-lg: 1200px;
+    --bp-xl: 1440px;
+}
+
+body.theme-dark {
+    --color-primary: #2a9d66;
+    --color-primary-hover: #227f53;
+    --color-secondary-surface: #1b2a3b;
+    --color-accent: #5aa1e6;
+    --color-warning: #d0a649;
+    --color-error: #ef6363;
+    --color-text: #e7eef7;
+    --side-bar-text:;
+    --color-text-muted: #9ab0c7;
+    --color-border: #2a3b50;
+    --color-bg: #0f1723;
+    --color-surface: #121c2a;
+    --color-surface-soft: #172434;
+    --color-focus-ring: color-mix(in srgb, var(--color-accent) 70%, white);
+    --color-shadow: 0 0 0;
+
+    --llm-text: #c7d3e1;
+    --llm-bold: #2B9D67;
+    --llm-bold-underline: transparent;
+    --llm-heading: #1678DE;
+
+    /* Assistant design tokens (dark) */
+    --assistant-app-bg: var(--color-bg);
+    --assistant-panel-bg: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
+    --assistant-panel-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-history-bg: color-mix(in srgb, var(--color-surface) 88%, #0b1320);
+    --assistant-history-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-composer-bg: color-mix(in srgb, #111b2a 82%, #0b1320);
+    --assistant-input-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-sidebar-bg: var(--assistant-panel-bg);
+    --assistant-toolbar-bg: color-mix(in srgb, var(--color-surface) 88%, #0b1320);
+    --assistant-toolbar-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-code-bg: color-mix(in srgb, #0b1320 88%, #15243a);
+    --assistant-code-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-inline-code-bg: color-mix(in srgb, #0b1320 78%, #20304a);
+    --assistant-inline-code-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+
+    --assistant-text-color: var(--color-text);
+    --assistant-text-muted: var(--color-text-muted);
+    --assistant-heading-color: color-mix(in srgb, var(--color-accent) 78%, #ffffff);
+    --assistant-user-text-color: var(--color-text);
+    --assistant-ai-text-color: var(--color-text);
+    --assistant-font-family: "Sora", "Segoe UI", sans-serif;
+    --assistant-font-style: normal;
+    --assistant-font-size: var(--fs-1);
+    --assistant-line-height: 1.6;
+    --assistant-letter-spacing: 0.01em;
+    --assistant-heading-font-size: 1.05rem;
+    --assistant-heading-font-weight: 650;
+
+    --assistant-code-font-family: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --assistant-code-font-size: 0.9rem;
+    --assistant-code-line-height: 1.55;
+    --assistant-code-text-color: color-mix(in srgb, var(--color-text) 86%, #ffffff);
+
+    --assistant-user-bubble-bg: color-mix(in srgb, #1b2a3b 70%, #0b1320);
+    --assistant-user-bubble-border: color-mix(in srgb, var(--color-border) 55%, #0b1320);
+    --assistant-ai-bubble-bg: color-mix(in srgb, #121c2a 85%, #0b1320);
+    --assistant-ai-bubble-border: color-mix(in srgb, var(--color-border) 60%, #0b1320);
+    --assistant-history-item-bg: color-mix(in srgb, var(--assistant-history-bg) 85%, #0b1320);
+    --assistant-history-item-border: color-mix(in srgb, var(--color-border) 55%, transparent);
+    --assistant-history-item-hover-bg: color-mix(in srgb, var(--assistant-history-bg) 70%, #1d2a40);
+    --assistant-history-item-hover-scale: 1.015;
+
+    --assistant-button-bg: color-mix(in srgb, var(--color-surface) 80%, #0b1320);
+    --assistant-button-color: var(--color-text);
+    --assistant-button-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-button-hover-bg: color-mix(in srgb, var(--color-surface-soft) 80%, #0b1320);
+    --assistant-send-bg: var(--color-primary);
+    --assistant-send-border: color-mix(in srgb, var(--color-primary) 80%, #0b1320);
+    --assistant-send-color: #f7fff9;
+    --assistant-send-hover-bg: var(--color-primary-hover);
+    --assistant-stop-bg: color-mix(in srgb, var(--color-error) 22%, #0b1320);
+    --assistant-stop-border: color-mix(in srgb, var(--color-error) 55%, #0b1320);
+    --assistant-stop-color: var(--color-error);
+    --assistant-icon-color: var(--color-text-muted);
+    --assistant-icon-hover-color: #f4f8ff;
+    --assistant-scroll-btn-bg: color-mix(in srgb, var(--color-surface) 80%, #0b1320);
+    --assistant-scroll-btn-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-scroll-btn-color: var(--color-text);
+
+    --assistant-panel-padding: var(--space-3);
+    --assistant-toolbar-gap: var(--space-2);
+    --assistant-history-padding: var(--space-3);
+    --assistant-history-gap: var(--space-3);
+    --assistant-entry-gap: var(--space-2);
+    --assistant-message-gap: var(--space-2);
+    --assistant-element-gap: var(--space-2);
+    --assistant-bubble-padding: var(--space-3);
+    --assistant-composer-padding: var(--space-3);
+    --assistant-input-padding: 0.7rem 0.9rem;
+    --assistant-code-padding: 0.75rem;
+
+    --assistant-radius-sm: 10px;
+    --assistant-radius-md: 14px;
+    --assistant-radius-lg: 18px;
+    --assistant-panel-shadow: 0 18px 40px rgba(2, 6, 12, 0.45);
+    --assistant-history-item-shadow: 0 12px 26px rgba(2, 6, 12, 0.45);
+    --assistant-composer-shadow: 0 12px 28px rgba(2, 6, 12, 0.45);
+
+    --assistant-transition-fast: 0.12s ease;
+    --assistant-transition-medium: 0.24s ease;
+    --assistant-transition-slow: 0.45s ease;
+
+    --assistant-scrollbar-thumb: color-mix(in srgb, #b5c9e2 28%, transparent);
+    --assistant-scrollbar-track: color-mix(in srgb, #1a2a3e 50%, transparent);
+}
+
+body.app-body--modern {
+    --font-body: "Manrope", "Segoe UI", sans-serif;
+    --font-heading: "Sora", "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    --color-primary: #0f766e;
+    --color-primary-hover: #115e59;
+    --color-secondary-surface: #e6fffb;
+    --color-accent: #2563eb;
+    --color-warning: #b45309;
+    --color-error: #c2410c;
+    --color-text: #10202d;
+    --color-text-muted: #5b6c7d;
+    --color-border: #d7e0ea;
+    --color-bg: #f4f7fb;
+    --color-surface: #ffffff;
+    --color-surface-soft: #f8fbfd;
+    --color-focus-ring: color-mix(in srgb, var(--color-accent) 55%, white);
+    --color-shadow: 15 23 42;
+
+    --llm-text: var(--color-text);
+    --llm-bold: color-mix(in srgb, var(--color-primary) 78%, var(--color-text));
+    --llm-bold-underline: color-mix(in srgb, var(--color-accent) 82%, white);
+    --llm-heading: color-mix(in srgb, var(--color-accent) 78%, var(--color-text));
+    --llm-inline-code-text: color-mix(in srgb, var(--color-warning) 82%, var(--color-text));
+    --llm-inline-code-bg: color-mix(in srgb, var(--color-secondary-surface) 72%, #ffffff);
+    --llm-inline-code-border: color-mix(in srgb, var(--color-border) 72%, #ffffff);
+    --llm-code-block-bg: color-mix(in srgb, #f7fbff 88%, var(--color-secondary-surface));
+    --llm-code-block-border: color-mix(in srgb, var(--color-border) 72%, #ffffff);
+
+    --assistant-app-bg: var(--color-bg);
+    --assistant-panel-bg: color-mix(in srgb, var(--color-surface) 96%, var(--color-surface-soft));
+    --assistant-panel-border: color-mix(in srgb, var(--color-border) 72%, #ffffff);
+    --assistant-history-bg: color-mix(in srgb, var(--color-surface) 94%, var(--color-secondary-surface));
+    --assistant-history-border: color-mix(in srgb, var(--color-border) 72%, #ffffff);
+    --assistant-composer-bg: color-mix(in srgb, var(--color-surface) 94%, var(--color-secondary-surface));
+    --assistant-input-border: color-mix(in srgb, var(--color-border) 70%, #ffffff);
+    --assistant-sidebar-bg: var(--assistant-panel-bg);
+    --assistant-toolbar-bg: color-mix(in srgb, var(--color-surface) 94%, var(--color-secondary-surface));
+    --assistant-toolbar-border: color-mix(in srgb, var(--color-border) 72%, #ffffff);
+    --assistant-code-bg: color-mix(in srgb, #f4f7fb 84%, #dbe8f3);
+    --assistant-code-border: color-mix(in srgb, var(--color-border) 70%, #ffffff);
+    --assistant-inline-code-bg: color-mix(in srgb, var(--color-secondary-surface) 72%, #ffffff);
+    --assistant-inline-code-border: color-mix(in srgb, var(--color-border) 70%, #ffffff);
+
+    --assistant-heading-color: color-mix(in srgb, var(--color-accent) 74%, var(--color-text));
+    --assistant-user-bubble-bg: color-mix(in srgb, var(--color-secondary-surface) 74%, #ffffff);
+    --assistant-user-bubble-border: color-mix(in srgb, var(--color-border) 68%, var(--color-secondary-surface));
+    --assistant-ai-bubble-bg: color-mix(in srgb, var(--color-surface) 96%, #f7f9fc);
+    --assistant-ai-bubble-border: color-mix(in srgb, var(--color-border) 74%, #ffffff);
+    --assistant-history-item-bg: color-mix(in srgb, var(--assistant-history-bg) 86%, #ffffff);
+    --assistant-history-item-border: color-mix(in srgb, var(--color-border) 62%, transparent);
+    --assistant-history-item-hover-bg: color-mix(in srgb, var(--assistant-history-bg) 72%, var(--color-secondary-surface));
+
+    --assistant-button-bg: color-mix(in srgb, var(--color-surface) 92%, var(--color-secondary-surface));
+    --assistant-button-color: var(--color-text);
+    --assistant-button-border: color-mix(in srgb, var(--color-border) 76%, #ffffff);
+    --assistant-button-hover-bg: color-mix(in srgb, var(--color-secondary-surface) 74%, #ffffff);
+    --assistant-send-bg: var(--color-primary);
+    --assistant-send-border: color-mix(in srgb, var(--color-primary) 76%, black);
+    --assistant-send-color: #ffffff;
+    --assistant-send-hover-bg: var(--color-primary-hover);
+    --assistant-stop-bg: color-mix(in srgb, var(--color-error) 16%, #ffffff);
+    --assistant-stop-border: color-mix(in srgb, var(--color-error) 54%, var(--color-border));
+    --assistant-stop-color: var(--color-error);
+    --assistant-icon-color: var(--color-text-muted);
+    --assistant-icon-hover-color: var(--color-text);
+    --assistant-scroll-btn-bg: var(--color-surface);
+    --assistant-scroll-btn-border: color-mix(in srgb, var(--color-border) 74%, #ffffff);
+    --assistant-scroll-btn-color: var(--color-text);
+
+    --assistant-sidebar-width: 440px;
+    --assistant-sidebar-min-width: 360px;
+    --assistant-sidebar-max-width: 760px;
+    --assistant-resize-handle-width: 12px;
+    --assistant-content-offset: var(--assistant-sidebar-width);
+
+    --radius-sm: 0.75rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.35rem;
+
+    --rail-left: 272px;
+    --rail-right: 416px;
+    --rail-left-compact: 224px;
+    --course-modules-min: 214px;
+    --course-modules-max: 276px;
+    --course-modules-min-compact: 184px;
+    --course-modules-max-compact: 236px;
+    --topbar-height: 80px;
+    --main-max: 1160px;
+    --reading-max: 68ch;
+}
+
+body.app-body--modern.theme-dark {
+    --font-body: "Manrope", "Segoe UI", sans-serif;
+    --font-heading: "Sora", "Segoe UI", sans-serif;
+    --color-primary: #34a37a;
+    --color-primary-hover: #2b8a64;
+    --color-secondary-surface: #132437;
+    --color-accent: #6aa8ff;
+    --color-warning: #d1a24d;
+    --color-error: #f98c69;
+    --color-text: #e7eef7;
+    --color-text-muted: #9ab0c7;
+    --color-border: #2a3b50;
+    --color-bg: #0f1723;
+    --color-surface: #121c2a;
+    --color-surface-soft: #172434;
+    --color-focus-ring: color-mix(in srgb, var(--color-accent) 70%, white);
+    --color-shadow: 0 0 0;
+
+    --llm-text: #c7d3e1;
+    --llm-bold: #73d0a3;
+    --llm-bold-underline: transparent;
+    --llm-heading: #6aa8ff;
+    --llm-inline-code-text: #f3cc76;
+    --llm-inline-code-bg: #132337;
+    --llm-inline-code-border: #132337;
+    --llm-code-block-bg: color-mix(in srgb, #111b2a 88%, #15243a);
+    --llm-code-block-border: var(--color-border);
+
+    --assistant-app-bg: var(--color-bg);
+    --assistant-panel-bg: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
+    --assistant-panel-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-history-bg: color-mix(in srgb, var(--color-surface) 88%, #0b1320);
+    --assistant-history-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-composer-bg: color-mix(in srgb, #111b2a 82%, #0b1320);
+    --assistant-input-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-sidebar-bg: var(--assistant-panel-bg);
+    --assistant-toolbar-bg: color-mix(in srgb, var(--color-surface) 88%, #0b1320);
+    --assistant-toolbar-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-code-bg: color-mix(in srgb, #0b1320 88%, #15243a);
+    --assistant-code-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+    --assistant-inline-code-bg: color-mix(in srgb, #0b1320 78%, #20304a);
+    --assistant-inline-code-border: color-mix(in srgb, var(--color-border) 70%, #0b1320);
+
+    --assistant-heading-color: color-mix(in srgb, var(--color-accent) 78%, #ffffff);
+    --assistant-user-bubble-bg: color-mix(in srgb, #1b2a3b 70%, #0b1320);
+    --assistant-user-bubble-border: color-mix(in srgb, var(--color-border) 55%, #0b1320);
+    --assistant-ai-bubble-bg: color-mix(in srgb, #121c2a 85%, #0b1320);
+    --assistant-ai-bubble-border: color-mix(in srgb, var(--color-border) 60%, #0b1320);
+    --assistant-history-item-bg: color-mix(in srgb, var(--assistant-history-bg) 85%, #0b1320);
+    --assistant-history-item-border: color-mix(in srgb, var(--color-border) 55%, transparent);
+    --assistant-history-item-hover-bg: color-mix(in srgb, var(--assistant-history-bg) 70%, #1d2a40);
+
+    --assistant-button-bg: color-mix(in srgb, var(--color-surface) 80%, #0b1320);
+    --assistant-button-color: var(--color-text);
+    --assistant-button-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-button-hover-bg: color-mix(in srgb, var(--color-surface-soft) 80%, #0b1320);
+    --assistant-send-bg: var(--color-primary);
+    --assistant-send-border: color-mix(in srgb, var(--color-primary) 80%, #0b1320);
+    --assistant-send-color: #f7fff9;
+    --assistant-send-hover-bg: var(--color-primary-hover);
+    --assistant-stop-bg: color-mix(in srgb, var(--color-error) 22%, #0b1320);
+    --assistant-stop-border: color-mix(in srgb, var(--color-error) 55%, #0b1320);
+    --assistant-stop-color: var(--color-error);
+    --assistant-icon-color: var(--color-text-muted);
+    --assistant-icon-hover-color: #f4f8ff;
+    --assistant-scroll-btn-bg: color-mix(in srgb, var(--color-surface) 80%, #0b1320);
+    --assistant-scroll-btn-border: color-mix(in srgb, var(--color-border) 65%, #0b1320);
+    --assistant-scroll-btn-color: var(--color-text);
+}

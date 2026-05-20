@@ -1,0 +1,18 @@
+@import url("tokens.css");
+@import url("layout.css");
+@import url("components.css");
+@import url("pages.css");
+
+:root {
+    --li-brand: #2457ff;
+    --li-brand-cool: #5dd6ff;
+    --li-brand-warm: #ff9d4d;
+    --li-brand-ink: #13284b;
+    --li-surface-soft: color-mix(in srgb, var(--color-surface) 94%, var(--color-bg));
+    --li-border-strong: color-mix(in srgb, var(--color-border) 72%, transparent);
+}
+
+body.theme-dark {
+    --li-surface-soft: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
+    --li-border-strong: color-mix(in srgb, #ffffff 18%, transparent);
+}

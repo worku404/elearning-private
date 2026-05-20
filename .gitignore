@@ -223,7 +223,6 @@ venv/
 data/db/
 
 # Static/Media
-edu/static/
 edu/media/
 
 # SSL Secrets

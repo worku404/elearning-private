@@ -1,0 +1,12 @@
+/* Learning Insights: weekly summary template */
+
+.li-weekly-top-courses-list {
+    display: grid;
+    gap: 0.85rem;
+    padding-left: 1.25rem;
+    margin: 0;
+}
+
+.li-weekly-goal-foot {
+    margin-top: 0.55rem;
+}

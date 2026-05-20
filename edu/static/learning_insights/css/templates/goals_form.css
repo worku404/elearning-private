@@ -1,0 +1,87 @@
+/* Learning Insights: goals form template */
+
+#ai-planner {
+    --li-ai-border-color: #2c77e9;
+    --li-ai-text-color: red;
+    --li-ai-placeholder-color: #6b7280;
+    --li-ai-accent-green: #16a34a;
+}
+
+.li-ai-prompt {
+    display: flex;
+    align-items: center;
+    border-radius: 24px;
+    padding: 8px 12px;
+    width: 100%;
+    max-width: 700px;
+    border: 1px solid var(--li-ai-border-color);
+}
+
+.li-ai-prompt__field {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: var(--li-ai-text-color);
+    font-size: 17px;
+    resize: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    max-height: 120px;
+    min-height: 28px;
+}
+
+.li-ai-prompt__field::placeholder {
+    color: var(--li-ai-placeholder-color);
+}
+
+.li-ai-prompt__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--li-ai-accent-green);
+    color: var(--li-ai-accent-green);
+    cursor: pointer;
+    padding: 6px;
+    margin-left: 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.li-ai-prompt__send:hover {
+    background: var(--li-ai-accent-green);
+    color: #fff;
+}
+
+.li-ai-prompt__send:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: var(--li-ai-border-color);
+    color: var(--li-ai-border-color);
+}
+
+.li-goals-form-list {
+    padding-left: 1.1rem;
+}
+
+.li-goals-form-list--sm {
+    margin: 0.5rem 0 0 1.1rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.li-goals-form-list--md {
+    margin: 0.65rem 0 0 1.1rem;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.li-goals-form-list--lg {
+    margin: 0.75rem 0 0 1.1rem;
+    display: grid;
+    gap: var(--space-2);
+}
+
+.li-goals-form-rec-link {
+    margin-left: var(--space-2);
+}

@@ -1,0 +1,95 @@
+/* Learning Insights: AI run detail template */
+
+.li-run-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-3);
+}
+
+.li-run-stat,
+.li-run-summary-card,
+.li-run-detail-card {
+    border: 1px solid color-mix(in srgb, var(--color-border) 88%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-surface) 84%, var(--color-secondary-surface));
+}
+
+.li-run-stat {
+    padding: var(--space-3);
+}
+
+.li-run-stat__label {
+    margin: 0 0 var(--space-2) 0;
+}
+
+.li-run-stat__value {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.li-risk-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 84px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.li-risk-pill--low {
+    background: color-mix(in srgb, #2f9d62 14%, white);
+    border-color: color-mix(in srgb, #2f9d62 36%, white);
+    color: #1e6a42;
+}
+
+.li-risk-pill--medium {
+    background: color-mix(in srgb, #e0a72d 16%, white);
+    border-color: color-mix(in srgb, #e0a72d 38%, white);
+    color: #8a6212;
+}
+
+.li-risk-pill--high {
+    background: color-mix(in srgb, #db5b5b 16%, white);
+    border-color: color-mix(in srgb, #db5b5b 38%, white);
+    color: #972f2f;
+}
+
+.li-run-summary-card,
+.li-run-detail-card {
+    padding: var(--space-4);
+}
+
+.li-run-summary-text {
+    margin-top: var(--space-2);
+    font-size: 1.05rem;
+}
+
+.li-run-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-3);
+}
+
+.li-run-detail-card__title {
+    margin: 0 0 var(--space-3) 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.li-summary-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: var(--space-2);
+    line-height: var(--li-prose-lh);
+}
+
+.li-summary-list li {
+    color: var(--color-text);
+}
