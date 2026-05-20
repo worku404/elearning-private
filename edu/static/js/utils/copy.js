@@ -250,21 +250,21 @@ const updateOverlay = (state) => {
     const offsetY = Number.isFinite(state.offsetY) ? state.offsetY : 8;
 
     if (state.enableCodeRunner) {
-      // 1. Controls container
+      // 1. Controls container (Run & Copy buttons on the right edge)
       const controls = document.createElement("div");
       controls.className = "code-block-controls";
       controls.style.top = `${Math.max(0, anchorRect.top - layerRect.top) + offsetY}px`;
       controls.style.left = `${Math.max(0, anchorRect.right - layerRect.left) - offsetX}px`;
 
-      // 2. Language dropdown
+      // 2. Language dropdown (floating on the left edge)
       const select = document.createElement("select");
       select.className = "code-lang-select";
       select.setAttribute("aria-label", "Select programming language");
 
       const languages = [
-        { value: "python", label: "Python" },
-        { value: "javascript", label: "JavaScript" },
-        { value: "c++", label: "C++" }
+        { value: "python", label: "Py" },
+        { value: "javascript", label: "JS" },
+        { value: "c++", label: "C" }
       ];
 
       languages.forEach((lang) => {
@@ -413,16 +413,22 @@ const updateOverlay = (state) => {
         copyBtn.setAttribute("data-copy-target", `[data-copy-source-id="${sourceId}"]`);
       }
 
-      // Append all to controls
-      controls.appendChild(select);
+      // Append buttons to controls on the right
       controls.appendChild(runBtn);
       controls.appendChild(copyBtn);
       state.layer.appendChild(controls);
 
+      // Position and append select on the left
+      select.style.position = "absolute";
+      select.style.top = `${Math.max(0, anchorRect.top - layerRect.top) + offsetY}px`;
+      select.style.left = `${Math.max(0, anchorRect.left - layerRect.left) + offsetX}px`;
+      select.style.zIndex = "5";
+      state.layer.appendChild(select);
+
       // Hide / show based on content
       const hasCode = codeEl.textContent.trim().length > 0;
       runBtn.style.display = hasCode ? "inline-flex" : "none";
-      select.style.display = hasCode ? "inline-flex" : "none";
+      select.style.display = hasCode ? "inline-block" : "none";
 
       // 5. Output Panel
       if (codeEl.dataset.runOutputVisible === "true") {

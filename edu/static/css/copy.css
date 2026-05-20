@@ -149,43 +149,43 @@ body.theme-dark {
 
 .code-lang-select {
   font-family: inherit;
-  font-size: 0.68rem !important;
-  font-weight: 600;
-  padding: 0.1rem 1.15rem 0.1rem 0.45rem !important;
-  border: 1px solid color-mix(in srgb, var(--notes-code-block-border, #d6e0eb) 45%, transparent) !important;
-  border-radius: 4px !important;
-  background: var(--notes-code-block-toolbar-bg, #eef4fb);
+  font-size: 0.58rem !important;
+  font-weight: 500;
+  padding: 0 0.65rem 0 0.25rem !important;
+  border: 1px solid transparent !important;
+  border-radius: 3px !important;
+  background: rgba(0, 0, 0, 0.035);
   color: var(--notes-code-block-muted, #607085);
   cursor: pointer;
   outline: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23607085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.4rem center;
-  background-size: 0.6rem;
-  height: 1.5rem !important;
-  min-width: 5.8rem !important;
+  background-position: right 0.15rem center;
+  background-size: 0.45rem;
+  height: 1.15rem !important;
+  min-width: 2.1rem !important;
   display: inline-block !important;
   box-sizing: border-box !important;
   transition: border-color 0.16s, color 0.16s, background-color 0.16s;
 }
 
 .theme-dark .code-lang-select {
-  border-color: color-mix(in srgb, var(--notes-code-block-border, #30363d) 45%, transparent) !important;
-  background: var(--notes-code-block-toolbar-bg, #161b22);
+  background: rgba(255, 255, 255, 0.045);
   color: var(--notes-code-block-muted, #8b949e);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 .code-lang-select:hover {
-  border-color: var(--notes-accent, #2563eb) !important;
-  background: color-mix(in srgb, var(--notes-accent, #2563eb) 8%, var(--notes-code-block-toolbar-bg, #eef4fb)) !important;
+  border-color: color-mix(in srgb, var(--notes-code-block-border, #d6e0eb) 45%, transparent) !important;
+  background: rgba(0, 0, 0, 0.075) !important;
   color: var(--color-text, #1b2630);
 }
 
 .theme-dark .code-lang-select:hover {
   color: var(--color-text, #c9d1d9);
-  background: color-mix(in srgb, var(--notes-accent, #2563eb) 10%, var(--notes-code-block-toolbar-bg, #161b22)) !important;
+  border-color: color-mix(in srgb, var(--notes-code-block-border, #30363d) 45%, transparent) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
 }
 
 .code-block-controls .code-run-btn,
