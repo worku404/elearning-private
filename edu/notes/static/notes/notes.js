@@ -564,11 +564,8 @@ document.addEventListener("DOMContentLoaded", function () {
             /(?:<p>\s*(?:&nbsp;|<br\s*\/?>)\s*<\/p>\s*)+(?=<pre\b[^>]*class=["'][^"']*\bql-syntax\b[^"']*["'][^>]*>)/gi,
             ""
         );
-        // Drop trailing empty paragraphs at the end.
-        cleaned = cleaned.replace(
-            /(?:<p>\s*(?:&nbsp;|<br\s*\/?>)\s*<\/p>\s*)+$/gi,
-            ""
-        );
+        // Do not drop trailing empty paragraphs at the end, so that the user 
+        // can always click and type below a trailing code block.
 
         const legacyColorMap = new Map([
             ["rgb(255,255,255)", "var(--notes-color-contrast)"],
@@ -603,6 +600,15 @@ document.addEventListener("DOMContentLoaded", function () {
                             node.style.color = replacement;
                         }
                     });
+
+                    // Strip code block runtime execution/output attributes so they never save to DB
+                    root.querySelectorAll("pre").forEach((pre) => {
+                        pre.removeAttribute("data-run-status");
+                        pre.removeAttribute("data-run-output");
+                        pre.removeAttribute("data-run-output-visible");
+                        pre.removeAttribute("data-run-output-error");
+                    });
+
                     cleaned = root.innerHTML;
                 }
             } catch (error) {

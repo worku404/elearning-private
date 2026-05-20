@@ -383,7 +383,7 @@ const updateOverlay = (state) => {
           setTimeout(() => {
             if (state.scrollContainer) {
               const container = state.scrollContainer;
-              const targetScrollTop = codeEl.offsetTop + codeEl.offsetHeight + 180 - container.clientHeight;
+              const targetScrollTop = codeEl.offsetTop + codeEl.offsetHeight + 220 - container.clientHeight;
               if (targetScrollTop > container.scrollTop) {
                 container.scrollTo({
                   top: targetScrollTop,
@@ -391,7 +391,7 @@ const updateOverlay = (state) => {
                 });
               }
             }
-          }, 80);
+          }, 150);
         }
       });
 
@@ -449,7 +449,7 @@ const updateOverlay = (state) => {
           state.scheduleUpdate();
         });
 
-        // Position output panel below code block
+        // Position output panel below code block inside the reserved flow margin-bottom
         outputPanel.style.position = "absolute";
         outputPanel.style.top = `${codeRect.bottom - layerRect.top + 8}px`;
         outputPanel.style.left = `${codeRect.left - layerRect.left}px`;

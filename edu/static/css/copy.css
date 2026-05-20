@@ -141,7 +141,7 @@ body.theme-dark {
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 0.65rem !important;
+  gap: 0.45rem !important;
   pointer-events: auto;
   transform: translate(-100%, 0);
   z-index: 5;
@@ -149,11 +149,11 @@ body.theme-dark {
 
 .code-lang-select {
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.68rem !important;
   font-weight: 600;
-  padding: 0.15rem 1.45rem 0.15rem 0.55rem;
-  border: 1px solid var(--notes-code-block-border, #d6e0eb) !important;
-  border-radius: 6px;
+  padding: 0.1rem 1.15rem 0.1rem 0.45rem !important;
+  border: 1px solid color-mix(in srgb, var(--notes-code-block-border, #d6e0eb) 45%, transparent) !important;
+  border-radius: 4px !important;
   background: var(--notes-code-block-toolbar-bg, #eef4fb);
   color: var(--notes-code-block-muted, #607085);
   cursor: pointer;
@@ -161,17 +161,17 @@ body.theme-dark {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23607085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.45rem center;
-  background-size: 0.65rem;
-  height: 2rem;
-  min-width: 6.5rem !important;
+  background-position: right 0.4rem center;
+  background-size: 0.6rem;
+  height: 1.5rem !important;
+  min-width: 5.8rem !important;
   display: inline-block !important;
   box-sizing: border-box !important;
-  transition: border-color 0.16s, color 0.16s;
+  transition: border-color 0.16s, color 0.16s, background-color 0.16s;
 }
 
 .theme-dark .code-lang-select {
-  border-color: var(--notes-code-block-border, #30363d) !important;
+  border-color: color-mix(in srgb, var(--notes-code-block-border, #30363d) 45%, transparent) !important;
   background: var(--notes-code-block-toolbar-bg, #161b22);
   color: var(--notes-code-block-muted, #8b949e);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -179,11 +179,13 @@ body.theme-dark {
 
 .code-lang-select:hover {
   border-color: var(--notes-accent, #2563eb) !important;
+  background: color-mix(in srgb, var(--notes-accent, #2563eb) 8%, var(--notes-code-block-toolbar-bg, #eef4fb)) !important;
   color: var(--color-text, #1b2630);
 }
 
 .theme-dark .code-lang-select:hover {
   color: var(--color-text, #c9d1d9);
+  background: color-mix(in srgb, var(--notes-accent, #2563eb) 10%, var(--notes-code-block-toolbar-bg, #161b22)) !important;
 }
 
 .code-block-controls .code-run-btn,
@@ -198,16 +200,22 @@ body.theme-dark {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  min-width: 1.5rem !important;
+  min-height: 1.5rem !important;
+  border-radius: 4px !important;
+}
+
+.code-block-controls .llm-copy-btn svg,
+.code-block-controls .code-run-btn svg {
+  width: 11px !important;
+  height: 11px !important;
 }
 
 .code-block-controls .code-run-btn {
-  width: var(--copy-btn-size, 2rem);
-  height: var(--copy-btn-size, 2rem);
-  min-width: var(--copy-btn-size, 2rem);
-  min-height: var(--copy-btn-size, 2rem);
   padding: 0;
   border: 0;
-  border-radius: 999px;
   background: var(--copy-btn-bg, rgba(255, 255, 255, 0.85));
   color: var(--copy-btn-color, #64748b);
   cursor: pointer;
@@ -217,7 +225,6 @@ body.theme-dark {
 .code-block-controls .code-run-btn:hover:not(:disabled) {
   color: var(--code-runner-accent, #2563eb);
   background: var(--code-runner-accent-soft, rgba(37, 99, 235, 0.12));
-  transform: translateY(-1px);
 }
 
 .theme-dark .code-block-controls .code-run-btn:hover:not(:disabled) {
@@ -238,4 +245,34 @@ body.theme-dark {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   Notes Flow and Output Spacing integration
+   ========================================================================== */
+
+/* Reserv margin-bottom inside notes editor when code execution output is visible */
+.notes-editor pre.ql-syntax[data-run-output-visible="true"] {
+  margin-bottom: 220px !important;
+  transition: margin-bottom 0.18s ease-in-out;
+}
+
+/* Structure and constraints for notes code runner output panels */
+.notes-editor-wrap .code-output-panel {
+  position: absolute;
+  height: 200px !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 8px !important;
+  z-index: 10 !important;
+  overflow: hidden !important;
+  pointer-events: auto !important;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.notes-editor-wrap .code-output-panel__body {
+  height: calc(100% - 2.4rem) !important;
+  max-height: none !important;
+  overflow: auto !important;
+}
+
 
