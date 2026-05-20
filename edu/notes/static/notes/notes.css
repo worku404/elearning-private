@@ -1235,7 +1235,7 @@ body.notes-open .notes-backdrop {
     /* Center content both axes. */
     place-items: center;
     /* Ensure it sits above content. */
-    z-index: 3;
+    z-index: 100;
 }
 
 /* Respect the hidden attribute on the save modal. */
