@@ -602,11 +602,6 @@ const enhanceCourseCodeBlocks = () => {
             copyBtn._copyTarget = codeEl || preEl;
             wrap.appendChild(copyBtn);
         }
-            runBtn.style.position = "absolute";
-            runBtn.style.top = "0.75rem";
-            runBtn.style.right = "3rem";
-            runBtn.style.zIndex = "5";
-
         // ── run button (only for Python / JS / C++) ───────────────────────
         const lang = detectRunLanguage(codeEl);
         if (lang && !wrap.querySelector(".code-run-btn")) {

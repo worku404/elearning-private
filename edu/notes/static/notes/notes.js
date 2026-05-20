@@ -1053,8 +1053,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 codeSelector: "pre.ql-syntax",
                 offsetX: 8,
                 offsetY: 8,
+                enableCodeRunner: true,
             });
         }
+        // Listen for programming language changes in code blocks.
+        quill.root.addEventListener("code-block-language-change", () => {
+            isDirty = true;
+            scheduleAutosave();
+        });
         // Listen for editor changes to set dirty state and autosave.
         quill.on("text-change", function (delta, oldDelta, source) {
             // Only mark dirty when the user edits directly.

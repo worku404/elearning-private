@@ -1,4 +1,13 @@
 (() => {
+const getCookie = (name) => {
+  const cookies = document.cookie ? document.cookie.split("; ") : [];
+  for (const c of cookies) {
+    const [key, ...rest] = c.split("=");
+    if (key === name) return decodeURIComponent(rest.join("="));
+  }
+  return "";
+};
+
 const copyIconMarkupValue = `
   <span class="llm-copy-btn__icon llm-copy-btn__icon--copy" aria-hidden="true">
     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
@@ -230,29 +239,227 @@ const updateOverlay = (state) => {
     const anchorEl = resolveAnchorElement(codeEl, state);
     const anchorRect = anchorEl ? anchorEl.getBoundingClientRect() : codeRect;
 
-    const copyBtn = document.createElement("button");
-    copyBtn.type = "button";
-    copyBtn.className = "llm-copy-btn llm-copy-code";
-    copyBtn.setAttribute("aria-label", "Copy code");
-    copyBtn.setAttribute("title", "Copy code");
-    copyBtn.setAttribute("data-copy-default", "Copy code");
-    copyBtn.setAttribute("data-copy-copied", "Copied");
-    copyBtn.setAttribute("data-copy-failed", "Copy failed");
-    copyBtn.innerHTML = copyIconMarkupValue;
-
-    const targetEl = resolveCodeTarget(codeEl);
-    copyBtn._copyTarget = targetEl;
-    const sourceId = ensureCopySourceId(targetEl);
-    if (sourceId) {
-      copyBtn.setAttribute("data-copy-target", `[data-copy-source-id=\"${sourceId}\"]`);
-    }
-
     const offsetX = Number.isFinite(state.offsetX) ? state.offsetX : 8;
     const offsetY = Number.isFinite(state.offsetY) ? state.offsetY : 8;
-    copyBtn.style.top = `${Math.max(0, anchorRect.top - layerRect.top) + offsetY}px`;
-    copyBtn.style.left = `${Math.max(0, anchorRect.right - layerRect.left) - offsetX}px`;
 
-    state.layer.appendChild(copyBtn);
+    if (state.enableCodeRunner) {
+      // 1. Controls container
+      const controls = document.createElement("div");
+      controls.className = "code-block-controls";
+      controls.style.top = `${Math.max(0, anchorRect.top - layerRect.top) + offsetY}px`;
+      controls.style.left = `${Math.max(0, anchorRect.right - layerRect.left) - offsetX}px`;
+
+      // 2. Language dropdown
+      const select = document.createElement("select");
+      select.className = "code-lang-select";
+      select.setAttribute("aria-label", "Select programming language");
+
+      const languages = [
+        { value: "python", label: "Python" },
+        { value: "javascript", label: "JavaScript" },
+        { value: "c++", label: "C++" }
+      ];
+
+      languages.forEach((lang) => {
+        const option = document.createElement("option");
+        option.value = lang.value;
+        option.textContent = lang.label;
+        select.appendChild(option);
+      });
+
+      // Get saved language or detect
+      let currentLang = codeEl.getAttribute("data-language");
+      if (!currentLang) {
+        // Auto-detect based on contents
+        const text = codeEl.textContent;
+        if (text.includes("console.log") || text.includes("const ") || text.includes("let ") || text.includes("function ")) {
+          currentLang = "javascript";
+        } else if (text.includes("#include") || text.includes("std::") || text.includes("cout") || text.includes("printf")) {
+          currentLang = "c++";
+        } else {
+          currentLang = "python";
+        }
+        codeEl.setAttribute("data-language", currentLang);
+      }
+      select.value = currentLang;
+
+      // Handle language change
+      select.addEventListener("change", (e) => {
+        const newLang = select.value;
+        codeEl.setAttribute("data-language", newLang);
+        // Dispatch custom event to notify editor to save
+        const changeEvent = new CustomEvent("code-block-language-change", {
+          bubbles: true,
+          detail: { codeEl, language: newLang }
+        });
+        select.dispatchEvent(changeEvent);
+      });
+
+      // 3. Run button
+      const runBtn = document.createElement("button");
+      runBtn.type = "button";
+      runBtn.className = "code-run-btn";
+
+      const isRunning = codeEl.dataset.runStatus === "running";
+
+      runBtn.setAttribute("aria-label", isRunning ? "Running code" : "Run code");
+      runBtn.setAttribute("title", isRunning ? "Running" : "Run");
+      runBtn.disabled = isRunning;
+
+      if (isRunning) {
+        runBtn.innerHTML = `
+          <span class="code-run-btn__icon" aria-hidden="true">
+            <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <circle cx="12" cy="12" r="10" stroke-dasharray="30 30" stroke-linecap="round"></circle>
+            </svg>
+          </span>`;
+      } else {
+        runBtn.innerHTML = `
+          <span class="code-run-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"></path>
+            </svg>
+          </span>`;
+      }
+
+      runBtn.addEventListener("click", async () => {
+        if (codeEl.dataset.runStatus === "running") return;
+
+        codeEl.dataset.runStatus = "running";
+        // Re-schedule update to show spinner
+        state.scheduleUpdate();
+
+        try {
+          const codeText = codeEl.textContent.trim();
+          const language = codeEl.getAttribute("data-language") || "python";
+
+          const res = await fetch("/api/execute-code/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": getCookie("csrftoken"),
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({ code: codeText, language }),
+          });
+
+          const data = await res.json();
+
+          if (data.error) {
+            codeEl.dataset.runOutputError = "true";
+            codeEl.dataset.runOutput = `Error: ${data.error}`;
+          } else {
+            const stdout = data.stdout || "";
+            const stderr = data.stderr || "";
+            const exitCode = data.exit_code ?? 0;
+
+            codeEl.dataset.runOutputError = exitCode !== 0 ? "true" : "false";
+            if (!stdout && !stderr) {
+              codeEl.dataset.runOutput = exitCode === 0
+                ? "Ran successfully (no output)"
+                : `Exited with code ${exitCode}`;
+            } else {
+              codeEl.dataset.runOutput = stdout + (stderr ? `\n─── stderr ───\n${stderr}` : "");
+            }
+          }
+          codeEl.dataset.runOutputVisible = "true";
+        } catch (err) {
+          codeEl.dataset.runOutputError = "true";
+          codeEl.dataset.runOutput = `Network error: ${err.message}`;
+          codeEl.dataset.runOutputVisible = "true";
+        } finally {
+          codeEl.dataset.runStatus = "idle";
+          // Re-schedule update to refresh spinner and show output panel
+          state.scheduleUpdate();
+        }
+      });
+
+      // 4. Copy button
+      const copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.className = "llm-copy-btn llm-copy-code";
+      copyBtn.setAttribute("aria-label", "Copy code");
+      copyBtn.setAttribute("title", "Copy code");
+      copyBtn.setAttribute("data-copy-default", "Copy code");
+      copyBtn.setAttribute("data-copy-copied", "Copied");
+      copyBtn.setAttribute("data-copy-failed", "Copy failed");
+      copyBtn.innerHTML = copyIconMarkupValue;
+
+      const targetEl = resolveCodeTarget(codeEl);
+      copyBtn._copyTarget = targetEl;
+      const sourceId = ensureCopySourceId(targetEl);
+      if (sourceId) {
+        copyBtn.setAttribute("data-copy-target", `[data-copy-source-id="${sourceId}"]`);
+      }
+
+      // Append all to controls
+      controls.appendChild(select);
+      controls.appendChild(runBtn);
+      controls.appendChild(copyBtn);
+      state.layer.appendChild(controls);
+
+      // Hide / show based on content
+      const hasCode = codeEl.textContent.trim().length > 0;
+      runBtn.style.display = hasCode ? "inline-flex" : "none";
+      select.style.display = hasCode ? "inline-flex" : "none";
+
+      // 5. Output Panel
+      if (codeEl.dataset.runOutputVisible === "true") {
+        const outputPanel = document.createElement("div");
+        outputPanel.className = "code-output-panel";
+        if (codeEl.dataset.runOutputError === "true") {
+          outputPanel.classList.add("code-output-panel--error");
+        }
+
+        outputPanel.innerHTML = `
+          <div class="code-output-panel__header">
+            <span class="code-output-panel__title">Output</span>
+            <button type="button" class="code-output-panel__close" aria-label="Close output">✕</button>
+          </div>
+          <pre class="code-output-panel__body"></pre>`;
+
+        const outputBody = outputPanel.querySelector(".code-output-panel__body");
+        outputBody.textContent = codeEl.dataset.runOutput || "";
+
+        const closeBtn = outputPanel.querySelector(".code-output-panel__close");
+        closeBtn.addEventListener("click", () => {
+          codeEl.dataset.runOutputVisible = "false";
+          state.scheduleUpdate();
+        });
+
+        // Position output panel below code block
+        outputPanel.style.position = "absolute";
+        outputPanel.style.top = `${codeRect.bottom - layerRect.top + 8}px`;
+        outputPanel.style.left = `${codeRect.left - layerRect.left}px`;
+        outputPanel.style.width = `${codeRect.width}px`;
+        outputPanel.style.pointerEvents = "auto";
+        outputPanel.style.zIndex = "4";
+
+        state.layer.appendChild(outputPanel);
+      }
+    } else {
+      const copyBtn = document.createElement("button");
+      copyBtn.type = "button";
+      copyBtn.className = "llm-copy-btn llm-copy-code";
+      copyBtn.setAttribute("aria-label", "Copy code");
+      copyBtn.setAttribute("title", "Copy code");
+      copyBtn.setAttribute("data-copy-default", "Copy code");
+      copyBtn.setAttribute("data-copy-copied", "Copied");
+      copyBtn.setAttribute("data-copy-failed", "Copy failed");
+      copyBtn.innerHTML = copyIconMarkupValue;
+
+      const targetEl = resolveCodeTarget(codeEl);
+      copyBtn._copyTarget = targetEl;
+      const sourceId = ensureCopySourceId(targetEl);
+      if (sourceId) {
+        copyBtn.setAttribute("data-copy-target", `[data-copy-source-id="${sourceId}"]`);
+      }
+
+      copyBtn.style.top = `${Math.max(0, anchorRect.top - layerRect.top) + offsetY}px`;
+      copyBtn.style.left = `${Math.max(0, anchorRect.right - layerRect.left) - offsetX}px`;
+
+      state.layer.appendChild(copyBtn);
+    }
   });
 };
 
@@ -280,6 +487,9 @@ const registerCodeCopyOverlay = (options = {}) => {
     }
     if (Number.isFinite(options.offsetX)) existing.offsetX = options.offsetX;
     if (Number.isFinite(options.offsetY)) existing.offsetY = options.offsetY;
+    if (options.enableCodeRunner !== undefined) {
+      existing.enableCodeRunner = !!options.enableCodeRunner;
+    }
     scheduleOverlayUpdate(existing);
     return existing;
   }
@@ -296,6 +506,7 @@ const registerCodeCopyOverlay = (options = {}) => {
     anchorSelector: typeof options.anchorSelector === "string" ? options.anchorSelector : null,
     offsetX: Number.isFinite(options.offsetX) ? options.offsetX : 8,
     offsetY: Number.isFinite(options.offsetY) ? options.offsetY : 8,
+    enableCodeRunner: !!options.enableCodeRunner,
     raf: null,
     observer: null,
   };
