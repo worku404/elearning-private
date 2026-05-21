@@ -149,51 +149,53 @@ body.theme-dark {
 
 .code-lang-select {
   font-family: inherit;
-  font-size: 0.58rem !important;
-  font-weight: 500;
-  padding: 0 0.65rem 0 0.25rem !important;
+  font-size: 0.72rem !important;  
+  font-weight: 600;
+  line-height: 1;
+  height: 1.5rem !important;        /* match the control strip height */
+  min-height: 0 !important;  
+  padding: 0 !important;
   border: 1px solid transparent !important;
-  border-radius: 3px !important;
-  background-color: rgba(0, 0, 0, 0.035) !important;
-  color: var(--notes-code-block-muted, #607085);
+  border-radius: 2px !important;
+  background-color: rgba(248, 250, 252, 0.92) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa4b2' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  color: #7a8491;
   cursor: pointer;
   outline: none;
-  
-  /* Custom select appearance resets */
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
-  
-  /* Chevron indicator definition */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23607085' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
-  background-position: right 0.18rem center !important;
-  background-size: 0.45rem !important;
-  
-  height: 1.15rem !important;
-  min-width: 2.6rem !important; /* Slightly increased to fit abbreviation + chevron cleanly */
+  background-position: right 0.28rem center !important;
+  background-size: 0.42rem !important;
+  width: 5.1rem !important;
   display: inline-block !important;
   box-sizing: border-box !important;
-  pointer-events: auto !important; /* CRITICAL: Enables pointer events inside pointer-events: none layer */
+  pointer-events: auto !important;
   transition: border-color 0.16s, color 0.16s, background-color 0.16s;
+}
+.code-lang-select option {
+  color: #cbd5e1 !important;
+  background-color: #1e2a38 !important;
 }
 
 .theme-dark .code-lang-select {
-  background-color: rgba(255, 255, 255, 0.045) !important;
-  color: var(--notes-code-block-muted, #8b949e);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-color: rgba(255, 255, 255, 0.055) !important;
+  color: #9aa4b2;
 }
 
-.code-lang-select:hover {
-  border-color: color-mix(in srgb, var(--notes-code-block-border, #d6e0eb) 45%, transparent) !important;
-  background-color: rgba(0, 0, 0, 0.075) !important;
-  color: var(--color-text, #1b2630);
+.code-lang-select:hover,
+.code-lang-select:focus-visible {
+  border-color: rgba(122, 132, 145, 0.24) !important;
+  background-color: rgba(241, 245, 249, 0.98) !important;
+  color: #475569;
 }
 
-.theme-dark .code-lang-select:hover {
-  color: var(--color-text, #c9d1d9);
-  border-color: color-mix(in srgb, var(--notes-code-block-border, #30363d) 45%, transparent) !important;
-  background-color: rgba(255, 255, 255, 0.09) !important;
+.theme-dark .code-lang-select:hover,
+.theme-dark .code-lang-select:focus-visible {
+  border-color: rgba(154, 164, 178, 0.22) !important;
+  background-color: rgba(255, 255, 255, 0.085) !important;
+  color: #cbd5e1;
 }
 
 .code-block-controls .code-run-btn,
@@ -282,5 +284,3 @@ body.theme-dark {
   max-height: none !important;
   overflow: auto !important;
 }
-
-

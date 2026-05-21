@@ -1171,39 +1171,6 @@ body.notes-open .notes-backdrop {
     overflow-y: hidden;
 }
 
-/* IDE-style code block chrome. */
-.notes-panel .notes-editor .ql-editor pre.ql-syntax::before,
-.notes-panel .notes-editor .ql-editor pre::before {
-    content: "";
-    position: absolute;
-    top: 0.78rem;
-    left: 0.95rem;
-    width: 3.1rem;
-    height: 0.72rem;
-    background:
-        radial-gradient(circle, var(--notes-code-block-muted) 0 2.7px, transparent 2.8px) 0 50% / 0.9rem 0.9rem no-repeat,
-        radial-gradient(circle, var(--notes-code-block-muted) 0 2.7px, transparent 2.8px) 1rem 50% / 0.9rem 0.9rem no-repeat,
-        radial-gradient(circle, var(--notes-code-block-muted) 0 2.7px, transparent 2.8px) 2rem 50% / 0.9rem 0.9rem no-repeat;
-    opacity: 0.8;
-    pointer-events: none;
-}
-
-/* Small label to make the block feel more like an editor window. */
-.notes-panel .notes-editor .ql-editor pre.ql-syntax::after,
-.notes-panel .notes-editor .ql-editor pre::after {
-    content: "code";
-    position: absolute;
-    top: 0.62rem;
-    left: 4.1rem;
-    color: var(--notes-code-block-muted);
-    font-family: var(--notes-code-font-family);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.85;
-    pointer-events: none;
-}
 
 /* Prevent inline-code styling from leaking into code blocks if nested markup exists. */
 .notes-panel .notes-editor .ql-editor pre code {
@@ -1235,7 +1202,7 @@ body.notes-open .notes-backdrop {
     /* Center content both axes. */
     place-items: center;
     /* Ensure it sits above content. */
-    z-index: 3;
+    z-index: 100;
 }
 
 /* Respect the hidden attribute on the save modal. */

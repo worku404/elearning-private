@@ -1056,7 +1056,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 root: quill.root,
                 host: overlayHost || quill.root,
                 scrollContainer: quill.root,
-                codeSelector: "pre.ql-syntax",
+                codeSelector: "pre.ql-syntax, pre",
                 offsetX: 8,
                 offsetY: 8,
                 enableCodeRunner: true,

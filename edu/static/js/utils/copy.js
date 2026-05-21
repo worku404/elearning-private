@@ -262,9 +262,9 @@ const updateOverlay = (state) => {
       select.setAttribute("aria-label", "Select programming language");
 
       const languages = [
-        { value: "python", label: "Py" },
-        { value: "javascript", label: "JS" },
-        { value: "c++", label: "C" }
+        { value: "python", label: "Python" },
+        { value: "javascript", label: "JavaScript" },
+        { value: "c++", label: "C++" }
       ];
 
       languages.forEach((lang) => {
