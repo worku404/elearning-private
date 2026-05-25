@@ -264,25 +264,26 @@ const updateOverlay = (state) => {
       const languages = [
         { value: "python", label: "Python" },
         { value: "javascript", label: "JavaScript" },
-        { value: "c++", label: "C++" }
+        { value: "c++", label: "C++" },
+        {value: "sqlite3", label: "SQL"}
       ];
-
-      languages.forEach((lang) => {
+languages.forEach((lang) => {
         const option = document.createElement("option");
         option.value = lang.value;
         option.textContent = lang.label;
         select.appendChild(option);
       });
 
-      // Get saved language or detect
+      // Unified Language Auto-Detection
       let currentLang = codeEl.getAttribute("data-language");
       if (!currentLang) {
-        // Auto-detect based on contents
         const text = codeEl.textContent;
         if (text.includes("console.log") || text.includes("const ") || text.includes("let ") || text.includes("function ")) {
           currentLang = "javascript";
         } else if (text.includes("#include") || text.includes("std::") || text.includes("cout") || text.includes("printf")) {
           currentLang = "c++";
+        } else if (/\b(select|insert|update|delete|create|table|where|from)\b/i.test(text)) {
+          currentLang = "sqlite3";
         } else {
           currentLang = "python";
         }
@@ -290,11 +291,10 @@ const updateOverlay = (state) => {
       }
       select.value = currentLang;
 
-      // Handle language change
-      select.addEventListener("change", (e) => {
+      // Handle dropdown modifications
+      select.addEventListener("change", () => {
         const newLang = select.value;
         codeEl.setAttribute("data-language", newLang);
-        // Dispatch custom event to notify editor to save
         const changeEvent = new CustomEvent("code-block-language-change", {
           bubbles: true,
           detail: { codeEl, language: newLang }
