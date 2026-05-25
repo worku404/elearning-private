@@ -98,6 +98,7 @@
     <body
         class="app-body{% if request.user.is_authenticated %} has-assistant assistant-hidden{% endif %}{% if app_name != 'notes' %} app-body--modern{% endif %}"
     >
+        {% endwith %}
         <script>
             // Prevent dark-mode flash: project styles depend on body.theme-dark
             (function () {
@@ -807,6 +808,5 @@
             {% block domready %}{% endblock %}
                 });
         </script>
-        {% endwith %}
     </body>
 </html>
