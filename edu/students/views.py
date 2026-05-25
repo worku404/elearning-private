@@ -317,6 +317,7 @@ class StudentCourseDetailView(LoginRequiredMixin, DetailView):
         context["course_progress"] = course_progress
         context["course_progress_percent"] = round(course_progress.progress_percent, 2)
         context["course_completed"] = course_progress.completed
+        context["current_course_id"] = course.id
         return context
 
 class MarkModuleCompleteView(LoginRequiredMixin, View):
