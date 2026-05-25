@@ -1,0 +1,45 @@
+@media (max-width: 900px) {
+	.li-goals-hero__head,
+	.li-goal-card__header {
+		grid-template-columns: 1fr;
+	}
+
+	.li-goals-hero__actions,
+	.li-goals-filters__actions,
+	.li-goal-card__actions {
+		width: 100%;
+	}
+
+	.li-goal-card__progress {
+		width: 100%;
+		justify-self: stretch;
+	}
+
+	.li-goals-summary > .c-card {
+		min-height: 6.5rem;
+	}
+}
+
+@media (max-width: 640px) {
+	.li-goals-hero__actions,
+	.li-goals-filters__actions,
+	.li-goal-card__actions .li-row-actions-sm {
+		width: 100%;
+	}
+
+	.li-goals-hero__actions .c-btn,
+	.li-goals-filters__actions .c-btn,
+	.li-goal-card__actions .c-btn,
+	.li-goals-pagination .c-btn {
+		flex: 1 1 100%;
+		width: 100%;
+	}
+
+	.li-goal-progress__head {
+		margin-bottom: 0.65rem;
+	}
+
+	.li-goal-progress__value {
+		font-size: 1.25rem;
+	}
+}

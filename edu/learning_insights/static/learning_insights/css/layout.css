@@ -60,12 +60,7 @@
     grid-template-columns: 1fr 1fr;
 }
 
-@media (max-width: 900px) {
-    .li-grid-split,
-    .li-grid-two {
-        grid-template-columns: 1fr;
-    }
-}
+@import url("responsive/layout.css");
 
 .li-list {
     margin: var(--space-4) 0 0 0;
@@ -213,4 +208,3 @@
     padding-top: var(--space-4);
     border-top: 1px solid var(--li-soft-border);
 }
-

@@ -12,12 +12,19 @@
     overflow: hidden;
     padding: 0;
     flex-shrink: 0;
-    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
 }
 
 .account-fab:hover {
     transform: translateY(-1px);
-    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    border-color: color-mix(
+        in srgb,
+        var(--color-accent) 55%,
+        var(--color-border)
+    );
     box-shadow: 0 10px 24px rgba(var(--color-shadow), 0.18);
 }
 
@@ -41,7 +48,9 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.22s ease, visibility 0.22s ease;
+    transition:
+        opacity 0.22s ease,
+        visibility 0.22s ease;
 }
 
 .account-menu-overlay.is-open {
@@ -61,7 +70,11 @@
     background: linear-gradient(
         145deg,
         color-mix(in srgb, var(--color-surface) 95%, var(--color-bg)),
-        color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface))
+        color-mix(
+            in srgb,
+            var(--color-surface) 88%,
+            var(--color-secondary-surface)
+        )
     );
     box-shadow: 0 24px 48px rgba(var(--color-shadow), 0.18);
     backdrop-filter: blur(12px);
@@ -71,7 +84,10 @@
     pointer-events: none;
     transform: translateY(-8px) scale(0.98);
     transform-origin: top right;
-    transition: opacity 0.22s ease, transform 0.25s ease, visibility 0.22s ease;
+    transition:
+        opacity 0.22s ease,
+        transform 0.25s ease,
+        visibility 0.22s ease;
 }
 
 .account-menu.is-open {
@@ -86,7 +102,8 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--color-border) 85%, transparent);
     padding-bottom: 12px;
 }
 
@@ -135,14 +152,24 @@
     text-align: center;
     display: inline-block;
     font-weight: 600;
-    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+    background: color-mix(
+        in srgb,
+        var(--color-accent) 10%,
+        var(--color-surface)
+    );
     color: var(--color-text);
-    transition: transform 0.18s ease, background 0.18s ease;
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
 }
 
 .account-menu__action:hover,
 .account-menu__logout-btn:hover {
-    background: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
+    background: color-mix(
+        in srgb,
+        var(--color-accent) 16%,
+        var(--color-surface)
+    );
     transform: translateY(-1px);
 }
 
@@ -152,13 +179,11 @@
 
 .account-menu__logout-btn {
     cursor: pointer;
-    background: color-mix(in srgb, var(--color-error) 14%, var(--color-surface));
+    background: color-mix(
+        in srgb,
+        var(--color-error) 14%,
+        var(--color-surface)
+    );
 }
 
-@media (max-width: 720px) {
-    .account-menu {
-        right: 12px;
-        top: 78px;
-        width: calc(100vw - 24px);
-    }
-}
+@import url("responsive/account-menu.css");

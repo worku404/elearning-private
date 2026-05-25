@@ -1,0 +1,49 @@
+@media (max-width: 900px) {
+    /* Stretch the panel to full width on small screens. */
+    .notes-panel {
+        /* Use full viewport width. */
+        width: 100vw;
+        /* Remove right border to prevent clipping. */
+        border-right: none;
+    }
+    /* Hide sidebar by default on small screens. */
+    .notes-panel__body {
+        /* Use a single-column layout. */
+        grid-template-columns: minmax(0, 1fr);
+    }
+    /* Keep the sidebar overlaid when opened. */
+    .notes-panel.notes-sidebar-open .notes-sidebar {
+        /* Position sidebar over the editor. */
+        position: absolute;
+        /* Anchor to the left side. */
+        left: 0;
+        /* Anchor to the top under the header. */
+        top: 0;
+        /* Match the panel height. */
+        height: 100%;
+        /* Set a max width for mobile. */
+        width: min(85vw, 280px);
+        /* Ensure sidebar sits above the editor. */
+        z-index: 4;
+        /* Add a right border for separation. */
+        border-right: 1px solid var(--notes-panel-border);
+    }
+}
+
+/* REMOVE the redundant desktop media query - the base rule already handles it */
+/* DELETE this entire block: */
+@media (min-width: 901px) {
+    .notes-panel {
+        width: var(--notes-panel-width);
+    }
+}
+
+/* The mobile override stays as-is */
+@media (max-width: 900px) {
+    .notes-panel {
+        width: 100vw;
+    }
+    .notes-panel__resize-handle {
+        display: none;
+    }
+}

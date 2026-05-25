@@ -1,0 +1,6 @@
+@media (max-width: 640px) {
+    .account-card,
+    .auth-card {
+        border-radius: 14px;
+    }
+}

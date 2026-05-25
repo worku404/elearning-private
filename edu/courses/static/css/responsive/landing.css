@@ -1,0 +1,517 @@
+/* ================== RESPONSIVE (tablets & phones only; default = laptop+) ================== */
+@media (max-width: 1024px) {
+    header {
+        padding: 0.85rem 0;
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.65rem 1rem;
+        padding: 0 1.25rem;
+    }
+
+    .logo {
+        flex: 1 1 auto;
+        min-width: 0;
+        justify-content: flex-start;
+        font-size: clamp(1.1rem, 2.8vw, 1.35rem);
+    }
+
+    .logo span {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    nav {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        row-gap: 0.35rem;
+        column-gap: 1rem;
+    }
+
+    nav a {
+        font-size: 0.88rem;
+    }
+
+    .header-actions {
+        flex: 0 1 auto;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .header-actions .btn {
+        padding: 0.55rem 1rem;
+        font-size: 0.88rem;
+    }
+
+    .hero {
+        padding: 3.5rem 1.25rem;
+    }
+
+    .hero-container,
+    .app-highlight-container,
+    .why-choose-container,
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: clamp(2.25rem, 5vw, 3rem);
+    }
+
+    .hero-content {
+        text-align: center;
+        min-width: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 42rem;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    /* Blobs use position:absolute; without this they attach to .hero and cover the headline */
+    .hero-visual {
+        position: relative;
+        isolation: isolate;
+        min-width: 0;
+        max-width: 100%;
+        margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+    }
+
+    .hero-visual .blob {
+        z-index: 0;
+        pointer-events: none;
+        animation: none;
+    }
+
+    .hero-visual-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-visual .hero-image {
+        scale: 1;
+        position: relative;
+        right: auto;
+        left: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        max-width: min(400px, 100%);
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.85rem, 4.5vw, 2.5rem);
+    }
+
+    .app-highlight {
+        height: auto;
+        padding: 3rem 1.25rem;
+    }
+
+    .app-highlight-content h2,
+    .app-highlight-content p {
+        text-align: center;
+    }
+
+    .app-highlight-content .btn {
+        display: inline-flex;
+    }
+
+    .app-mockup {
+        isolation: isolate;
+        height: auto;
+        min-height: 260px;
+        padding: 1.5rem 0;
+        margin-top: clamp(1.25rem, 3.5vw, 2rem);
+    }
+
+    .app-mockup .blob {
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.6;
+        animation: none;
+    }
+
+    .app-mockup .hero-image {
+        position: relative;
+        z-index: 1;
+        right: auto;
+        left: auto;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        max-width: min(400px, 100%);
+    }
+
+    .features,
+    .testimonials,
+    .pricing,
+    .why-choose,
+    .cta {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .features-grid,
+    .testimonials-grid,
+    .why-features {
+        grid-template-columns: 1fr;
+    }
+
+    .why-choose h2 {
+        text-align: center;
+        font-size: clamp(1.65rem, 4vw, 2.25rem);
+    }
+
+    .why-choose-container > div:first-of-type {
+        position: relative;
+        z-index: 2;
+    }
+
+    .why-features {
+        max-width: 36rem;
+        margin: 0 auto;
+    }
+
+    .why-visual {
+        isolation: isolate;
+        position: relative;
+        height: auto;
+        min-height: 280px;
+        padding: 1.5rem 0 2rem;
+        margin-top: clamp(1.5rem, 4vw, 2.75rem);
+    }
+
+    /* Decorative orb sits behind the phone, not over copy */
+    .why-visual .blob-large {
+        position: absolute;
+        z-index: 0;
+        left: 50%;
+        top: 45%;
+        width: min(260px, 72vw);
+        height: min(260px, 72vw);
+        margin: 0;
+        transform: translate(-50%, -50%);
+        opacity: 0.5;
+        animation: none;
+        pointer-events: none;
+    }
+
+    /* Wrapper only (img also carries .app-feature-mockup in markup) */
+    .why-visual > .app-feature-mockup {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: min(420px, 100%);
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .why-visual > .app-feature-mockup img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0 0.25rem;
+    }
+
+    .cta-container {
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Thin top bar: logo + menu toggle; links and CTAs in collapsible panel */
+    header {
+        padding: 0.45rem 0;
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        row-gap: 0;
+        column-gap: 0.5rem;
+        padding: 0 0.875rem;
+    }
+
+    .logo {
+        font-size: 1.05rem;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .logo span {
+        width: 26px;
+        height: 26px;
+        font-size: 0.85rem;
+    }
+
+    .landing-nav-toggle {
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+
+    .landing-menu {
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        width: 100%;
+        padding-top: 0.65rem;
+        margin-top: 0.35rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .landing-header--nav-open .landing-menu {
+        display: flex;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    nav a:last-child {
+        border-bottom: none;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        margin-top: 0.15rem;
+    }
+
+    .header-actions .btn {
+        flex: 1;
+        min-width: 0;
+        justify-content: center;
+        padding: 0.55rem 0.65rem;
+        font-size: 0.82rem;
+    }
+
+    .hero {
+        padding: 2.5rem 1rem;
+    }
+
+    .hero-container {
+        gap: clamp(2.5rem, 6vw, 3.5rem);
+    }
+
+    .hero-visual {
+        margin-top: clamp(2rem, 6vw, 3rem);
+    }
+
+    .app-mockup {
+        margin-top: clamp(1.75rem, 5vw, 2.75rem);
+        padding-top: 0.75rem;
+    }
+
+    .why-visual {
+        margin-top: clamp(1.75rem, 5vw, 3rem);
+        padding-top: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.65rem, 6vw, 2.1rem);
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Inline row under hero CTAs (inline styles in template) */
+    .hero-content > div:not(.hero-buttons) {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        text-align: center;
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.45rem, 5vw, 1.9rem);
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    .app-highlight-content h2 {
+        font-size: clamp(1.45rem, 5vw, 2rem);
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .blog-header h2 {
+        font-size: clamp(1.45rem, 5vw, 2rem);
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-col ul {
+        padding: 0;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta h2 {
+        font-size: clamp(1.35rem, 5vw, 1.75rem);
+    }
+}
+
+/* Phones (narrow) — layout tightening only */
+@media (max-width: 480px) {
+    header {
+        padding: 0.35rem 0;
+    }
+
+    .header-container {
+        padding: 0 0.75rem;
+    }
+
+    .logo {
+        font-size: 0.98rem;
+    }
+
+    nav a {
+        font-size: 0.85rem;
+    }
+
+    .header-actions .btn {
+        font-size: 0.78rem;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .hero {
+        padding: 2rem 0.875rem;
+    }
+
+    .features,
+    .testimonials,
+    .pricing,
+    .why-choose,
+    .cta,
+    .blog,
+    footer {
+        padding-left: 0.875rem;
+        padding-right: 0.875rem;
+    }
+
+    .blog-header {
+        margin-bottom: 2rem;
+    }
+
+    .pricing-card,
+    .testimonial-card {
+        padding: 1.35rem;
+    }
+
+    .footer-bottom p {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+}
+
+/* ================== BLOG SECTION ================== */
+@media (max-width: 1024px) {
+    .blog {
+        padding: 3.5rem 1.25rem;
+        padding-top: 4rem;
+    }
+
+    .blog-header {
+        align-items: flex-start;
+    }
+
+    .blog-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .blog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog {
+        padding-top: 3rem;
+    }
+
+    .blog-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .blog-header .btn {
+        align-self: stretch;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================== SCROLL REVEAL ================== */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll,
+    .reveal-on-scroll.is-revealed,
+    .reveal-section,
+    .reveal-item {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+    }
+}

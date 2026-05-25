@@ -1,0 +1,9 @@
+@media (max-width: 1080px) {
+    body.assistant-sidebar-open #content {
+        margin-right:0;
+    }
+
+    body.assistant-sidebar-open .assistance {
+        width:100vw;
+    }
+}

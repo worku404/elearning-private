@@ -5,7 +5,7 @@
 
 html,
 body {
-    scrollbar-color: #54586D #282A36;
+    scrollbar-color: #54586d #282a36;
     scrollbar-width: thin;
 }
 
@@ -16,12 +16,12 @@ body::-webkit-scrollbar {
 
 html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
-    background: #282A36;
+    background: #282a36;
 }
 
 html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
-    background: #54586D;
+    background: #54586d;
     border-radius: 999px;
 }
 
@@ -167,26 +167,7 @@ input[type="submit"]:hover {
     font-size: var(--fs-0);
 }
 
-@media (max-width: 1200px) {
-    .catalog-layout,
-    .course-workspace {
-        grid-template-columns: 1fr;
-    }
-
-    .course-workspace.modules-collapsed .module {
-        width: 100%;
-    }
-
-    .course-workspace .contents {
-        position: static;
-        max-height: none;
-        overflow: visible;
-    }
-
-    .c-filter-panel {
-        position: static;
-    }
-}
+@import url("responsive/pages.css");
 
 @media (max-width: 900px) {
     .page-title {

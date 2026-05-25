@@ -20,7 +20,11 @@
     background: linear-gradient(
         145deg,
         color-mix(in srgb, var(--color-surface) 92%, var(--color-bg)),
-        color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface))
+        color-mix(
+            in srgb,
+            var(--color-surface) 88%,
+            var(--color-secondary-surface)
+        )
     );
     border-radius: 18px;
     padding: clamp(16px, 2vw, 28px);
@@ -119,7 +123,11 @@
     background: linear-gradient(
         145deg,
         color-mix(in srgb, var(--color-surface) 92%, var(--color-bg)),
-        color-mix(in srgb, var(--color-surface) 88%, var(--color-secondary-surface))
+        color-mix(
+            in srgb,
+            var(--color-surface) 88%,
+            var(--color-secondary-surface)
+        )
     );
     box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.12);
     padding: clamp(16px, 2vw, 24px);
@@ -178,9 +186,4 @@
     color: var(--color-accent);
 }
 
-@media (max-width: 640px) {
-    .account-card,
-    .auth-card {
-        border-radius: 14px;
-    }
-}
+@import url("responsive/account-auth.css");

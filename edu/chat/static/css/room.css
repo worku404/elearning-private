@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    animation: fadeIn .15s ease;
+    animation: fadeIn 0.15s ease;
 }
 
 /* Incoming */
@@ -80,7 +80,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 11px;
-    opacity: .6;
+    opacity: 0.6;
 }
 
 #chat .text {
@@ -145,7 +145,7 @@
     align-items: center;
     gap: 12px;
     padding: 16px 20px;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Text input */
@@ -160,7 +160,7 @@
     color: white;
     font-size: 14px;
     outline: none;
-    transition: background .2s ease;
+    transition: background 0.2s ease;
 }
 
 #chat-message-input:focus {
@@ -180,67 +180,38 @@
     color: white;
     font-weight: 500;
     cursor: pointer;
-    transition: transform .1s ease, opacity .2s ease;
+    transition:
+        transform 0.1s ease,
+        opacity 0.2s ease;
 }
 
 #chat-message-submit:hover {
-    opacity: .9;
+    opacity: 0.9;
 }
 
 #chat-message-submit:active {
-    transform: scale(.97);
+    transform: scale(0.97);
 }
 
 /* ===================================================== */
 /* RESPONSIVE                                            */
 /* ===================================================== */
 
-@media (max-width: 1024px) {
-    #chat {
-        padding: 18px;
-    }
-
-    #chat .message {
-        max-width: 75%;
-    }
-}
-
-@media (max-width: 768px) {
-    #chat-room-shell {
-        height: calc(100dvh - 100px);
-    }
-
-    #chat {
-        padding: 14px;
-        gap: 10px;
-    }
-
-    #chat .message {
-        max-width: 85%;
-        font-size: 13px;
-    }
-
-    #chat .chat-empty-state {
-        width: 100%;
-        border-radius: 18px;
-    }
-
-    #chat-input {
-        padding: 12px;
-    }
-
-    #chat-message-submit {
-        padding: 10px 16px;
-    }
-}
+@import url("responsive/room.css");
 
 /* ===================================================== */
 /* ANIMATION                                             */
 /* ===================================================== */
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===================================================== */
@@ -292,5 +263,5 @@ body:not(.theme-dark) #chat-message-input:focus {
 }
 
 body:not(.theme-dark) #chat::-webkit-scrollbar-thumb {
-    background: #FFFFFF;
+    background: #ffffff;
 }

@@ -27,39 +27,88 @@
     /* Notes scrollbar thumb hover color for light mode. */
     --notes-scrollbar-thumb-hover: rgba(53, 110, 247, 0.68);
     /* Notes scrollbar track color for light mode. */
-    --notes-scrollbar-track: rgba(53, 110, 247, 0.10);
+    --notes-scrollbar-track: rgba(53, 110, 247, 0.1);
     /* Shell surface used behind the notes header and body. */
-    --notes-shell-surface: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 96%, #f4f7fb) 0%, var(--color-surface) 100%);
+    --notes-shell-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 96%, #f4f7fb) 0%,
+        var(--color-surface) 100%
+    );
     /* Soft border used around grouped notes controls. */
-    --notes-shell-border: color-mix(in srgb, var(--notes-panel-border) 80%, transparent);
+    --notes-shell-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 80%,
+        transparent
+    );
     /* Sidebar surface used for the note list column. */
-    --notes-sidebar-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-sidebar-bg) 92%, #eef3fb) 0%, var(--notes-sidebar-bg) 100%);
+    --notes-sidebar-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-sidebar-bg) 92%, #eef3fb) 0%,
+        var(--notes-sidebar-bg) 100%
+    );
     /* Control background used across sidebar and header buttons. */
-    --notes-sidebar-control-bg: color-mix(in srgb, var(--color-surface) 94%, var(--notes-sidebar-bg));
+    --notes-sidebar-control-bg: color-mix(
+        in srgb,
+        var(--color-surface) 94%,
+        var(--notes-sidebar-bg)
+    );
     /* Control border used across sidebar and header buttons. */
-    --notes-sidebar-control-border: color-mix(in srgb, var(--notes-panel-border) 72%, transparent);
+    --notes-sidebar-control-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 72%,
+        transparent
+    );
     /* Card surface used for individual note items. */
-    --notes-item-surface: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 94%, var(--notes-sidebar-bg)) 0%, color-mix(in srgb, var(--color-surface) 88%, var(--notes-sidebar-bg)) 100%);
+    --notes-item-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 94%, var(--notes-sidebar-bg)) 0%,
+        color-mix(in srgb, var(--color-surface) 88%, var(--notes-sidebar-bg))
+            100%
+    );
     /* Active note surface. */
-    --notes-item-surface-active: linear-gradient(180deg, color-mix(in srgb, var(--notes-accent) 18%, var(--color-surface)) 0%, color-mix(in srgb, var(--notes-accent) 12%, var(--color-surface)) 100%);
+    --notes-item-surface-active: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-accent) 18%, var(--color-surface)) 0%,
+        color-mix(in srgb, var(--notes-accent) 12%, var(--color-surface)) 100%
+    );
     /* Border color for note cards. */
-    --notes-item-border: color-mix(in srgb, var(--notes-panel-border) 78%, transparent);
+    --notes-item-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 78%,
+        transparent
+    );
     /* Shadow for note cards. */
     --notes-item-shadow: 0 10px 24px rgba(var(--color-shadow), 0.08);
     /* Surface used by the editor card. */
-    --notes-editor-surface: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 96%, #f4f7fb) 0%, var(--color-surface) 100%);
+    --notes-editor-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 96%, #f4f7fb) 0%,
+        var(--color-surface) 100%
+    );
     /* Border used around the editor card. */
-    --notes-editor-border: color-mix(in srgb, var(--notes-panel-border) 78%, transparent);
+    --notes-editor-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 78%,
+        transparent
+    );
     /* Shadow used by the editor card. */
     --notes-editor-shadow: 0 18px 42px rgba(var(--color-shadow), 0.12);
     /* Surface used by the save modal card. */
-    --notes-modal-surface: linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 96%, #f6f8fc) 0%, var(--color-surface) 100%);
+    --notes-modal-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-surface) 96%, #f6f8fc) 0%,
+        var(--color-surface) 100%
+    );
     /* Shadow used by the save modal card. */
     --notes-modal-shadow: 0 28px 64px rgba(var(--color-shadow), 0.24);
     /* Accent color used for highlights. */
     --notes-accent: var(--color-accent);
     /* Bold text color inside the editor. */
-    --notes-bold-color: color-mix(in srgb, var(--notes-accent) 75%, var(--color-text));
+    --notes-bold-color: color-mix(
+        in srgb,
+        var(--notes-accent) 75%,
+        var(--color-text)
+    );
 
     /* Theme-aware note color tokens used by the toolbar swatches. */
     --notes-color-contrast: #000000;
@@ -74,8 +123,16 @@
     --notes-color-red-text: #1d0a08;
 
     /* Theme-aware helper colors used inside the notes editor. */
-    --notes-timestamp-color: color-mix(in srgb, var(--color-primary) 68%, var(--color-text));
-    --notes-copy-success-color: color-mix(in srgb, var(--color-primary) 72%, var(--color-text));
+    --notes-timestamp-color: color-mix(
+        in srgb,
+        var(--color-primary) 68%,
+        var(--color-text)
+    );
+    --notes-copy-success-color: color-mix(
+        in srgb,
+        var(--color-primary) 72%,
+        var(--color-text)
+    );
     --notes-copy-error-color: var(--color-error);
 
     /* ============================================= */
@@ -83,7 +140,10 @@
     /* ============================================= */
 
     /* Shared font stack for inline + block code. */
-    --notes-code-font-family: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --notes-code-font-family:
+        "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
+        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", monospace;
     /* Code line height tuned for dense text. */
     --notes-code-line-height: 1.58;
     /* Slightly larger than the body text for editor readability. */
@@ -104,9 +164,21 @@
     --notes-code-block-padding: var(--space-3);
 
     /* Inline code surface. */
-    --notes-code-inline-bg: color-mix(in srgb, var(--notes-code-block-bg) 84%, var(--color-surface));
-    --notes-code-inline-border: color-mix(in srgb, var(--notes-code-block-border) 70%, transparent);
-    --notes-code-inline-text: color-mix(in srgb, var(--color-warning) 88%, var(--color-text));
+    --notes-code-inline-bg: color-mix(
+        in srgb,
+        var(--notes-code-block-bg) 84%,
+        var(--color-surface)
+    );
+    --notes-code-inline-border: color-mix(
+        in srgb,
+        var(--notes-code-block-border) 70%,
+        transparent
+    );
+    --notes-code-inline-text: color-mix(
+        in srgb,
+        var(--color-warning) 88%,
+        var(--color-text)
+    );
 
     /* Legacy aliases (kept so older selectors remain theme-aware). */
     --notes-code-bg: var(--notes-code-inline-bg);
@@ -133,31 +205,76 @@ body.theme-dark {
     /* Notes scrollbar track color for dark mode. */
     --notes-scrollbar-track: rgba(220, 228, 241, 0.06);
     /* Shell surface used behind the notes header and body. */
-    --notes-shell-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%, var(--notes-panel-bg) 100%);
+    --notes-shell-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%,
+        var(--notes-panel-bg) 100%
+    );
     /* Soft border used around grouped notes controls. */
-    --notes-shell-border: color-mix(in srgb, var(--notes-panel-border) 84%, transparent);
+    --notes-shell-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 84%,
+        transparent
+    );
     /* Sidebar surface used for the note list column. */
-    --notes-sidebar-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-sidebar-bg) 92%, #172131) 0%, var(--notes-sidebar-bg) 100%);
+    --notes-sidebar-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-sidebar-bg) 92%, #172131) 0%,
+        var(--notes-sidebar-bg) 100%
+    );
     /* Control background used across sidebar and header buttons. */
-    --notes-sidebar-control-bg: color-mix(in srgb, var(--color-surface) 90%, #13202f);
+    --notes-sidebar-control-bg: color-mix(
+        in srgb,
+        var(--color-surface) 90%,
+        #13202f
+    );
     /* Control border used across sidebar and header buttons. */
-    --notes-sidebar-control-border: color-mix(in srgb, var(--notes-panel-border) 86%, transparent);
+    --notes-sidebar-control-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 86%,
+        transparent
+    );
     /* Card surface used for individual note items. */
-    --notes-item-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-sidebar-bg) 94%, #172131) 0%, color-mix(in srgb, var(--notes-sidebar-bg) 88%, #0b121a) 100%);
+    --notes-item-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-sidebar-bg) 94%, #172131) 0%,
+        color-mix(in srgb, var(--notes-sidebar-bg) 88%, #0b121a) 100%
+    );
     /* Active note surface. */
-    --notes-item-surface-active: linear-gradient(180deg, color-mix(in srgb, var(--notes-accent) 22%, var(--notes-sidebar-bg)) 0%, color-mix(in srgb, var(--notes-accent) 14%, var(--notes-sidebar-bg)) 100%);
+    --notes-item-surface-active: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-accent) 22%, var(--notes-sidebar-bg)) 0%,
+        color-mix(in srgb, var(--notes-accent) 14%, var(--notes-sidebar-bg))
+            100%
+    );
     /* Border color for note cards. */
-    --notes-item-border: color-mix(in srgb, var(--notes-panel-border) 88%, transparent);
+    --notes-item-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 88%,
+        transparent
+    );
     /* Shadow for note cards. */
     --notes-item-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
     /* Surface used by the editor card. */
-    --notes-editor-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%, var(--notes-panel-bg) 100%);
+    --notes-editor-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%,
+        var(--notes-panel-bg) 100%
+    );
     /* Border used around the editor card. */
-    --notes-editor-border: color-mix(in srgb, var(--notes-panel-border) 88%, transparent);
+    --notes-editor-border: color-mix(
+        in srgb,
+        var(--notes-panel-border) 88%,
+        transparent
+    );
     /* Shadow used by the editor card. */
     --notes-editor-shadow: 0 24px 52px rgba(0, 0, 0, 0.38);
     /* Surface used by the save modal card. */
-    --notes-modal-surface: linear-gradient(180deg, color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%, var(--notes-panel-bg) 100%);
+    --notes-modal-surface: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-panel-bg) 94%, #172131) 0%,
+        var(--notes-panel-bg) 100%
+    );
     /* Shadow used by the save modal card. */
     --notes-modal-shadow: 0 32px 72px rgba(0, 0, 0, 0.48);
     /* Block code (Quill `code-block`) surface for dark theme. */
@@ -232,7 +349,9 @@ body.theme-dark {
     /* Prevent interactions when hidden. */
     pointer-events: none;
     /* Smooth transitions for open/close. */
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
     /* Ensure panel sits above most UI layers. */
     z-index: 1250;
 }
@@ -299,9 +418,14 @@ body.notes-open .notes-backdrop {
     /* Ensure header stays above body content. */
     z-index: 2;
     /* Match header background to panel. */
-    background: color-mix(in srgb, var(--notes-panel-bg) 92%, var(--color-surface-soft));
+    background: color-mix(
+        in srgb,
+        var(--notes-panel-bg) 92%,
+        var(--color-surface-soft)
+    );
     /* Add a subtle depth cue. */
-    box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--notes-shell-border) 70%, transparent);
+    box-shadow: inset 0 -1px 0
+        color-mix(in srgb, var(--notes-shell-border) 70%, transparent);
 }
 
 /* Hamburger button styling. */
@@ -333,7 +457,11 @@ body.notes-open .notes-backdrop {
 /* Hover state for hamburger button. */
 .notes-panel__hamburger:hover {
     /* Slightly brighten the background. */
-    background: color-mix(in srgb, var(--color-secondary-surface) 70%, var(--color-surface));
+    background: color-mix(
+        in srgb,
+        var(--color-secondary-surface) 70%,
+        var(--color-surface)
+    );
 }
 
 /* Heading container for title + hint. */
@@ -377,7 +505,11 @@ body.notes-open .notes-backdrop {
     /* Group the swatches into a pill-like control strip. */
     padding: 0.25rem;
     /* Use a shared control surface. */
-    background: color-mix(in srgb, var(--notes-sidebar-control-bg) 90%, var(--notes-panel-bg));
+    background: color-mix(
+        in srgb,
+        var(--notes-sidebar-control-bg) 90%,
+        var(--notes-panel-bg)
+    );
     /* Match the rest of the shell. */
     border: 1px solid var(--notes-sidebar-control-border);
     /* Round the whole strip. */
@@ -407,7 +539,8 @@ body.notes-open .notes-backdrop {
     /* Use pointer cursor for interaction. */
     cursor: pointer;
     /* Add a subtle inset ring for visibility. */
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-text) 18%, transparent);
+    box-shadow: inset 0 0 0 1px
+        color-mix(in srgb, var(--color-text) 18%, transparent);
 }
 
 /* Theme-aware color swatches. */
@@ -465,7 +598,11 @@ body.notes-open .notes-backdrop {
     /* Group actions into a compact control strip. */
     padding: 0.25rem;
     /* Use a shared control surface. */
-    background: color-mix(in srgb, var(--notes-sidebar-control-bg) 90%, var(--notes-panel-bg));
+    background: color-mix(
+        in srgb,
+        var(--notes-sidebar-control-bg) 90%,
+        var(--notes-panel-bg)
+    );
     /* Match the shell roundness. */
     border: 1px solid var(--notes-sidebar-control-border);
     /* Round the action group. */
@@ -481,7 +618,11 @@ body.notes-open .notes-backdrop {
     /* Slight rounding to match UI. */
     border-radius: var(--radius-sm);
     /* Use error-tinted background. */
-    background: color-mix(in srgb, var(--color-error) 14%, var(--notes-sidebar-control-bg));
+    background: color-mix(
+        in srgb,
+        var(--color-error) 14%,
+        var(--notes-sidebar-control-bg)
+    );
     /* Use error text color. */
     color: var(--color-error);
     /* Add horizontal padding. */
@@ -523,7 +664,11 @@ body.notes-open .notes-backdrop {
 /* Hover state for close button. */
 .notes-panel__close:hover {
     /* Slightly brighten the background. */
-    background: color-mix(in srgb, var(--color-secondary-surface) 70%, var(--notes-sidebar-control-bg));
+    background: color-mix(
+        in srgb,
+        var(--color-secondary-surface) 70%,
+        var(--notes-sidebar-control-bg)
+    );
 }
 
 /* ============================================= */
@@ -541,7 +686,12 @@ body.notes-open .notes-backdrop {
     /* Prevent overflow from collapsing layout. */
     min-height: 0;
     /* Give the panel body a subtle tonal base. */
-    background: linear-gradient(180deg, color-mix(in srgb, var(--notes-panel-bg) 94%, var(--color-surface-soft)) 0%, var(--notes-panel-bg) 100%);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--notes-panel-bg) 94%, var(--color-surface-soft))
+            0%,
+        var(--notes-panel-bg) 100%
+    );
 }
 
 /* Collapse sidebar when not open. */
@@ -561,7 +711,8 @@ body.notes-open .notes-backdrop {
     /* Add a right border to separate from editor. */
     border-right: 1px solid var(--notes-shell-border);
     /* Give the sidebar a little depth. */
-    box-shadow: inset -1px 0 0 color-mix(in srgb, var(--notes-panel-border) 40%, transparent);
+    box-shadow: inset -1px 0 0
+        color-mix(in srgb, var(--notes-panel-border) 40%, transparent);
     /* Stack sidebar sections vertically. */
     display: grid;
     /* Space out toolbar, search, filter, list, and empty state. */
@@ -604,7 +755,7 @@ body.notes-open .notes-backdrop {
 .notes-editor .ql-container::-webkit-scrollbar-thumb:hover,
 .notes-editor .ql-editor::-webkit-scrollbar-thumb:hover {
     background: var(--notes-scrollbar-thumb-hover);
-    background-color:  red !important;
+    background-color: red !important;
 }
 
 .notes-sidebar::-webkit-scrollbar-corner,
@@ -746,7 +897,11 @@ body.notes-open .notes-backdrop {
 /* Hover state for clear button. */
 .notes-sidebar__search-clear:hover {
     /* Add subtle background on hover. */
-    background: color-mix(in srgb, var(--notes-panel-bg) 55%, var(--color-surface));
+    background: color-mix(
+        in srgb,
+        var(--notes-panel-bg) 55%,
+        var(--color-surface)
+    );
     /* Use standard text color for clarity. */
     color: var(--color-text);
 }
@@ -778,7 +933,11 @@ body.notes-open .notes-backdrop {
     /* Add a light border. */
     border: 1px solid var(--notes-sidebar-control-border);
     /* Use a faint surface so the label reads like a chip. */
-    background: color-mix(in srgb, var(--notes-sidebar-control-bg) 84%, var(--notes-panel-bg));
+    background: color-mix(
+        in srgb,
+        var(--notes-sidebar-control-bg) 84%,
+        var(--notes-panel-bg)
+    );
 }
 
 /* Notes list container. */
@@ -841,7 +1000,11 @@ body.notes-open .notes-backdrop {
     position: absolute;
     inset: 0 auto 0 0;
     width: 3px;
-    background: linear-gradient(180deg, var(--notes-accent), color-mix(in srgb, var(--notes-accent) 60%, transparent));
+    background: linear-gradient(
+        180deg,
+        var(--notes-accent),
+        color-mix(in srgb, var(--notes-accent) 60%, transparent)
+    );
     opacity: 0.38;
     pointer-events: none;
 }
@@ -908,7 +1071,11 @@ body.notes-open .notes-backdrop {
     /* Use pill shape. */
     border-radius: 999px;
     /* Use accent background. */
-    background: color-mix(in srgb, var(--notes-accent) 14%, var(--notes-item-surface));
+    background: color-mix(
+        in srgb,
+        var(--notes-accent) 14%,
+        var(--notes-item-surface)
+    );
     /* Use accent text color. */
     color: var(--notes-accent);
     /* Remove default button border. */
@@ -1044,7 +1211,7 @@ body.notes-open .notes-backdrop {
 
 /* Quill checklist boxes use an injected `.ql-ui` span; increase its size + hit area. */
 .notes-editor .ql-editor li[data-list="checked"] > .ql-ui,
-.notes-editor .ql-editor li[data-list="unchecked"] > .ql-ui { 
+.notes-editor .ql-editor li[data-list="unchecked"] > .ql-ui {
     /* Make checkbox easier to click/tap. */
     width: var(--notes-editor-checkbox-hit);
     height: var(--notes-editor-checkbox-hit);
@@ -1119,7 +1286,7 @@ body.notes-open .notes-backdrop {
 }
 
 /* Timestamp token styling (inserted via "@" shortcut). */
-.notes-editor .ql-editor .notes-timestamp { 
+.notes-editor .ql-editor .notes-timestamp {
     /* Render naturally inline with the diary text. */
     display: inline;
     /* Keep the timestamp on a single line. */
@@ -1164,7 +1331,8 @@ body.notes-open .notes-backdrop {
     /* Add rounding to code blocks. */
     border-radius: calc(var(--notes-code-block-radius) + 2px);
     /* Add padding inside code blocks. */
-    padding: calc(var(--notes-code-block-padding) + 1.55rem) var(--notes-code-block-padding) var(--notes-code-block-padding);
+    padding: calc(var(--notes-code-block-padding) + 1.55rem)
+        var(--notes-code-block-padding) var(--notes-code-block-padding);
     /* Keep a clean card-like depth. */
     box-shadow: var(--notes-code-block-shadow);
     /* Use consistent monospace font for blocks. */
@@ -1178,7 +1346,6 @@ body.notes-open .notes-backdrop {
     overflow-x: auto;
     overflow-y: hidden;
 }
-
 
 /* Prevent inline-code styling from leaking into code blocks if nested markup exists. */
 .notes-panel .notes-editor .ql-editor pre code {
@@ -1340,37 +1507,7 @@ body.notes-open .notes-backdrop {
 /* ============================================= */
 
 /* Small screens: make panel full width. */
-@media (max-width: 900px) {
-    /* Stretch the panel to full width on small screens. */
-    .notes-panel {
-        /* Use full viewport width. */
-        width: 100vw;
-        /* Remove right border to prevent clipping. */
-        border-right: none;
-    }
-    /* Hide sidebar by default on small screens. */
-    .notes-panel__body {
-        /* Use a single-column layout. */
-        grid-template-columns: minmax(0, 1fr);
-    }
-    /* Keep the sidebar overlaid when opened. */
-    .notes-panel.notes-sidebar-open .notes-sidebar {
-        /* Position sidebar over the editor. */
-        position: absolute;
-        /* Anchor to the left side. */
-        left: 0;
-        /* Anchor to the top under the header. */
-        top: 0;
-        /* Match the panel height. */
-        height: 100%;
-        /* Set a max width for mobile. */
-        width: min(85vw, 280px);
-        /* Ensure sidebar sits above the editor. */
-        z-index: 4;
-        /* Add a right border for separation. */
-        border-right: 1px solid var(--notes-panel-border);
-    }
-}
+@import url("responsive/notes.css");
 
 /* ============================================= */
 /* Notes Panel Width Resize Feature */
@@ -1392,30 +1529,30 @@ body.notes-open .notes-backdrop {
 
 /* Small visible grip line. */
 .notes-panel__resize-handle::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 4px;
-  width: 2px;
-  height: 56px;
-  transform: translateY(-50%);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-text-muted) 60%, transparent);
-  opacity: 0;
-  transition: opacity 0.15s ease;
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    width: 2px;
+    height: 56px;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-text-muted) 60%, transparent);
+    opacity: 0;
+    transition: opacity 0.15s ease;
 }
 
 /* Show grip line on hover/focus/drag. */
 .notes-panel__resize-handle:hover::before,
 .notes-panel__resize-handle:focus-visible::before,
 .notes-panel.is-resizing .notes-panel__resize-handle::before {
-  opacity: 1;
+    opacity: 1;
 }
 
 /* Prevent text selection while resizing the whole notes panel. */
 body.notes-panel-resizing {
-  cursor: ew-resize;
-  user-select: none;
+    cursor: ew-resize;
+    user-select: none;
 }
 
 /* REMOVE the redundant desktop media query - the base rule already handles it */

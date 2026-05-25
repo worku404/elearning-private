@@ -1,0 +1,138 @@
+@media (hover: hover) and (min-width: 901px) {
+    .llm-chat-entry:hover,
+    .llm-chat-entry:focus-within {
+        background: var(--assistant-history-item-hover-bg);
+        transform: scale(var(--assistant-history-item-hover-scale));
+        box-shadow: var(--assistant-history-item-shadow);
+        border-color: color-mix(in srgb, var(--assistant-history-item-border) 70%, var(--assistant-panel-border));
+    }
+}
+
+/* Very small screens: only slight compaction, avoid hard font shrinking. */
+@media (max-width: 560px) {
+    .llm-chat-msg .llm-chat-table {
+        min-width: 620px;
+        font-size: 0.94rem;
+    }
+
+    .llm-chat-msg .llm-chat-table th,
+    .llm-chat-msg .llm-chat-table td {
+        padding: 0.38rem 0.47rem;
+    }
+}
+
+/* Tight layout fallback: stack rows as cards when table readability collapses. */
+@media (max-width: 420px) {
+    .llm-chat-msg .llm-chat-table-wrap {
+        overflow: visible;
+    }
+
+    .llm-chat-msg .llm-chat-table,
+    .llm-chat-msg .llm-chat-table tbody,
+    .llm-chat-msg .llm-chat-table tr,
+    .llm-chat-msg .llm-chat-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .llm-chat-msg .llm-chat-table {
+        min-width: 0;
+        border: 0;
+    }
+
+    .llm-chat-msg .llm-chat-table thead {
+        display: none;
+    }
+
+    .llm-chat-msg .llm-chat-table tr {
+        border: 1px solid var(--assistant-history-border);
+        border-radius: var(--assistant-radius-sm);
+        padding: 0.35rem 0.5rem;
+        background: color-mix(in srgb, var(--assistant-history-bg) 85%, transparent);
+    }
+
+    .llm-chat-msg .llm-chat-table tr + tr {
+        margin-top: 0.5rem;
+    }
+
+    .llm-chat-msg .llm-chat-table td {
+        border: 0;
+        padding: 0.2rem 0;
+    }
+
+    .llm-chat-msg .llm-chat-table td:first-child {
+        padding-top: 0;
+    }
+
+    .llm-chat-msg .llm-chat-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.16rem;
+        font-size: 0.78em;
+        font-weight: 700;
+        color: var(--assistant-text-muted);
+        letter-spacing: 0.01em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .llm-wait__dot {
+        animation: none;
+        opacity: 0.7;
+    }
+    .llm-chat-entry {
+        transition: none;
+    }
+    .assistant-unhide,
+    .llm-scroll-bottom,
+    .llm-btn {
+        transition: none;
+    }
+}
+
+@media (hover: hover) {
+    .assistant-resize-handle:hover::after {
+        opacity: 1;
+        background: var(--assistant-icon-hover-color);
+    }
+}
+
+/* ===================================================== */
+/* RESPONSIVE                                            */
+/* ===================================================== */
+
+@media (min-width: 1024px) {
+    .app-body.has-assistant {
+        --rail-right: var(--assistant-content-offset);
+    }
+}
+
+@media (max-width: 900px) {
+    body.assistant-sidebar-open .assistance {
+        width: min(95vw, 420px);
+        max-height: calc(100vh - var(--assistant-top-offset, var(--topbar-height)));
+        border-radius: var(--assistant-radius-lg);
+        border-left: 1px solid var(--assistant-panel-border);
+    }
+
+    .assistant-resize-handle {
+        display: none !important;
+    }
+}
+
+@media (max-width: 720px) {
+    .assistant-history-shell {
+        position: relative;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .assistance.assistant-history-open .assistant-history-sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: min(82%, 280px);
+        z-index: 4;
+        box-shadow: var(--assistant-panel-shadow);
+    }
+}

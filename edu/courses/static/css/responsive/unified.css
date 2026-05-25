@@ -1,0 +1,322 @@
+/* --- Blockquote --- */
+@media (max-width: 640px) {
+    .c-reader blockquote,
+    .c-content-render blockquote {
+        margin: 1.5rem 0;
+        padding: 2rem 1.25rem 1.5rem 2.6rem;
+    }
+
+    .c-reader blockquote::before,
+    .c-content-render blockquote::before {
+        left: 0.75rem;
+        font-size: 3.4rem;
+    }
+}
+
+/* --- PDF Viewer --- */
+@media (max-width: 900px) {
+  .c-pdf-viewer__body {
+    grid-template-columns: 1fr;
+  }
+
+  .c-pdf-outline {
+    position: static;
+    max-height: none;
+  }
+
+  .c-pdf-toolbar {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.4rem;
+  }
+
+  .c-pdf-toolbar__default {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+  }
+
+  .c-pdf-toolbar__section {
+    flex-wrap: wrap;
+  }
+
+  .c-pdf-toolbar__section--color {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .c-pdf-toolbar__divider {
+    display: none;
+  }
+
+  .c-pdf-toolbar__search-main {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  .c-pdf-toolbar__search-options {
+    max-width: 100%;
+  }
+
+  .c-pdf-search-input {
+    min-width: 0;
+  }
+
+  .c-pdf-zoom-select {
+    min-width: 6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .c-pdf-toolbar__section--nav,
+  .c-pdf-toolbar__section--zoom {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* --- Presence --- */
+@media (max-width: 900px) {
+    .c-presence--desktop {
+        display: none;
+    }
+
+    .c-presence--mobile {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.45rem;
+        font-size: 0.75rem;
+        flex: 0 0 auto;
+        max-width: 42%;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .c-presence--mobile .c-presence__label {
+        display: none;
+    }
+
+    .c-presence--mobile .c-presence__dot {
+        width: 0.44rem;
+        height: 0.44rem;
+        flex: 0 0 auto;
+    }
+
+    .c-presence--mobile .c-presence__count {
+        font-size: 0.76rem;
+        letter-spacing: 0;
+    }
+}
+
+/* --- Toast + Layout --- */
+@media (max-width: 900px) {
+    .c-toast-stack {
+        right: 0.65rem;
+        left: 0.65rem;
+        width: auto;
+        bottom: 0.65rem;
+    }
+    .topbar__inner {
+        /* layout.css sets two-column header + drawer row */
+        padding-block: var(--space-2);
+    }
+
+    .topbar__menu-toggle {
+        border-color: var(--color-border);
+        background: var(--color-surface);
+        color: var(--color-text);
+        box-shadow: 0 6px 16px rgba(var(--color-shadow), 0.07);
+    }
+
+    .topbar__menu-toggle:focus-visible {
+        outline-color: var(--color-focus-ring);
+    }
+    .topbar__drawer {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        border-top-color: var(--color-border);
+        padding-top: var(--space-2);
+        width: 100%;
+        gap: var(--space-3);
+    }
+    .topbar--drawer-open .topbar__drawer {
+        display: flex;
+    }
+    .topbar__drawer .c-search.topbar__search {
+        flex-direction: row;
+        align-items: stretch;
+        width: 100%;
+        gap: 0;
+        flex-wrap: nowrap;
+    }
+
+    .topbar__drawer .c-search.topbar__search .c-search__input {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .topbar__drawer .c-search.topbar__search .c-btn {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    .topbar__drawer .topbar__actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+
+    .topbar__drawer .topbar__actions .c-btn {
+        flex: 1 1 auto;
+        min-width: min(100%, 132px);
+        justify-content: center;
+    }
+
+    .topbar__drawer .topbar__actions .account-fab {
+        flex: 0 0 auto;
+    }
+
+    .topbar__brand-wrap {
+        justify-content: flex-start;
+    }
+
+    .l-shell {
+        grid-template-columns: 1fr;
+        padding: var(--space-3);
+    }
+
+    .l-rail--left {
+        position: static;
+        min-height: 0;
+    }
+
+    .l-util {
+        position: static;
+    }
+
+    .catalog-layout, .course-workspace, .api-token-controls, .assistant-history-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .course-workspace .contents {
+        position: static;
+        max-height: none;
+    }
+}
+
+/* --- Code Block --- */
+@media (max-width: 640px) {
+    .llm-code-block-wrap {
+        padding: 0.25rem;
+    }
+
+    .llm-code-block-wrap pre {
+        padding: 2.8rem 0.9rem 1rem;
+    }
+
+    .llm-copy-code {
+        top: 0.65rem !important;
+        right: 0.65rem !important;
+    }
+
+    .code-run-btn {
+        top: 0.65rem !important;
+        right: 2.85rem !important;
+    }
+
+    .code-run-btn {
+        width: 2.05rem;
+        height: 2.05rem;
+        min-width: 2.05rem;
+        min-height: 2.05rem;
+    }
+    .page-heading {
+        padding-bottom: 0;
+    }
+
+    .page-title {
+        font-size: clamp(1.18rem, 4.5vw, 1.55rem);
+        line-height: 1.2;
+    }
+
+    .page-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.42;
+    }
+
+    .page, section.page {
+        gap: var(--space-2);
+    }
+
+    .topbar__brand {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .c-card, .assistance, .assistant-history-sidebar, .c-content-block[data-content-model="file"], .api-code {
+        border-radius: 1rem;
+    }
+
+    .assistant-unhide {
+        width: 50px;
+        height: 100px;
+        right: 0.55rem;
+    }
+}
+
+/* --- Topbar / Shell wide --- */
+@media (max-width: 1200px) {
+    .topbar__inner {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .l-shell {
+        grid-template-columns: var(--rail-left-current) minmax(0, 1fr) minmax(0, var(--util-width));
+        gap: var(--space-3);
+    }
+
+    .catalog-layout {
+        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    }
+
+    .api-dual-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Main inner / page --- */
+@media (max-width: 768px) {
+    .l-main__inner {
+        gap: var(--space-3);
+    }
+
+    .page {
+        gap: var(--space-3);
+    }
+
+    section.page {
+        gap: var(--space-3);
+    }
+
+    .page-heading {
+        gap: 0.2rem;
+        max-width: none;
+        margin: 0;
+        padding: 0 0 0.15rem;
+    }
+
+    .page-title {
+        font-size: clamp(1.28rem, 4.8vw, 1.72rem);
+        line-height: 1.18;
+        letter-spacing: -0.03em;
+        font-weight: 700;
+    }
+
+    .page-subtitle {
+        font-size: var(--fs-0);
+        line-height: 1.4;
+        margin: 0;
+    }
+}

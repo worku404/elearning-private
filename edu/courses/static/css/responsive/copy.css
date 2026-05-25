@@ -1,0 +1,14 @@
+@media (max-width: 640px) {
+  .llm-copy-btn {
+    width: 2.05rem;
+    height: 2.05rem;
+    min-width: 2.05rem;
+    min-height: 2.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .llm-copy-btn {
+    transition: none;
+  }
+}

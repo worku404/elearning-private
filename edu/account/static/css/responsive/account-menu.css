@@ -1,0 +1,7 @@
+@media (max-width: 720px) {
+    .account-menu {
+        right: 12px;
+        top: 78px;
+        width: calc(100vw - 24px);
+    }
+}

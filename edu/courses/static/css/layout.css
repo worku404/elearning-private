@@ -6,7 +6,6 @@
     --workspace-modules-max-current: var(--course-modules-max);
 }
 
-
 .skip-link {
     position: absolute;
     left: var(--space-4);
@@ -107,7 +106,9 @@
     padding-left: 0;
     display: grid;
     gap: var(--space-4);
-    grid-template-columns: var(--rail-left-current) minmax(0, 1fr) var(--util-width);
+    grid-template-columns: var(--rail-left-current) minmax(0, 1fr) var(
+            --util-width
+        );
     align-items: start;
     transition: grid-template-columns 0.2s ease;
     width: 100%;
@@ -151,24 +152,13 @@ body.assistant-sidebar-open .l-shell {
 .l-util {
     position: sticky;
     top: var(--topbar-height);
-
-
 }
 
-@media (max-width: 1200px) {
-    :root {
-        --rail-left: 240px;
-        --rail-right: 340px;
-    }
+@import url("responsive/layout.css");
 
-    .topbar__inner {
-        grid-template-columns: auto minmax(260px, 1fr) auto;
-        padding-inline: var(--space-4);
-    }
-}
+/* @media (max-width: 900px) block moved to responsive/layout.css */
 
-@media (max-width: 900px) {
-    /* One slim row: logo + online badge + hamburger; everything else in drawer */
+/*
     .topbar__inner {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
@@ -235,7 +225,9 @@ body.assistant-sidebar-open .l-shell {
         height: 2px;
         border-radius: 1px;
         background: currentColor;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
         transform-origin: center;
     }
 
@@ -309,5 +301,4 @@ body.assistant-sidebar-open .l-shell {
     .l-util {
         position: static;
     }
-
 }

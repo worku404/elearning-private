@@ -1,0 +1,294 @@
+:root {
+    --copy-btn-size: 2rem;
+    --copy-btn-icon-size: 14px;
+    --copy-btn-bg: color-mix(
+        in srgb,
+        var(--color-surface, #ffffff) 85%,
+        transparent
+    );
+    --copy-btn-border: transparent;
+    --copy-btn-border-strong: transparent;
+    --copy-btn-color: var(--color-text-muted, #64748b);
+    --copy-btn-hover-color: var(--color-text, #1b2630);
+    --copy-btn-success: var(--color-primary, #16a34a);
+    --copy-btn-error: var(--color-error, #dc2626);
+    --copy-btn-focus-shadow: 0 0 0 3px
+        var(--color-focus-ring, rgba(37, 99, 235, 0.35));
+}
+
+body.theme-dark {
+    --copy-btn-bg: color-mix(
+        in srgb,
+        var(--color-surface, #121c2a) 80%,
+        transparent
+    );
+}
+
+.copy-overlay-host {
+    position: relative;
+}
+
+.copy-overlay-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.llm-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--copy-btn-size);
+    height: var(--copy-btn-size);
+    min-width: var(--copy-btn-size);
+    min-height: var(--copy-btn-size);
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--copy-btn-bg);
+    color: var(--copy-btn-color);
+    cursor: pointer;
+    line-height: 1;
+    transition:
+        color 0.16s ease,
+        background-color 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        opacity 0.16s ease,
+        transform 0.16s ease;
+}
+
+.llm-copy-btn:hover:not(:disabled),
+.llm-copy-btn:focus-visible {
+    color: var(--copy-btn-hover-color);
+    border-color: transparent;
+}
+
+.llm-copy-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--copy-btn-focus-shadow);
+}
+
+.llm-copy-btn:disabled,
+.llm-copy-btn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.llm-copy-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.llm-copy-btn__icon svg {
+    width: var(--copy-btn-icon-size);
+    height: var(--copy-btn-icon-size);
+}
+
+.llm-copy-btn__icon--check {
+    display: none;
+}
+
+.llm-copy-btn.is-copied {
+    color: var(--copy-btn-success);
+    border-color: transparent;
+    background: color-mix(in srgb, var(--copy-btn-success) 14%, transparent);
+}
+
+.llm-copy-btn.is-copied .llm-copy-btn__icon--copy {
+    display: none;
+}
+
+.llm-copy-btn.is-copied .llm-copy-btn__icon--check {
+    display: inline-flex;
+}
+
+.llm-copy-btn.is-copy-failed {
+    color: var(--copy-btn-error);
+    border-color: transparent;
+    background: color-mix(in srgb, var(--copy-btn-error) 12%, transparent);
+}
+
+.llm-copy-message {
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 0.2rem;
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.copy-overlay-layer .llm-copy-btn {
+    position: absolute;
+    pointer-events: auto;
+    transform: translate(-100%, 0);
+}
+
+@import url("responsive/copy.css");
+
+/* ==========================================================================
+   Code block runner controls inside the copy overlay layer
+   ========================================================================== */
+.code-block-controls {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem !important;
+    pointer-events: auto;
+    transform: translate(-100%, 0);
+    z-index: 5;
+}
+
+.code-lang-select {
+    font-family: inherit;
+    font-size: 0.72rem !important;
+    font-weight: 600;
+    line-height: 1;
+    height: 1.5rem !important; /* match the control strip height */
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 1px solid transparent !important;
+    border-radius: 2px !important;
+    background-color: rgba(248, 250, 252, 0.92) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa4b2' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    color: #7a8491;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.28rem center !important;
+    background-size: 0.42rem !important;
+    width: 5.1rem !important;
+    display: inline-block !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+    transition:
+        border-color 0.16s,
+        color 0.16s,
+        background-color 0.16s;
+}
+.code-lang-select option {
+    color: #cbd5e1 !important;
+    background-color: #1e2a38 !important;
+}
+
+.theme-dark .code-lang-select {
+    background-color: rgba(255, 255, 255, 0.055) !important;
+    color: #9aa4b2;
+}
+
+.code-lang-select:hover,
+.code-lang-select:focus-visible {
+    border-color: rgba(122, 132, 145, 0.24) !important;
+    background-color: rgba(241, 245, 249, 0.98) !important;
+    color: #475569;
+}
+
+.theme-dark .code-lang-select:hover,
+.theme-dark .code-lang-select:focus-visible {
+    border-color: rgba(154, 164, 178, 0.22) !important;
+    background-color: rgba(255, 255, 255, 0.085) !important;
+    color: #cbd5e1;
+}
+
+.code-block-controls .code-run-btn,
+.code-block-controls .llm-copy-btn,
+.code-block-controls .llm-copy-code {
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    min-width: 1.5rem !important;
+    min-height: 1.5rem !important;
+    border-radius: 4px !important;
+}
+
+.code-block-controls .llm-copy-btn svg,
+.code-block-controls .code-run-btn svg {
+    width: 11px !important;
+    height: 11px !important;
+}
+
+.code-block-controls .code-run-btn {
+    padding: 0;
+    border: 0;
+    background: var(--copy-btn-bg, rgba(255, 255, 255, 0.85));
+    color: var(--copy-btn-color, #64748b);
+    cursor: pointer;
+    transition:
+        color 0.16s,
+        background-color 0.16s,
+        transform 0.16s;
+}
+
+.code-block-controls .code-run-btn:hover:not(:disabled) {
+    color: var(--code-runner-accent, #2563eb);
+    background: var(--code-runner-accent-soft, rgba(37, 99, 235, 0.12));
+}
+
+.theme-dark .code-block-controls .code-run-btn:hover:not(:disabled) {
+    color: var(--code-runner-accent, #9ec2e6);
+    background: var(--code-runner-accent-soft, rgba(158, 194, 230, 0.14));
+}
+
+.code-block-controls .code-run-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   Notes Flow and Output Spacing integration
+   ========================================================================== */
+
+/* Reserv margin-bottom inside notes editor when code execution output is visible */
+.notes-editor pre.ql-syntax[data-run-output-visible="true"] {
+    margin-bottom: 220px !important;
+    transition: margin-bottom 0.18s ease-in-out;
+}
+
+/* Structure and constraints for notes code runner output panels */
+.notes-editor-wrap .code-output-panel {
+    position: absolute;
+    height: 200px !important;
+    box-sizing: border-box !important;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 8px !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.notes-editor-wrap .code-output-panel__body {
+    height: calc(100% - 2.4rem) !important;
+    max-height: none !important;
+    overflow: auto !important;
+}

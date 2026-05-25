@@ -1,0 +1,38 @@
+@media (max-width: 1024px) {
+    #chat {
+        padding: 18px;
+    }
+
+    #chat .message {
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    #chat-room-shell {
+        height: calc(100dvh - 100px);
+    }
+
+    #chat {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    #chat .message {
+        max-width: 85%;
+        font-size: 13px;
+    }
+
+    #chat .chat-empty-state {
+        width: 100%;
+        border-radius: 18px;
+    }
+
+    #chat-input {
+        padding: 12px;
+    }
+
+    #chat-message-submit {
+        padding: 10px 16px;
+    }
+}
