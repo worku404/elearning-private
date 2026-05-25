@@ -4,7 +4,9 @@
     var drawer = document.getElementById("topbar-drawer");
     if (!header || !toggle || !drawer) return;
 
-    var mq = window.matchMedia("(max-width: 900px)");
+    function isMobile() {
+        return window.getComputedStyle(toggle).display !== "none";
+    }
 
     function setOpen(open) {
         header.classList.toggle("topbar--drawer-open", open);
@@ -13,12 +15,12 @@
     }
 
     toggle.addEventListener("click", function () {
-        if (!mq.matches) return;
+        if (!isMobile()) return;
         setOpen(!header.classList.contains("topbar--drawer-open"));
     });
 
     drawer.addEventListener("click", function (e) {
-        if (!mq.matches) return;
+        if (!isMobile()) return;
         if (e.target.closest("#notes-open-btn") || e.target.closest("[data-account-menu-toggle]")) {
             setOpen(false);
             return;
@@ -36,13 +38,13 @@
     });
 
     document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && mq.matches) {
+        if (e.key === "Escape" && isMobile()) {
             setOpen(false);
         }
     });
 
     window.addEventListener("resize", function () {
-        if (!mq.matches) {
+        if (!isMobile()) {
             setOpen(false);
         }
     });
