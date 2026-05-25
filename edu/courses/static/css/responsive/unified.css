@@ -1,3 +1,23 @@
+/* --- Topbar / Shell wide --- */
+@media (max-width: 1200px) {
+    .topbar__inner {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .l-shell {
+        grid-template-columns: var(--rail-left-current) minmax(0, 1fr) minmax(0, var(--util-width));
+        gap: var(--space-3);
+    }
+
+    .catalog-layout {
+        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    }
+
+    .api-dual-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Blockquote --- */
 @media (max-width: 640px) {
     .c-reader blockquote,
@@ -266,26 +286,6 @@
     }
 }
 
-/* --- Topbar / Shell wide --- */
-@media (max-width: 1200px) {
-    .topbar__inner {
-        grid-template-columns: auto minmax(0, 1fr) auto;
-    }
-
-    .l-shell {
-        grid-template-columns: var(--rail-left-current) minmax(0, 1fr) minmax(0, var(--util-width));
-        gap: var(--space-3);
-    }
-
-    .catalog-layout {
-        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
-    }
-
-    .api-dual-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* --- Main inner / page --- */
 @media (max-width: 768px) {
     .l-main__inner {
@@ -318,5 +318,83 @@
         font-size: var(--fs-0);
         line-height: 1.4;
         margin: 0;
+    }
+}
+
+/* --- Expert Frontend Mobile/Tablet Navigation & UI Overrides --- */
+@media (max-width: 900px) {
+    /* Make left sidebar rail a clean vertical flex container stacking navigation and daily motto card */
+    .l-rail--left {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: var(--space-3) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Transform main sidebar vertical navigation items into a modern, gorgeous horizontal tab bar/grid layout on mobile */
+    .c-nav {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr)) !important;
+        gap: var(--space-2) !important;
+        width: 100% !important;
+    }
+
+    .c-nav__item {
+        justify-content: center !important;
+        text-align: center !important;
+        padding: var(--space-3) var(--space-2) !important;
+        font-size: var(--fs-1) !important;
+        font-weight: 650 !important;
+        border-radius: var(--radius-md) !important;
+        min-height: 48px !important;
+        flex-direction: column !important;
+        gap: var(--space-1) !important;
+    }
+
+    /* Center and format circular action buttons nicely side-by-side on mobile, preventing stretching */
+    .topbar__drawer .topbar__actions {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: var(--space-3) !important;
+        width: 100% !important;
+        margin-block: var(--space-2) !important;
+    }
+
+    .topbar__drawer .topbar__actions #theme-toggle-link {
+        flex: 0 0 auto !important;
+        min-width: 44px !important;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    .topbar__drawer .topbar__actions .account-fab {
+        flex: 0 0 auto !important;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 50% !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    /* Set nice padding and structure for cards on mobile/tablets */
+    .c-card {
+        padding: var(--space-3) !important;
+        border-radius: var(--radius-md) !important;
+    }
+
+    .c-progress-card {
+        margin-block: var(--space-2) !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
