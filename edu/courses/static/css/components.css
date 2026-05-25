@@ -489,6 +489,101 @@ body.theme-dark .c-reader__content blockquote code {
     word-break: normal !important;
 }
 
+/* ─── Markdown blockquote / > quote marker ──────────────── */
+.c-reader blockquote,
+.c-content-render blockquote {
+    position: relative;
+    margin: 1.75rem auto;
+    padding: 2.2rem 2.4rem 1.8rem 3.6rem;
+    max-width: 720px;
+
+    background: #ffffff !important;
+    color: #6b7785 !important;
+
+    border: 1px solid #edf0f3 !important;
+    border-left: 6px solid #63b3ff !important;
+    border-radius: 0 2px 2px 0 !important;
+
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    font-style: italic;
+    line-height: 1.75;
+}
+
+/* Large decorative opening quote */
+.c-reader blockquote::before,
+.c-content-render blockquote::before {
+    content: "“";
+    position: absolute;
+    top: 0.55rem;
+    left: 1.1rem;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 4.2rem;
+    line-height: 1;
+
+    color: #63b3ff !important;
+    opacity: 0.85;
+}
+
+/* Paragraphs inside blockquotes */
+.c-reader blockquote p,
+.c-content-render blockquote p {
+    margin: 0 0 1rem;
+    color: inherit !important;
+}
+
+/* Remove extra bottom gap */
+.c-reader blockquote p:last-child,
+.c-content-render blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Author/source line */
+.c-reader blockquote strong,
+.c-content-render blockquote strong {
+    color: #2f3a45 !important;
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* Dark mode */
+body.theme-dark .c-reader blockquote,
+body.theme-dark .c-content-render blockquote {
+    background: rgba(255, 255, 255, 0.045) !important;
+    color: rgba(255, 255, 255, 0.72) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    border-left: 6px solid #63b3ff !important;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+body.theme-dark .c-reader blockquote::before,
+body.theme-dark .c-content-render blockquote::before {
+    color: #63b3ff !important;
+    opacity: 0.9;
+}
+
+body.theme-dark .c-reader blockquote strong,
+body.theme-dark .c-content-render blockquote strong {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .c-reader blockquote,
+    .c-content-render blockquote {
+        margin: 1.5rem 0;
+        padding: 2rem 1.25rem 1.5rem 2.6rem;
+    }
+
+    .c-reader blockquote::before,
+    .c-content-render blockquote::before {
+        left: 0.75rem;
+        font-size: 3.4rem;
+    }
+}
+
 /* old duplicate code rules removed */
 
 .c-video {

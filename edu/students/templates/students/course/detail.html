@@ -556,17 +556,53 @@ const RUNNABLE_LANGUAGES = {
     "language-javascript": "javascript", "language-js": "javascript",
     "c++": "c++", "cpp": "c++",
     "language-c++": "c++", "language-cpp": "c++",
+    "sql": "sqlite3", "sqlite": "sqlite3", "sqlite3": "sqlite3",
+    "language-sql": "sqlite3", "language-sqlite": "sqlite3", "language-sqlite3": "sqlite3",
 };
 
-const LANG_LABELS = { python: "Python", javascript: "JavaScript", "c++": "C++" };
+const LANG_LABELS = { python: "Python", javascript: "JavaScript", "c++": "C++" , sqlite3: "SQL"};
 
 function detectRunLanguage(codeEl) {
     if (!codeEl) return null;
+
+    // First detect the language from class names (existing logic)
+    let lang = null;
     for (const cls of codeEl.classList) {
-        const lang = RUNNABLE_LANGUAGES[cls.toLowerCase().trim()];
-        if (lang) return lang;
+        const detected = RUNNABLE_LANGUAGES[cls.toLowerCase().trim()];
+        if (detected) { lang = detected; break; }
     }
-    return null;
+    if (!lang) return null;
+
+    // Then check if the code has something worth running
+    const code = (codeEl.textContent || "").trim();
+    if (!code) return null;
+
+    if (lang === "python") {
+        // Show run button only if there's a print() call or visible output
+        const hasPrint = /\bprint\s*\(/.test(code);
+        return hasPrint ? lang : null;
+    }
+
+    if (lang === "javascript") {
+        // Show run button only if there's console.log or document.write
+        const hasOutput = /\bconsole\s*\.\s*log\s*\(/.test(code)
+            || /\bdocument\s*\.\s*write\s*\(/.test(code);
+        return hasOutput ? lang : null;
+    }
+
+    if (lang === "c++") {
+        // Show run button only if there's a main() function
+        const hasMain = /\bint\s+main\s*\(/.test(code);
+        return hasMain ? lang : null;
+    }
+
+    if (lang === "sqlite3") {
+        // Always show for SQL — SELECT is the "output" indicator
+        const hasSelect = /\bSELECT\b/i.test(code);
+        return hasSelect ? lang : null;
+    }
+
+    return lang;
 }
 
 const enhanceCourseCodeBlocks = () => {
