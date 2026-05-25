@@ -14,8 +14,7 @@
                 Weekly Summary
             </h1>
             <p class="c-card__meta li-subtitle">
-                {{ week.start|date:"M j, Y" }} &ndash; {{ week.end|date:"M j, Y"
-                }}
+                {{ week.start|date:"M j, Y" }} &ndash; {{ week.end|date:"M j, Y" }}
             </p>
         </div>
         <form method="get" class="li-card-filters">
@@ -147,9 +146,7 @@
                     <div>
                         <strong>{{ course_item.course_title }}</strong>
                         <p class="c-card__meta li-mt-xs">
-                            {{
-                            course_item.total_seconds|default:0|duration_format
-                            }}
+                            {{ course_item.total_seconds|default:0|duration_format }}
                         </p>
                     </div>
                     {% if course_item.course_id %}
@@ -225,8 +222,7 @@
                     </p>
                 </div>
                 <span class="c-card__meta"
-                    >{{ goal.current_value|default:0 }} / {{
-                    goal.target_value|default:0 }}</span
+                    >{{ goal.current_value|default:0 }} / {{ goal.target_value|default:0 }}</span
                 >
             </div>
 
@@ -267,8 +263,8 @@
         may be incomplete.
     </p>
 </section>
-{% endif %} {{ daily_chart|json_script:"li-weekly-daily-chart-data" }} {{
-course_chart|json_script:"li-weekly-course-chart-data" }} {% endblock %}
+{% endif %} {{ daily_chart|json_script:"li-weekly-daily-chart-data" }}
+{{ course_chart|json_script:"li-weekly-course-chart-data" }} {% endblock %}
 {% block include_js %} {{ block.super }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'learning_insights/js/li-charts.js' %}"></script>

@@ -112,8 +112,7 @@
             <p class="c-card__meta li-meta">
                 Status:
                 <strong
-                    >{{ ai_run.get_status_display|default:ai_run.status
-                    }}</strong
+                    >{{ ai_run.get_status_display|default:ai_run.status }}</strong
                 >
                 &middot; {{ ai_run.created_at|date:"M d, Y H:i" }}
             </p>
@@ -205,9 +204,7 @@
                             {% if item.minutes %}<strong
                                 >{{ item.minutes }}m</strong
                             >
-                            {% endif %} {% if item.course_title %}{{
-                            item.course_title }} &mdash; {% endif %}{{ item.task
-                            }} {% if item.notes %}<span class="c-card__meta">
+                            {% endif %} {% if item.course_title %}{{ item.course_title }} &mdash; {% endif %}{{ item.task }} {% if item.notes %}<span class="c-card__meta">
                                 ({{ item.notes }})</span
                             >{% endif %}
                         </li>

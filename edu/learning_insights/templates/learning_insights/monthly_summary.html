@@ -14,8 +14,7 @@
                 Monthly Summary
             </h1>
             <p class="c-card__meta li-subtitle">
-                {{ month.start|date:"F j, Y" }} &ndash; {{ month.end|date:"F j,
-                Y" }}
+                {{ month.start|date:"F j, Y" }} &ndash; {{ month.end|date:"F j, Y" }}
             </p>
         </div>
 
@@ -117,9 +116,7 @@
             {% else %} &mdash; {% endif %}
         </h2>
         <p class="c-card__meta li-meta">
-            {% if summary.productive_day %} Score {{
-            summary.productive_day.score }} {% else %} Not enough activity yet
-            {% endif %}
+            {% if summary.productive_day %} Score {{ summary.productive_day.score }} {% else %} Not enough activity yet {% endif %}
         </p>
     </article>
 </section>
@@ -157,9 +154,7 @@
                     <div>
                         <strong>{{ course_item.course_title }}</strong>
                         <p class="c-card__meta li-mt-xs">
-                            {{
-                            course_item.total_seconds|default:0|duration_format
-                            }}
+                            {{ course_item.total_seconds|default:0|duration_format }}
                         </p>
                     </div>
                     {% if course_item.course_id %}

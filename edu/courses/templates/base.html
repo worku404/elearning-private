@@ -338,9 +338,7 @@
                             />
                             {% else %}
                             <span class="account-fab__fallback">
-                                {{
-                                request.user.first_name|default:request.user.username|slice:":1"|upper
-                                }}{{ request.user.last_name|slice:":1"|upper }}
+                                {{ request.user.first_name|default:request.user.username|slice:":1"|upper }}{{ request.user.last_name|slice:":1"|upper }}
                             </span>
                             {% endif %}
                         </button>
@@ -411,17 +409,13 @@
                     <span
                         class="account-menu__avatar account-menu__avatar--placeholder"
                     >
-                        {{
-                        request.user.first_name|default:request.user.username|slice:":1"|upper
-                        }}{{ request.user.last_name|slice:":1"|upper }}
+                        {{ request.user.first_name|default:request.user.username|slice:":1"|upper }}{{ request.user.last_name|slice:":1"|upper }}
                     </span>
                     {% endif %}
                 </div>
                 <div class="account-menu__meta">
                     <strong>
-                        {{
-                        request.user.first_name|default:request.user.username|slice:":1"|upper
-                        }}{{ request.user.last_name|slice:":1"|upper }}
+                        {{ request.user.first_name|default:request.user.username|slice:":1"|upper }}{{ request.user.last_name|slice:":1"|upper }}
                     </strong>
                     <span>@{{ request.user.username }}</span>
                 </div>
@@ -631,14 +625,12 @@
                                 <a
                                     href="{% url 'student_course_detail' course.course_id %}"
                                     ><span class="c-focus-modules__name">
-                                        {{ course.course__title|truncatechars:17
-                                        }}</span
+                                        {{ course.course__title|truncatechars:17 }}</span
                                     ></a
                                 >
                                 <span
                                     class="c-focus-modules__time c-focus-modules__time--accent"
-                                    >{{ course.total_time|duration_format
-                                    }}</span
+                                    >{{ course.total_time|duration_format }}</span
                                 >
                             </li>
                             {% endfor %}

@@ -76,8 +76,7 @@
     <article class="c-card">
         <p class="c-card__meta">Completions</p>
         <h2 class="c-card__title li-stat-value">
-            {{ day_item.completed_goals|default:0 }} goals &middot; {{
-            day_item.completed_contents|default:0 }} contents
+            {{ day_item.completed_goals|default:0 }} goals &middot; {{ day_item.completed_contents|default:0 }} contents
         </h2>
         <p class="c-card__meta li-meta">Completed goals and content items</p>
     </article>
@@ -225,8 +224,7 @@
                     </p>
                 </div>
                 <span class="c-card__meta"
-                    >{{ goal.current_value|default:0 }} / {{
-                    goal.target_value|default:0 }}</span
+                    >{{ goal.current_value|default:0 }} / {{ goal.target_value|default:0 }}</span
                 >
             </div>
 
