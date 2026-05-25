@@ -9,6 +9,15 @@
     data-notes-list-url="{% url 'notes_list' %}"
     data-notes-detail-url-template="{% url 'notes_detail' 0 %}"
 >
+    <!-- Resize handle for resizing the entire notes panel width on desktop. -->
+    <div
+        class="notes-panel__resize-handle"
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Resize notes panel"
+        tabindex="0"
+    ></div>
+
     <!-- Notes panel header row. -->
     <header class="notes-panel__header">
         <!-- Sidebar toggle (hamburger) button. -->

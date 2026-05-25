@@ -65,6 +65,123 @@ document.addEventListener("DOMContentLoaded", function () {
     const listUrl = panelEl.dataset.notesListUrl || "";
     // Read the detail endpoint URL template from data attributes.
     const detailUrlTemplate = panelEl.dataset.notesDetailUrlTemplate || "";
+// Grab the whole-panel resize handle.
+const notesPanelResizeHandle = panelEl.querySelector(".notes-panel__resize-handle");
+
+// Set up desktop-only resizing for the entire notes panel width.
+function setupNotesPanelResize() {
+    // Abort when panel or handle is missing.
+    if (!panelEl || !notesPanelResizeHandle) return;
+
+    // Only enable resize behavior above phone/tablet breakpoint.
+    const desktopQuery = window.matchMedia("(min-width: 901px)");
+
+    // Read saved width.
+    const savedWidth = Number(localStorage.getItem("notesPanelWidth") || 0);
+
+    // Apply saved width only on desktop.
+    if (savedWidth && desktopQuery.matches) {
+        // Same fix: set the final variable directly.
+        panelEl.style.setProperty("--notes-panel-width", `${savedWidth}px`);
+    }
+
+    // Track resize state.
+    let isResizing = false;
+
+    // Get allowed width limits.
+    const getResizeLimits = () => {
+        return {
+            minWidth: 360,
+            maxWidth: Math.min(window.innerWidth * 0.8, 1100),
+        };
+    };
+
+    // Apply a new panel width.
+    const applyPanelWidth = (width) => {
+        if (!desktopQuery.matches) return;
+
+        const { minWidth, maxWidth } = getResizeLimits();
+        const nextWidth = Math.max(minWidth, Math.min(width, maxWidth));
+
+        // Set --notes-panel-width directly on the element, not --notes-panel-resizable-width.
+        // The CSS variable chain (clamp via --notes-panel-resizable-width) only works when
+        // both variables resolve from the same element. Setting the final width directly
+        // bypasses that inheritance problem entirely.
+        panelEl.style.setProperty("--notes-panel-width", `${nextWidth}px`);
+        localStorage.setItem("notesPanelWidth", String(Math.round(nextWidth)));
+    };
+
+    // Handle pointer movement while resizing.
+    const handlePointerMove = (event) => {
+        if (!isResizing) return;
+
+        event.preventDefault();
+
+        // Because the notes panel is fixed to the left side, clientX equals desired panel width.
+        applyPanelWidth(event.clientX);
+    };
+
+    // Stop resizing.
+    const stopResize = () => {
+        if (!isResizing) return;
+
+        isResizing = false;
+
+        panelEl.classList.remove("is-resizing");
+        document.body.classList.remove("notes-panel-resizing");
+
+        document.removeEventListener("pointermove", handlePointerMove);
+        document.removeEventListener("pointerup", stopResize);
+        document.removeEventListener("pointercancel", stopResize);
+    };
+
+    // Start resizing.
+    notesPanelResizeHandle.addEventListener("pointerdown", (event) => {
+        if (!desktopQuery.matches) return;
+        // Only allow resize when panel is open
+        if (!document.body.classList.contains("notes-open")) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        isResizing = true;
+
+        panelEl.classList.add("is-resizing");
+        document.body.classList.add("notes-panel-resizing");
+
+        document.addEventListener("pointermove", handlePointerMove);
+        document.addEventListener("pointerup", stopResize);
+        document.addEventListener("pointercancel", stopResize);
+    });
+
+    // Keyboard resize support.
+    notesPanelResizeHandle.addEventListener("keydown", (event) => {
+        if (!desktopQuery.matches) return;
+
+        const currentWidth = panelEl.getBoundingClientRect().width;
+        const step = event.shiftKey ? 50 : 20;
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            applyPanelWidth(currentWidth - step);
+        }
+
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            applyPanelWidth(currentWidth + step);
+        }
+    });
+
+    // Keep width valid when window size changes.
+    window.addEventListener("resize", () => {
+        if (!desktopQuery.matches) {
+            panelEl.style.removeProperty("--notes-panel-resizable-width");
+            return;
+        }
+
+        applyPanelWidth(panelEl.getBoundingClientRect().width);
+    });
+}
 
     // Store the Quill editor instance.
     let quill = null;
@@ -564,11 +681,8 @@ document.addEventListener("DOMContentLoaded", function () {
             /(?:<p>\s*(?:&nbsp;|<br\s*\/?>)\s*<\/p>\s*)+(?=<pre\b[^>]*class=["'][^"']*\bql-syntax\b[^"']*["'][^>]*>)/gi,
             ""
         );
-        // Drop trailing empty paragraphs at the end.
-        cleaned = cleaned.replace(
-            /(?:<p>\s*(?:&nbsp;|<br\s*\/?>)\s*<\/p>\s*)+$/gi,
-            ""
-        );
+        // Do not drop trailing empty paragraphs at the end, so that the user 
+        // can always click and type below a trailing code block.
 
         const legacyColorMap = new Map([
             ["rgb(255,255,255)", "var(--notes-color-contrast)"],
@@ -603,6 +717,15 @@ document.addEventListener("DOMContentLoaded", function () {
                             node.style.color = replacement;
                         }
                     });
+
+                    // Strip code block runtime execution/output attributes so they never save to DB
+                    root.querySelectorAll("pre").forEach((pre) => {
+                        pre.removeAttribute("data-run-status");
+                        pre.removeAttribute("data-run-output");
+                        pre.removeAttribute("data-run-output-visible");
+                        pre.removeAttribute("data-run-output-error");
+                    });
+
                     cleaned = root.innerHTML;
                 }
             } catch (error) {
@@ -1245,6 +1368,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize Quill editor.
     initQuill();
+
+    // Initialize whole-panel desktop resize behavior.
+    setupNotesPanelResize();
 
     // Attach open button handler.
     if (openBtn) openBtn.addEventListener("click", handleOpen);
