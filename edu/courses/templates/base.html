@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
         (function () {
             var themeStorageKey = "theme_preference";
@@ -196,6 +199,18 @@
                                 </span>
                             {% endif %}
                         </button>
+                        {% if current_course_id %}
+    
+                                <a href="{% url 'chat:course_chat_room' current_course_id %}"
+                                class="c-btn c-btn--ghost topbar__chat-btn"
+                                aria-label="Open course chat room"
+                            >
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+                                </svg>
+                                <span aria-hidden="true">↗</span>
+                            </a>
+                        {% endif %}
                     {% else %}
                         <a href="{% url 'login' %}" class="c-btn c-btn--primary">Sign in</a>
                     {% endif %}
