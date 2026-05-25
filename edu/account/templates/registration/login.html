@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <section class="page page--auth c-stack">
+        <header class="page-heading">
+            <h1 class="page-title">Log-in</h1>
+        </header>
+        <article class="module c-card auth-card">
+            {% if form.errors %}
+                <p class="c-alert c-alert--error">Your username and password did not match. Please try again.</p>
+            {% else %}
+                <p class="c-card__meta">Use your account credentials to continue learning.</p>
+            {% endif %}
+            <form action="{% url 'login' %}" method="post" class="c-stack">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <p><button type="submit" class="c-btn c-btn--primary">Log-in</button></p>
+            </form>
+            <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+            <p>Don't have an account yet? <a href="{% url 'student_registration' %}" class="c-btn">Register here</a></p>
+        </article>
+    </section>
+{% endblock %}
