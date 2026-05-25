@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from django.utils.decorators import method_decorator
 
 PISTON_API_URL = os.getenv('PISTON_API_URL', 'http://piston:2000/api/v2/execute')
@@ -16,13 +16,16 @@ LANGUAGE_CONFIG = {
     'js':          ('javascript', '20.11.1', 'main.js'),
     'c++':         ('c++',        '10.2.0',  'main.cpp'),
     'cpp':         ('c++',        '10.2.0',  'main.cpp'),
+    'sqlite':      ('sqlite3',    '3.36.0',  'main.sql'),
+    'sql':         ('sqlite3',    '3.36.0',  'main.sql'),
     'language-cpp':('c++',        '10.2.0',  'main.cpp'),  # fallback if JS sends raw class
+    'sqlite3':      ('sqlite3',    '3.36.0',  'main.sql'),  # Prevents KeyError crashes from frontend selection
 }
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ExecuteCodeView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         code     = request.data.get('code', '').strip()
@@ -34,7 +37,7 @@ class ExecuteCodeView(APIView):
         config = LANGUAGE_CONFIG.get(language)
         if not config:
             return Response(
-                {'error': f'Unsupported language: "{language}". Supported: python, javascript, c++'},
+                {'error': f'Unsupported language: "{language}". Supported: python, javascript, c++, sqlite3'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
