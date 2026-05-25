@@ -737,10 +737,9 @@
                 <section
                     id="assistant-panel"
                     class="assistance c-ai-panel"
-                    data-generate-url="{% url 'assistant:llm_generate' %}"
-                >
-                    {% block ai %} {% include "assistant/llm.html" %} {%
-                    endblock %}
+                    data-generate-url="{% url 'assistant:llm_generate' %}
+                    >
+                    {% block ai %} {% include "assistant/llm.html" %} {% endblock %}
                 </section>
                 {% else %}
                 <section class="c-card c-alert c-alert--info">
