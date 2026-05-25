@@ -1507,7 +1507,6 @@ body.notes-open .notes-backdrop {
 /* ============================================= */
 
 /* Small screens: make panel full width. */
-@import url("responsive/notes.css");
 
 /* ============================================= */
 /* Notes Panel Width Resize Feature */
@@ -1553,22 +1552,4 @@ body.notes-open .notes-backdrop {
 body.notes-panel-resizing {
     cursor: ew-resize;
     user-select: none;
-}
-
-/* REMOVE the redundant desktop media query - the base rule already handles it */
-/* DELETE this entire block: */
-@media (min-width: 901px) {
-    .notes-panel {
-        width: var(--notes-panel-width);
-    }
-}
-
-/* The mobile override stays as-is */
-@media (max-width: 900px) {
-    .notes-panel {
-        width: 100vw;
-    }
-    .notes-panel__resize-handle {
-        display: none;
-    }
 }

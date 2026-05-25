@@ -128,8 +128,6 @@ body.theme-dark {
     transform: translate(-100%, 0);
 }
 
-@import url("responsive/copy.css");
-
 /* ==========================================================================
    Code block runner controls inside the copy overlay layer
    ========================================================================== */

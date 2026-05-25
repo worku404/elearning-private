@@ -167,8 +167,6 @@ input[type="submit"]:hover {
     font-size: var(--fs-0);
 }
 
-@import url("responsive/pages.css");
-
 /* ...existing code... */
 
 /* API Developer Tools page overflow + responsive fixes */

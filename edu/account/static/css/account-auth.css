@@ -185,5 +185,3 @@
 .auth-links a {
     color: var(--color-accent);
 }
-
-@import url("responsive/account-auth.css");

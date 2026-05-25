@@ -2101,10 +2101,12 @@ textarea {
 }
 .course-workspace {
     gap: var(--space-5);
-    grid-template-columns: minmax(
+    grid-template-columns:
+        minmax(
             var(--workspace-modules-min-current, 230px),
             var(--workspace-modules-max-current, 300px)
-        ) minmax(0, 1fr);
+        )
+        minmax(0, 1fr);
 }
 .course-workspace .contents,
 .c-filter-panel,
@@ -2382,5 +2384,3 @@ textarea {
 .notes-panel textarea {
     border-radius: 1rem;
 }
-
-@import url("responsive/unified.css");

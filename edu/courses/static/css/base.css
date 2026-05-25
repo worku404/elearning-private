@@ -576,5 +576,3 @@ body.assistant-sidebar-open .llm-history {
 body.assistant-sidebar-open .llm-form {
     margin-top: auto;
 }
-
-@import url("responsive/base.css");

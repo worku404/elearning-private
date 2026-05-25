@@ -1,65 +1,64 @@
-{% extends "base.html" %}
-{% block title %}Verify Email{% endblock %}
+{% extends "base.html" %} {% load static %} {% block title %}Verify Email{%
+endblock %} {% block content %}
+<section class="page page--auth c-stack">
+    <header class="page-heading">
+        <h1 class="page-title">Verify Your Email</h1>
+    </header>
+    <article class="module c-card auth-card">
+        {% if error %}
+        <p class="c-alert c-alert--error">{{ error }}</p>
+        {% endif %} {% if info %}
+        <p class="c-alert c-alert--info">{{ info }}</p>
+        {% endif %}
 
-{% block content %}
-    <section class="page page--auth c-stack">
-        <header class="page-heading">
-            <h1 class="page-title">Verify Your Email</h1>
-        </header>
-        <article class="module c-card auth-card">
+        <p class="c-card__meta">
+            We sent a <strong>6-digit verification code</strong> to
+            <strong>{{ user_email }}</strong>. Check your inbox and spam folder.
+            The code will expire in 10 minutes.
+        </p>
 
-            {% if error %}
-                <p class="c-alert c-alert--error">{{ error }}</p>
-            {% endif %}
-
-            {% if info %}
-                <p class="c-alert c-alert--info">{{ info }}</p>
-            {% endif %}
-
-            <p class="c-card__meta">
-                We sent a <strong>6-digit verification code</strong> to <strong>{{ user_email }}</strong>.
-                Check your inbox and spam folder. The code will expire in 10 minutes.
+        <!-- Verification Form -->
+        <form method="post" action="{% url 'verify_email' %}" class="c-stack">
+            {% csrf_token %}
+            <p>
+                <label for="code">Verification Code</label>
+                <input
+                    type="text"
+                    id="code"
+                    name="code"
+                    maxlength="6"
+                    placeholder="000000"
+                    pattern="[0-9]{6}"
+                    inputmode="numeric"
+                    required
+                    autocomplete="off"
+                    style="
+                        font-size: 2rem;
+                        letter-spacing: 0.5rem;
+                        font-weight: bold;
+                    "
+                />
+                <small class="c-card__meta"
+                    >Enter the 6-digit code from your email</small
+                >
             </p>
+            <p>
+                <button type="submit" class="c-btn c-btn--primary">
+                    Verify Code
+                </button>
+            </p>
+        </form>
 
-            <!-- Verification Form -->
-            <form method="post" action="{% url 'verify_email' %}" class="c-stack">
-                {% csrf_token %}
-                <p>
-                    <label for="code">Verification Code</label>
-                    <input
-                        type="text"
-                        id="code"
-                        name="code"
-                        maxlength="6"
-                        placeholder="000000"
-                        pattern="[0-9]{6}"
-                        inputmode="numeric"
-                        required
-                        autocomplete="off"
-                        style="font-size: 2rem; letter-spacing: 0.5rem; font-weight: bold;"
-                    />
-                    <small class="c-card__meta">Enter the 6-digit code from your email</small>
-                </p>
-                <p><button type="submit" class="c-btn c-btn--primary">Verify Code</button></p>
-            </form>
+        <!-- Resend Code -->
+        <form method="post" action="{% url 'resend_otp' %}" class="c-stack">
+            {% csrf_token %}
+            <p><button type="submit" class="c-btn">Send New Code</button></p>
+        </form>
 
-            <!-- Resend Code -->
-            <form method="post" action="{% url 'resend_otp' %}" class="c-stack">
-                {% csrf_token %}
-                <p><button type="submit" class="c-btn">Send New Code</button></p>
-            </form>
+        <p><a href="{% url 'student_registration' %}">Start over</a></p>
+    </article>
+</section>
 
-            <p><a href="{% url 'student_registration' %}">Start over</a></p>
-        </article>
-    </section>
-
-<script>
-    document.getElementById('code').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/[^0-9]/g, '');
-        if (value.length > 6) {
-            value = value.slice(0, 6);
-        }
-        e.target.value = value;
-    });
-</script>
+{% endblock %} {% block include_js %} {{ block.super }}
+<script src="{% static 'js/verify.js' %}"></script>
 {% endblock %}
