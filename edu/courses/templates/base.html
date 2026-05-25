@@ -472,7 +472,8 @@
                         >Insights</a
                     >
                 </nav>
-                {% block motivation %} {% if request.user.is_authenticated %}
+                {% block motivation %}
+                {% if request.user.is_authenticated %}
                 <section
                     class="c-card c-progress-card"
                     aria-label="Progress snapshot"
@@ -485,26 +486,14 @@
                     <p
                         class="c-card__meta motto-context"
                         data-motto-context
-                        {%
-                        if
-                        not
-                        daily_motto.link
-                        %}hidden{%
-                        endif
-                        %}
+                        {% if not daily_motto.link %}hidden{% endif %}
                     >
                         Open the article for the full context.
                         <a
                             class="motto-link"
                             data-motto-link
                             href="{{ daily_motto.link|default:'' }}"
-                            {%
-                            if
-                            not
-                            daily_motto.link
-                            %}hidden{%
-                            endif
-                            %}
+                            {% if not daily_motto.link %}hidden{% endif %}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -662,8 +651,9 @@
                     </div>
                     {% endif %}
                 </section>
-                {% endif %} {% endblock %} {% if request.user.is_authenticated
-                %}
+                {% endif %}
+                {% endblock %}
+                {% if request.user.is_authenticated %}
                 <div
                     class="c-presence c-presence--desktop"
                     data-presence-badge
