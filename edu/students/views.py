@@ -129,6 +129,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
             for course in courses:
                 course.student_progress_percent = 0.0
                 course.student_completed = False
+                course.student_last_module_id = None
             context["courses"] = courses
             return context
 
@@ -152,10 +153,12 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
                 course.student_progress_percent = 0.0
                 course.student_completed = False
                 course.student_last_accessed = None
+                course.student_last_module_id = None 
                 continue
             course.student_progress_percent = round(row.progress_percent, 2)
             course.student_completed = row.completed
             course.student_last_accessed = row.last_accessed
+            course.student_last_module_id = row.last_module_id 
 
         # Order by most recently accessed (newest first).
         # Secondary sort keeps ordering stable/readable when last_accessed matches.
@@ -215,7 +218,7 @@ class StudentCourseDetailView(LoginRequiredMixin, DetailView):
         if "module_id" in self.kwargs:
             module = get_object_or_404(Module, id=self.kwargs["module_id"], course=course)
         else:
-            module = modules[0] if modules else None
+             module = modules[0] if modules else None 
 
         # Load and attach per-module progress rows so the template can render module percentages.
         module_progress_rows = {
@@ -267,7 +270,8 @@ class StudentCourseDetailView(LoginRequiredMixin, DetailView):
         elif _course_progress_table_ready():
             try:
                 CourseProgress.objects.filter(id=course_progress.id).update(
-                    last_accessed=timezone.now()
+                    last_accessed=timezone.now(),
+                    last_module_id=module.id if module else None, 
                 )
             except (ProgrammingError, OperationalError):
                 pass
