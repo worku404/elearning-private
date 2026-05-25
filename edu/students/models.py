@@ -34,6 +34,13 @@ class CourseProgress(models.Model):
 
     # Updated automatically each time we save this row.
     last_accessed = models.DateTimeField(auto_now=True)
+    last_module = models.ForeignKey(
+        'courses.Module',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='resumed_by_progress',
+    )
 
     class Meta:
         unique_together = ("user", "course")
