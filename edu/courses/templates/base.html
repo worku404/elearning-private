@@ -293,7 +293,7 @@
                             <!-- Button label for notes. -->
                             Notes
                         </button>
-                        {% endif %} {% if not request.user.is_authenticated %}
+                        {% else %}
                         <a
                             href="https://github.com/worku404/e-learning/blob/main/docs/usage.md"
                             target="_blank"
@@ -418,11 +418,11 @@
                     {% endif %}
                 </div>
                 <div class="account-menu__meta">
-                    <strong
-                        >{{
-                        request.user.first_name|default:request.user.username }}
-                        {{ request.user.last_name }}</strong
-                    >
+                    <strong>
+                        {{
+                        request.user.first_name|default:request.user.username|slice:":1"|upper
+                        }}{{ request.user.last_name|slice:":1"|upper }}
+                    </strong>
                     <span>@{{ request.user.username }}</span>
                 </div>
             </div>
@@ -472,8 +472,7 @@
                         >Insights</a
                     >
                 </nav>
-                {% block motivation %}
-                {% if request.user.is_authenticated %}
+                {% block motivation %} {% if request.user.is_authenticated %}
                 <section
                     class="c-card c-progress-card"
                     aria-label="Progress snapshot"
@@ -486,14 +485,26 @@
                     <p
                         class="c-card__meta motto-context"
                         data-motto-context
-                        {% if not daily_motto.link %}hidden{% endif %}
+                        {%
+                        if
+                        not
+                        daily_motto.link
+                        %}hidden{%
+                        endif
+                        %}
                     >
                         Open the article for the full context.
                         <a
                             class="motto-link"
                             data-motto-link
                             href="{{ daily_motto.link|default:'' }}"
-                            {% if not daily_motto.link %}hidden{% endif %}
+                            {%
+                            if
+                            not
+                            daily_motto.link
+                            %}hidden{%
+                            endif
+                            %}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -651,9 +662,8 @@
                     </div>
                     {% endif %}
                 </section>
-                {% endif %}
-                {% endblock %}
-                {% if request.user.is_authenticated %}
+                {% endif %} {% endblock %} {% if request.user.is_authenticated
+                %}
                 <div
                     class="c-presence c-presence--desktop"
                     data-presence-badge
@@ -692,9 +702,9 @@
                                 &times;
                             </button>
                             <span class="c-alert__icon" aria-hidden="true">
-                                {% if 'error' in message.tags %}✕{% elif
-                                'warning' in message.tags %}⚠{% elif 'success'
-                                in message.tags %}✓{% else %}i{% endif %}
+                                {% if 'error' in message.tags %}✕ {% elif
+                                'warning' in message.tags %}⚠ {% elif 'success'
+                                in message.tags %}✓{% else %}i {% endif %}
                             </span>
                             <p class="c-card__meta c-card__meta--flush">
                                 {{ message }}
@@ -737,9 +747,10 @@
                 <section
                     id="assistant-panel"
                     class="assistance c-ai-panel"
-                    data-generate-url="{% url 'assistant:llm_generate' %}
-                    >
-                    {% block ai %} {% include "assistant/llm.html" %} {% endblock %}
+                    data-generate-url="{% url 'assistant:llm_generate' %}"
+                >
+                    {% block ai %} {% include "assistant/llm.html" %} {%
+                    endblock %}
                 </section>
                 {% else %}
                 <section class="c-card c-alert c-alert--info">
@@ -754,15 +765,13 @@
         </main>
         {% if request.user.is_authenticated %}
         <!-- Notes panel markup included for authenticated users. -->
-        {% include "notes/panel.html" %} {% endif %} {% if
-        request.user.is_authenticated %}
+        {% include "notes/panel.html" %}
         <section
             id="chat-notification-stack"
             class="c-toast-stack"
             aria-live="polite"
             aria-atomic="false"
         ></section>
-        {% endif %} {% if request.user.is_authenticated %}
         <div
             id="js-app-config"
             data-presence-url="{% url 'presence_ping' %}"
@@ -772,18 +781,21 @@
             hidden
             aria-hidden="true"
         ></div>
-        {% endif %} {% block include_js %}{% endblock %} {% if
-        request.user.is_authenticated %}
+
+        {% block include_js %}{% endblock %}
+
         <!-- Quill editor script for rich-text notes. -->
         <script src="https://cdn.quilljs.com/1.3.7/quill.min.js" defer></script>
         <!-- Notes panel behavior script. -->
         <script src="{% static 'notes/notes.js' %}" defer></script>
+
         {% endif %}
         <script src="{% static 'js/topbar-drawer.js' %}" defer></script>
         <script src="{% static 'js/theme-toggle.js' %}" defer></script>
         <script src="{% static 'js/account-menu.js' %}" defer></script>
         <script src="{% static 'js/notifications.js' %}" defer></script>
         <script src="{% static 'js/base-app.js' %}" defer></script>
+
         <script>
 
                 document.addEventListener("DOMContentLoaded", function () {
