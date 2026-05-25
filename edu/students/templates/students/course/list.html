@@ -32,9 +32,15 @@
                         {{ course.student_progress_percent|default:0|floatformat:0 }}%
                     </p>
                     <div class="c-card__actions">
-                        <a href="{% url 'student_course_detail' course.id %}" class="c-btn c-btn--primary">
-                            Continue learning
-                        </a>
+                        {% if course.student_last_module_id %}
+                            <a href="{% url 'student_course_detail_module' course.id course.student_last_module_id %}" class="c-btn c-btn--primary">
+                                Continue learning
+                            </a>
+                        {% else %}
+                            <a href="{% url 'student_course_detail' course.id %}" class="c-btn c-btn--primary">
+                                Continue learning
+                            </a>
+                        {% endif %}
                     </div>
                 </article>
             {% empty %}
