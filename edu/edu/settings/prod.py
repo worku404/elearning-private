@@ -6,7 +6,7 @@ def _csv(value):
 
 
 SECRET_KEY = config("SECRET_KEY", default=SECRET_KEY)
-DEBUG = False
+DEBUG = True
 
 ADMIN = [
     ('Worku W.', 'worku0963@gmail.com'),

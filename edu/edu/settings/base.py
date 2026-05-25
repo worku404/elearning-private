@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "daphne",
     # Project apps (keep this app first as requested for auth monitoring/dependency order)
     "courses.apps.CoursesConfig",
+    "account.apps.AccountConfig",  # Email verification and authentication
     # Django built-in apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -48,8 +49,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Project apps
-    "account.apps.AccountConfig",  # Email verification and authentication
     "students.apps.StudentsConfig",
     "assistant.apps.AssistantConfig",
     "chat.apps.ChatConfig",
