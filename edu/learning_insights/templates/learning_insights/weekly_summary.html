@@ -1,5 +1,5 @@
-﻿{% extends "learning_insights/base.html" %} {% load course static %} {% block
-title %}Weekly Summary{% endblock %} {% block extra_css %} {{ block.super }}
+﻿{% extends "learning_insights/base.html" %} {% load course static %}
+{% block title %}Weekly Summary{% endblock %} {% block extra_css %} {{ block.super }}
 <link
     rel="stylesheet"
     href="{% static 'learning_insights/css/templates/weekly_summary.css' %}"
@@ -268,8 +268,8 @@ title %}Weekly Summary{% endblock %} {% block extra_css %} {{ block.super }}
     </p>
 </section>
 {% endif %} {{ daily_chart|json_script:"li-weekly-daily-chart-data" }} {{
-course_chart|json_script:"li-weekly-course-chart-data" }} {% endblock %} {%
-block include_js %} {{ block.super }}
+course_chart|json_script:"li-weekly-course-chart-data" }} {% endblock %}
+{% block include_js %} {{ block.super }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'learning_insights/js/li-charts.js' %}"></script>
 <script src="{% static 'learning_insights/js/weekly_summary.js' %}"></script>

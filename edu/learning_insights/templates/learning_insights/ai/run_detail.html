@@ -1,6 +1,5 @@
-{% extends "learning_insights/base.html" %} {% load static %} {% block title
-%}AI Run | Learning Insights{% endblock %} {% block extra_css %} {{ block.super
-}}
+{% extends "learning_insights/base.html" %} {% load static %}
+{% block title %}AI Run | Learning Insights{% endblock %} {% block extra_css %} {{ block.super }}
 <link
     rel="stylesheet"
     href="{% static 'learning_insights/css/templates/ai_run_detail.css' %}"
@@ -21,8 +20,7 @@
             </p>
         </div>
         <div class="li-card-actions">
-            {% if run.kind == "prompt_plan" or run.kind == "weekly_plan" or
-            run.kind == "daily_plan" %}
+            {% if run.kind == "prompt_plan" or run.kind == "weekly_plan" or run.kind == "daily_plan" %}
             <a
                 href="{% url 'learning_insights:goal_create' %}?ai_run={{ run.id }}#ai-planner"
                 class="c-btn c-btn--ghost"
@@ -99,8 +97,7 @@
         {% endif %}
     </article>
 
-    {% if summary_view.achievements or summary_view.missed_targets or
-    summary_view.insights or summary_view.suggestions %}
+    {% if summary_view.achievements or summary_view.missed_targets or summary_view.insights or summary_view.suggestions %}
     <div class="li-run-detail-grid li-section-top">
         {% if summary_view.achievements %}
         <article class="li-run-detail-card">
@@ -142,16 +139,14 @@
     </div>
     {% endif %} {% else %} {% if run.summary_text %}
     <p class="li-prose">{{ run.summary_text }}</p>
-    {% endif %} {% endif %} {% if run.status == "failed" and run.error_message
-    %}
+    {% endif %} {% endif %} {% if run.status == "failed" and run.error_message %}
     <div class="c-card c-alert c-alert--error li-section-top">
         <p class="c-card__meta li-meta">{{ run.error_message }}</p>
     </div>
     {% endif %} {% if is_prompt_plan or is_payload_editable %}
     <div class="li-section-top li-card-actions">
         <a href="#edit" class="c-btn c-btn--secondary">
-            {% if run.kind == "prompt_plan" %}Edit plan{% else %}Edit JSON{%
-            endif %}
+            {% if run.kind == "prompt_plan" %}Edit plan{% else %}Edit JSON{% endif %}
         </a>
 
         {% if run.kind == "prompt_plan" and run.status == "success" %}
@@ -218,8 +213,7 @@
                             class="c-card__meta li-label"
                             >Day</label
                         >
-                        {{ item_form.day }} {% for error in item_form.day.errors
-                        %}
+                        {{ item_form.day }} {% for error in item_form.day.errors %}
                         <p class="c-card__meta li-mt-sm li-error-text">
                             {{ error }}
                         </p>
@@ -232,8 +226,7 @@
                             class="c-card__meta li-label"
                             >Course (optional)</label
                         >
-                        {{ item_form.course }} {% for error in
-                        item_form.course.errors %}
+                        {{ item_form.course }} {% for error in item_form.course.errors %}
                         <p class="c-card__meta li-mt-sm li-error-text">
                             {{ error }}
                         </p>
@@ -246,8 +239,7 @@
                             class="c-card__meta li-label"
                             >Minutes</label
                         >
-                        {{ item_form.minutes }} {% for error in
-                        item_form.minutes.errors %}
+                        {{ item_form.minutes }} {% for error in item_form.minutes.errors %}
                         <p class="c-card__meta li-mt-sm li-error-text">
                             {{ error }}
                         </p>
@@ -260,8 +252,7 @@
                             class="c-card__meta li-label"
                             >Task</label
                         >
-                        {{ item_form.task }} {% for error in
-                        item_form.task.errors %}
+                        {{ item_form.task }} {% for error in item_form.task.errors %}
                         <p class="c-card__meta li-mt-sm li-error-text">
                             {{ error }}
                         </p>
@@ -274,8 +265,7 @@
                             class="c-card__meta li-label"
                             >Notes</label
                         >
-                        {{ item_form.notes }} {% for error in
-                        item_form.notes.errors %}
+                        {{ item_form.notes }} {% for error in item_form.notes.errors %}
                         <p class="c-card__meta li-mt-sm li-error-text">
                             {{ error }}
                         </p>

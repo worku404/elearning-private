@@ -1,6 +1,6 @@
-﻿{% extends "learning_insights/base.html" %} {% load course static %} {% block
-title %}{% if form.instance.pk %}Edit Goal{% else %}Create Goal{% endif %}{%
-endblock %} {% block extra_css %} {{ block.super }}
+﻿{% extends "learning_insights/base.html" %} {% load course static %}
+{% block title %}{% if form.instance.pk %}Edit Goal{% else %}Create Goal{% endif %}{% endblock %}
+{% block extra_css %} {{ block.super }}
 <link
     rel="stylesheet"
     href="{% static 'learning_insights/css/templates/goals_form.css' %}"
@@ -12,8 +12,7 @@ endblock %} {% block extra_css %} {{ block.super }}
         <div>
             <p class="c-card__meta li-kicker">Learning Insights</p>
             <h1 id="goal-form-title" class="c-card__title li-title">
-                {% if form.instance.pk %}Edit goal{% else %}Create a goal{%
-                endif %}
+                {% if form.instance.pk %}Edit goal{% else %}Create a goal{% endif %}
             </h1>
             <p class="c-card__meta li-subtitle">
                 Define what you want to achieve, then track progress using study
@@ -154,12 +153,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         name="answer_{{ q.id }}"
                         class="c-search__input"
                         placeholder="{{ q.placeholder }}"
-                        {%
-                        if
-                        q.required
-                        %}required{%
-                        endif
-                        %}
+                        {% if q.required %}required{% endif %}
                     />
                 </div>
                 {% endfor %}
@@ -202,8 +196,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                 {% for day in ai_output.plan|slice:":7" %}
                 <article class="c-card li-m0 li-pad-card li-subcard-border">
                     <p class="c-card__meta li-meta">
-                        <strong>{{ day.date }}</strong>{% if day.is_buffer_day
-                        %} &middot; Buffer day{% endif %}
+                        <strong>{{ day.date }}</strong>{% if day.is_buffer_day %} &middot; Buffer day{% endif %}
                     </p>
                     {% if day.items %}
                     <ul class="li-goals-form-list li-goals-form-list--md">
@@ -308,8 +301,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         class="c-card__meta li-label"
                         >Description</label
                     >
-                    {{ form.description }} {% for error in
-                    form.description.errors %}
+                    {{ form.description }} {% for error in form.description.errors %}
                     <p class="c-card__meta li-mt-sm li-error-text">
                         {{ error }}
                     </p>
@@ -354,8 +346,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         class="c-card__meta li-label"
                         >Period type</label
                     >
-                    {{ form.period_type }} {% for error in
-                    form.period_type.errors %}
+                    {{ form.period_type }} {% for error in form.period_type.errors %}
                     <p class="c-card__meta li-mt-sm li-error-text">
                         {{ error }}
                     </p>
@@ -368,8 +359,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         class="c-card__meta li-label"
                         >Start date</label
                     >
-                    {{ form.start_date }} {% for error in form.start_date.errors
-                    %}
+                    {{ form.start_date }} {% for error in form.start_date.errors %}
                     <p class="c-card__meta li-mt-sm li-error-text">
                         {{ error }}
                     </p>
@@ -395,8 +385,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         class="c-card__meta li-label"
                         >Target type</label
                     >
-                    {{ form.target_type }} {% for error in
-                    form.target_type.errors %}
+                    {{ form.target_type }} {% for error in form.target_type.errors %}
                     <p class="c-card__meta li-mt-sm li-error-text">
                         {{ error }}
                     </p>
@@ -426,8 +415,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                         class="c-card__meta li-label"
                         >Current value</label
                     >
-                    {{ form.current_value }} {% if form.current_value.help_text
-                    %}
+                    {{ form.current_value }} {% if form.current_value.help_text %}
                     <p class="c-card__meta li-mt-sm">
                         {{ form.current_value.help_text }}
                     </p>
@@ -479,8 +467,7 @@ endblock %} {% block extra_css %} {{ block.super }}
                 >Cancel</a
             >
             <button type="submit" class="c-btn c-btn--primary">
-                {% if form.instance.pk %}Save changes{% else %}Create goal{%
-                endif %}
+                {% if form.instance.pk %}Save changes{% else %}Create goal{% endif %}
             </button>
         </div>
     </form>

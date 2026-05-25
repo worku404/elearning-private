@@ -317,8 +317,7 @@
                         >
                             <span class="theme-icon" aria-hidden="true"></span>
                         </a>
-                        {% if request.user.is_authenticated %} {%
-                        profile_photo_url request.user as user_photo_url %}
+                        {% if request.user.is_authenticated %} {% profile_photo_url request.user as user_photo_url %}
                         <button
                             type="button"
                             class="account-fab"
@@ -483,29 +482,13 @@
                     <strong class="motto-text" data-motto-text>
                         {{ daily_motto.text }}
                     </strong>
-                    <p
-                        class="c-card__meta motto-context"
-                        data-motto-context
-                        {%
-                        if
-                        not
-                        daily_motto.link
-                        %}hidden{%
-                        endif
-                        %}
-                    >
+                    <p class="c-card__meta motto-context" data-motto-context {% if not daily_motto.link %}hidden{% endif %}>
                         Open the article for the full context.
                         <a
                             class="motto-link"
                             data-motto-link
                             href="{{ daily_motto.link|default:'' }}"
-                            {%
-                            if
-                            not
-                            daily_motto.link
-                            %}hidden{%
-                            endif
-                            %}
+                            {% if not daily_motto.link %}hidden{% endif %}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -663,8 +646,7 @@
                     </div>
                     {% endif %}
                 </section>
-                {% endif %} {% endblock %} {% if request.user.is_authenticated
-                %}
+                {% endif %} {% endblock %} {% if request.user.is_authenticated %}
                 <div
                     class="c-presence c-presence--desktop"
                     data-presence-badge
@@ -703,9 +685,7 @@
                                 &times;
                             </button>
                             <span class="c-alert__icon" aria-hidden="true">
-                                {% if 'error' in message.tags %}✕ {% elif
-                                'warning' in message.tags %}⚠ {% elif 'success'
-                                in message.tags %}✓{% else %}i {% endif %}
+                                {% if 'error' in message.tags %}✕ {% elif 'warning' in message.tags %}⚠ {% elif 'success' in message.tags %}✓{% else %}i {% endif %}
                             </span>
                             <p class="c-card__meta c-card__meta--flush">
                                 {{ message }}
@@ -750,8 +730,7 @@
                     class="assistance c-ai-panel"
                     data-generate-url="{% url 'assistant:llm_generate' %}"
                 >
-                    {% block ai %} {% include "assistant/llm.html" %} {%
-                    endblock %}
+                    {% block ai %} {% include "assistant/llm.html" %} {% endblock %}
                 </section>
                 {% else %}
                 <section class="c-card c-alert c-alert--info">

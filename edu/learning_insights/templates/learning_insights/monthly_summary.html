@@ -1,5 +1,5 @@
-﻿{% extends "learning_insights/base.html" %} {% load course static %} {% block
-title %}Monthly Summary{% endblock %} {% block extra_css %} {{ block.super }}
+﻿{% extends "learning_insights/base.html" %} {% load course static %}
+{% block title %}Monthly Summary{% endblock %} {% block extra_css %} {{ block.super }}
 <link
     rel="stylesheet"
     href="{% static 'learning_insights/css/templates/monthly_summary.css' %}"
@@ -204,8 +204,8 @@ title %}Monthly Summary{% endblock %} {% block extra_css %} {{ block.super }}
     </ul>
 </section>
 {% endif %} {{ summary.daily_chart|json_script:"li-monthly-daily-chart-data" }}
-{{ summary.course_chart|json_script:"li-monthly-course-chart-data" }} {%
-endblock %} {% block include_js %} {{ block.super }}
+{{ summary.course_chart|json_script:"li-monthly-course-chart-data" }}
+{% endblock %} {% block include_js %} {{ block.super }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'learning_insights/js/li-charts.js' %}"></script>
 <script src="{% static 'learning_insights/js/monthly_summary.js' %}"></script>

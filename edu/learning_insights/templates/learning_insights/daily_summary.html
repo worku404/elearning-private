@@ -1,5 +1,5 @@
-﻿{% extends "learning_insights/base.html" %} {% load course static %} {% block
-title %}Daily Summary{% endblock %} {% block extra_css %} {{ block.super }}
+﻿{% extends "learning_insights/base.html" %} {% load course static %}
+{% block title %}Daily Summary{% endblock %} {% block extra_css %} {{ block.super }}
 <link
     rel="stylesheet"
     href="{% static 'learning_insights/css/templates/daily_summary.css' %}"
@@ -268,8 +268,8 @@ title %}Daily Summary{% endblock %} {% block extra_css %} {{ block.super }}
         may be incomplete.
     </p>
 </section>
-{% endif %} {{ course_chart|json_script:"li-daily-course-chart-data" }} {%
-endblock %} {% block include_js %} {{ block.super }}
+{% endif %} {{ course_chart|json_script:"li-daily-course-chart-data" }}
+{% endblock %} {% block include_js %} {{ block.super }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'learning_insights/js/li-charts.js' %}"></script>
 <script src="{% static 'learning_insights/js/daily_summary.js' %}"></script>
