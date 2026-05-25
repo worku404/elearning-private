@@ -169,32 +169,6 @@ input[type="submit"]:hover {
 
 @import url("responsive/pages.css");
 
-@media (max-width: 900px) {
-    .page-title {
-        font-size: clamp(var(--fs-2), 5vw, var(--fs-4));
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-viewer {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-toolbar {
-        padding-inline: var(--space-2);
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-viewer__scroll {
-        min-height: 55vh;
-        max-height: none;
-    }
-
-    .modules-unhide {
-        top: auto;
-        left: 12px;
-        bottom: 12px;
-        transform: none;
-    }
-}
 /* ...existing code... */
 
 /* API Developer Tools page overflow + responsive fixes */
@@ -308,11 +282,4 @@ input[type="submit"]:hover {
     width: 100%;
     max-width: 100%;
     min-width: 0;
-}
-
-/* Stack two-column layout on smaller screens */
-@media (max-width: 900px) {
-    .api-dual-layout {
-        grid-template-columns: 1fr;
-    }
 }
