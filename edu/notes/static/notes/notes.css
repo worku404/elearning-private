@@ -5,7 +5,15 @@
 /* Base notes-specific variables for light mode. */
 :root {
     /* Panel width is about half the viewport, capped for large screens. */
-    --notes-panel-width: min(50vw, 600px);
+    --notes-panel-min-width: 360px;
+    --notes-panel-max-width: min(80vw, 1100px);
+    --notes-panel-resizable-width: min(50vw, 600px);
+    --notes-panel-width: clamp(
+        var(--notes-panel-min-width),
+        var(--notes-panel-resizable-width),
+        var(--notes-panel-max-width)
+    );
+
     /* Panel background uses the main surface color. */
     --notes-panel-bg: var(--color-surface);
     /* Panel border color aligns with global borders. */
@@ -1361,5 +1369,69 @@ body.notes-open .notes-backdrop {
         z-index: 4;
         /* Add a right border for separation. */
         border-right: 1px solid var(--notes-panel-border);
+    }
+}
+
+/* ============================================= */
+/* Notes Panel Width Resize Feature */
+/* ============================================= */
+
+/* Ensure handle is always interactive regardless of panel state */
+.notes-panel__resize-handle {
+    position: absolute;
+    top: 0;
+    right: -6px;
+    bottom: 0;
+    width: 12px;
+    cursor: ew-resize;
+    z-index: 1260; /* above panel's z-index of 1250 */
+    background: transparent;
+    touch-action: none;
+    pointer-events: auto !important; /* override inherited none from closed panel */
+}
+
+/* Small visible grip line. */
+.notes-panel__resize-handle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  width: 2px;
+  height: 56px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-text-muted) 60%, transparent);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* Show grip line on hover/focus/drag. */
+.notes-panel__resize-handle:hover::before,
+.notes-panel__resize-handle:focus-visible::before,
+.notes-panel.is-resizing .notes-panel__resize-handle::before {
+  opacity: 1;
+}
+
+/* Prevent text selection while resizing the whole notes panel. */
+body.notes-panel-resizing {
+  cursor: ew-resize;
+  user-select: none;
+}
+
+/* REMOVE the redundant desktop media query - the base rule already handles it */
+/* DELETE this entire block: */
+@media (min-width: 901px) {
+    .notes-panel {
+        width: var(--notes-panel-width);
+    }
+}
+
+/* The mobile override stays as-is */
+@media (max-width: 900px) {
+    .notes-panel {
+        width: 100vw;
+    }
+    .notes-panel__resize-handle {
+        display: none;
     }
 }
