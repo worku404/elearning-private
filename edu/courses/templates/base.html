@@ -86,11 +86,10 @@
         <link rel="stylesheet" href="{% static 'courses/css/main.css' %}" />
         <link rel="stylesheet" href="{% static 'courses/css/copy.css' %}" />
         <link rel="stylesheet" href="{% static 'courses/css/responsive/copy.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/account-menu.css' %}" />
-        <link
-            rel="stylesheet"
-            href="{% static 'css/responsive/account-menu.css' %}"
-        />
+        <link rel="stylesheet" href="{% static 'account/css/account-menu.css' %}" />
+        <link rel="stylesheet" href="{% static 'account/css/responsive/account-menu.css' %}" />
+        <link rel="stylesheet" href="{% static 'assistant/css/assistant.css' %}" />
+        <link rel="stylesheet" href="{% static 'assistant/css/responsive/assistant.css' %}" />
 
         {% block extra_css %}{% endblock %}
     </head>
@@ -764,7 +763,7 @@
         {% endif %}
         <script src="{% static 'courses/js/topbar-drawer.js' %}" defer></script>
         <script src="{% static 'courses/js/theme-toggle.js' %}" defer></script>
-        <script src="{% static 'courses/js/account-menu.js' %}" defer></script>
+        <script src="{% static 'account/js/account-menu.js' %}" defer></script>
         <script src="{% static 'courses/js/notifications.js' %}" defer></script>
         <script src="{% static 'courses/js/base-app.js' %}" defer></script>
 

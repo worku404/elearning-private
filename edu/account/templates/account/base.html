@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% block extra_static %}
-<link rel="stylesheet" href="{% static 'css/account-auth.css' %}">
-<link rel="stylesheet" href="{% static 'css/account-menu.css' %}">
-<link rel="stylesheet" href="{% static 'css/responsive/account-auth.css' %}">
-<link rel="stylesheet" href="{% static 'css/responsive/account-menu.css' %}">
-
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'account/css/account-auth.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/account-menu.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/responsive/account-auth.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/responsive/account-menu.css' %}">
 {% endblock %}
