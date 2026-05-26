@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load course static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/text.css' %}" />
+{% endblock %}
+
 {% block title %}
     {{ object.title }}
 {% endblock %}
