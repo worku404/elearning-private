@@ -1,58 +1,3 @@
-.page {
-    display: grid;
-    gap: var(--space-5);
-}
-
-html,
-body {
-    scrollbar-color: #54586d #282a36;
-    scrollbar-width: thin;
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    width: 9px;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
-    background: #282a36;
-}
-
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-    background: #54586d;
-    border-radius: 999px;
-}
-
-.page-heading {
-    display: grid;
-    gap: var(--space-2);
-}
-
-.page-title {
-    font-size: clamp(var(--fs-3), 2.2vw, var(--fs-5));
-    font-weight: 700;
-}
-
-.page-subtitle {
-    color: var(--color-text-muted);
-    font-size: var(--fs-0);
-}
-
-.catalog-layout {
-    display: grid;
-    grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
-    gap: var(--space-4);
-    align-items: start;
-}
-
-.course-listing {
-    display: grid;
-    gap: var(--space-3);
-}
-
-
 #module-contents {
     display: grid;
     gap: var(--space-3);
@@ -95,7 +40,6 @@ body::-webkit-scrollbar-thumb {
     background: color-mix(in srgb, var(--color-secondary-surface) 80%, white);
 }
 
-/* Form and field consistency */
 form p {
     display: grid;
     gap: var(--space-2);
@@ -119,7 +63,6 @@ textarea {
     padding: 0.625rem 0.75rem;
 }
 
-/* Keep delete/mark checkboxes small & consistent globally */
 input[type="checkbox"],
 input[type="radio"] {
     width: 16px;
@@ -129,7 +72,6 @@ input[type="radio"] {
     accent-color: var(--color-accent);
 }
 
-/* Compact submit buttons for destructive actions (global) */
 input[type="submit"][value="Delete"],
 input[type="submit"][value="Confirm"] {
     min-height: 34px;

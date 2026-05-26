@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+{% endblock %}
 
 {# Browser tab title changes based on active subject filter #}
 {% block title %}

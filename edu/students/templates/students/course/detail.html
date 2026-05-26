@@ -1,10 +1,11 @@
-{% extends "base.html" %}
+{% extends "students/base.html" %}
 {% load course static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/text.css' %}" />
-<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
-<link rel="stylesheet" href="{% static 'css/responsive/detail.css' %}" />
+<link rel="stylesheet" href="{% static 'students/css/text.css' %}" />
+<link rel="stylesheet" href="{% static 'students/css/detail.css' %}" />
+<link rel="stylesheet" href="{% static 'students/css/responsive/detail.css' %}" />
+<link rel="stylesheet" href="{% static 'students/css/pdf.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -143,7 +144,7 @@
 {% block include_js %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="{% static 'js/pdf_viewer.js' %}"></script>
-<script src="{% static 'js/video_zoom.js' %}"></script>
+<script src="{% static 'students/js/pdf_viewer.js' %}"></script>
+<script src="{% static 'students/js/video_zoom.js' %}"></script>
 <script src="{% static 'students/js/course_detail.js' %}" defer></script>
 {% endblock %}

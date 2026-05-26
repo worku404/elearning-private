@@ -2,53 +2,7 @@
 <html>
 <head>
     <title>Email Verification</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 5px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .code-box {
-            background: #ffffff;
-            padding: 20px;
-            text-align: center;
-            border-radius: 5px;
-            margin: 20px 0;
-            border: 2px dashed #007bff;
-        }
-        .otp-code {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            color: #007bff;
-            font-family: monospace;
-        }
-        .warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 3px;
-        }
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-top: 30px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'account/css/otp_email.css' %}">
 </head>
 <body>
     <div class="container">

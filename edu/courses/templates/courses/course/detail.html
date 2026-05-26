@@ -1,5 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% load course_markdown %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/enrollment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive/enrollment.css' %}">
+        
+{% endblock %}
 
 {# Browser tab title for this course page #}
 {% block title %}

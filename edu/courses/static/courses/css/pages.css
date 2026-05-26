@@ -1,0 +1,46 @@
+.page {
+    display: grid;
+    gap: var(--space-5);
+}
+
+html,
+body {
+    scrollbar-color: #54586d #282a36;
+    scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 9px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: #282a36;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: #54586d;
+    border-radius: 999px;
+}
+
+.page-heading {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.page-title {
+    font-size: clamp(var(--fs-3), 2.2vw, var(--fs-5));
+    font-weight: 700;
+}
+
+.page-subtitle {
+    color: var(--color-text-muted);
+    font-size: var(--fs-0);
+}
+
+
+
+
+

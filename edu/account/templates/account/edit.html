@@ -1,7 +1,7 @@
-{% extends "base.html" %} {% load static %} {% block title %}Edit your account{% endblock %} {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/account-auth.css' %}" />
-<link rel="stylesheet" href="{% static 'css/responsive/account-auth.css' %}" />
-{% endblock %} {% block content %}
+{% extends "account/base.html" %}
+
+{% block title %}Edit your account{% endblock %}
+{% block content %}
 <section class="account-shell">
     <header class="account-shell__header">
         <h1>Edit Profile</h1>
@@ -18,10 +18,10 @@
             {% csrf_token %}
 
             <h2 class="account-form__section-title">Basic information</h2>
-            {% for field in user_form %} {% include "includes/auth/form_field.html" with field=field %} {% endfor %}
+            {% for field in user_form %} {% include "account/includes/auth/form_field.html" with field=field %} {% endfor %}
 
             <h2 class="account-form__section-title">Profile details</h2>
-            {% for field in profile_form %} {% include "includes/auth/form_field.html" with field=field %} {% endfor %}
+            {% for field in profile_form %} {% include "account/includes/auth/form_field.html" with field=field %} {% endfor %}
 
             <button type="submit" class="account-submit-btn">
                 Save Changes
