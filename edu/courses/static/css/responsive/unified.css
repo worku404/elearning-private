@@ -216,7 +216,7 @@
         position: static;
     }
 
-    .catalog-layout, .course-workspace, .api-token-controls, .assistant-history-shell {
+    .catalog-layout, .course-workspace, .api-token-controls {
         grid-template-columns: 1fr;
     }
 
@@ -275,15 +275,11 @@
         justify-content: flex-start;
     }
 
-    .c-card, .assistance, .assistant-history-sidebar, .c-content-block[data-content-model="file"], .api-code {
+    .c-card, .c-content-block[data-content-model="file"], .api-code {
         border-radius: 1rem;
     }
 
-    .assistant-unhide {
-        width: 50px;
-        height: 100px;
-        right: 0.55rem;
-    }
+
 }
 
 /* --- Main inner / page --- */

@@ -69,7 +69,7 @@ body.theme-dark {
     --color-warning: #d0a649;
     --color-error: #ef6363;
     --color-text: #e7eef7;
-    --side-bar-text:;
+    --side-bar-text: red; /*should be correct later*/
     --color-text-muted: #9ab0c7;
     --color-border: #2a3b50;
     --color-bg: #0f1723;

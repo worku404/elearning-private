@@ -141,17 +141,9 @@
     justify-items: stretch;
 }
 
-body.assistant-sidebar-open .l-main__inner {
-    max-width: none;
-}
 
-body.assistant-sidebar-open .l-shell {
-    max-width: none;
-}
 
 .l-util {
     position: sticky;
     top: var(--topbar-height);
 }
-
-@import url("responsive/layout.css");
