@@ -385,6 +385,7 @@ body.theme-dark .c-reader__content blockquote code {
     background: rgba(99,179,237,0.14) !important;
     color: #90cdf4 !important;
     border: 1px solid rgba(99,179,237,0.28) !important;
+    
 }/* ─── Code blocks: never restyle what hljs owns ─────────── */.c-reader__content pre code,
 .c-reader__content pre code.hljs {
     background: transparent !important;
@@ -395,6 +396,8 @@ body.theme-dark .c-reader__content blockquote code {
     border-radius: 0 !important;
     display: block !important;
     word-break: normal !important;
+
+    
 }/* ─── Markdown blockquote / > quote marker ──────────────── */.c-reader blockquote,
 .c-content-render blockquote {
     position: relative;
@@ -412,7 +415,9 @@ body.theme-dark .c-reader__content blockquote code {
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     font-style: italic;
     line-height: 1.75;
-}/* Large decorative opening quote */.c-reader blockquote::before,
+}/* Large decorative opening quote */
+
+.c-reader blockquote::before,
 .c-content-render blockquote::before {
     content: "\201C";
     position: absolute;
@@ -425,19 +430,25 @@ body.theme-dark .c-reader__content blockquote code {
 
     color: #63b3ff !important;
     opacity: 0.85;
-}/* Paragraphs inside blockquotes */.c-reader blockquote p,
+}/* Paragraphs inside blockquotes */
+
+.c-reader blockquote p,
 .c-content-render blockquote p {
     margin: 0 0 1rem;
     color: inherit !important;
-}/* Remove extra bottom gap */.c-reader blockquote p:last-child,
+}/* Remove extra bottom gap */
+
+.c-reader blockquote p:last-child,
 .c-content-render blockquote p:last-child {
     margin-bottom: 0;
-}/* Author/source line */.c-reader blockquote strong,
+}/* Author/source line */
+.c-reader blockquote strong,
 .c-content-render blockquote strong {
     color: #2f3a45 !important;
     font-style: normal;
     font-weight: 700;
-}/* Dark mode */body.theme-dark .c-reader blockquote,
+}/* Dark mode */
+body.theme-dark .c-reader blockquote,
 body.theme-dark .c-content-render blockquote {
     background: rgba(255, 255, 255, 0.045) !important;
     color: rgba(255, 255, 255, 0.72) !important;
@@ -453,7 +464,9 @@ body.theme-dark .c-content-render blockquote::before {
 }body.theme-dark .c-reader blockquote strong,
 body.theme-dark .c-content-render blockquote strong {
     color: rgba(255, 255, 255, 0.9) !important;
-}/* Responsive */@media (max-width: 640px) {
+}/* Responsive */
+
+@media (max-width: 640px) {
     .c-reader blockquote,
     .c-content-render blockquote {
         margin: 1.5rem 0;
@@ -465,10 +478,12 @@ body.theme-dark .c-content-render blockquote strong {
         left: 0.75rem;
         font-size: 3.4rem;
     }
-}.c-video {
+}
+.c-video {
     display: grid;
     gap: var(--space-3);
-}.c-video__frame iframe,
+}
+.c-video__frame iframe,
 .c-video iframe,
 .c-video__frame video,
 .c-video video {
@@ -478,25 +493,30 @@ body.theme-dark .c-content-render blockquote strong {
     aspect-ratio: 16 / 9;
     border: 0;
     border-radius: var(--radius-sm);
-}.c-video.is-zoom-fill .c-video__frame {
+}
+.c-video.is-zoom-fill .c-video__frame {
     aspect-ratio: 16 / 9;
     background: #000;
     overflow: hidden;
     border-radius: var(--radius-sm);
-}.c-video.is-zoom-fill .c-video__frame video {
+}
+.c-video.is-zoom-fill .c-video__frame video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 0;
-}.c-media {
+}
+.c-media {
     margin: 0;
-}.c-media__img {
+}
+.c-media__img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: var(--radius-sm);
     border: 1px solid var(--color-border);
-}.c-resource-download {
+}
+.c-resource-download {
     margin: 0;
 }/* ===================================================== *//* COURSE CHAT LINK (sidebar)                           *//* ===================================================== *//* Light mode (default) */.course-chat-link {
   display: inline-flex;
@@ -1849,119 +1869,161 @@ body.theme-dark .c-pdf-page__text-layer *::selection {
     50% {
         opacity: 0.7;
     }
-}.auth-card .c-card__title {
+}
+.auth-card .c-card__title {
     font-size: clamp(1.5rem, 1.1rem + 1vw, 2rem);
-}input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), select, textarea, .c-input {
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]), select, textarea, .c-input {
     min-height: 48px;
     border-radius: 0.95rem;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}textarea {
+}
+textarea {
     min-height: 140px;
-}.c-stack {
+}
+.c-stack {
     border-radius: var(--radius-lg);
+}
 
-}.page {
+.page {
     gap: var(--space-6);
-}.l-main {
+}
+.l-main {
     border-radius: var(--radius-lg);
     overflow: hidden;
-}.l-main__inner {
+}
+.l-main__inner {
     max-width: none;
     width: 100%;
     margin-inline: 0;
-}.page-heading {
+}
+.page-heading {
     gap: var(--space-3);
     max-width: 76ch;
-}.page-title {
+}
+.page-title {
     font-size: clamp(2rem, 1.4rem + 2vw, 3.5rem);
     line-height: 1.05;
     letter-spacing: -0.05em;
-}.page-subtitle {
+}
+.page-subtitle {
     max-width: 72ch;
     font-size: var(--fs-1);
     line-height: 1.55;
-}.catalog-layout {
+}
+.catalog-layout {
     gap: var(--space-5);
     grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
-}.course-listing {
+}
+.course-listing {
     gap: var(--space-4);
-}.course-workspace {
+}
+.course-workspace {
     gap: var(--space-5);
     grid-template-columns: minmax(var(--workspace-modules-min-current, 230px), var(--workspace-modules-max-current, 300px)) minmax(0, 1fr);
-}.course-workspace .contents, .c-filter-panel, .l-rail--left .c-card, .l-util .c-card {
+}
+.course-workspace .contents, .c-filter-panel, .l-rail--left .c-card, .l-util .c-card {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
     box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.06);
 }.course-workspace .contents {
     padding: var(--space-3);
-}.c-module-item a, .c-module-item {
+}
+
+/*---------------------COURSE CATELOG------------------*/
+.c-module-item a, .c-module-item {
     border-radius: 1rem;
-}.c-module-item a {
+}
+.c-module-item a {
     border: 1px solid var(--color-border);
     background: var(--color-surface);
     box-shadow: 0 8px 24px rgba(var(--color-shadow), 0.05);
     padding: 0.82rem 0.9rem;
-}.c-module-item__eyebrow {
+}
+
+.c-module-item__eyebrow {
     color: var(--color-text-muted);
 }.c-module-item.selected a, .c-module-item a:hover {
     border-color: var(--color-primary);
     background: linear-gradient(135deg, rgba(15, 118, 110, 0.08), rgba(37, 99, 235, 0.06));
-}.c-course-progress {
+}
+.c-course-progress {
     border: 1px solid var(--color-border);
     border-radius: 1rem;
     background: var(--color-surface);
-}.c-course-progress__bar, .c-module-item__progress-bar {
+}
+.c-course-progress__bar, .c-module-item__progress-bar {
     background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-}.course-info, #module-contents > div, #module-contents div, .module, .contents {
+}
+
+
+
+
+
+
+.course-info, #module-contents > div, #module-contents div, .module, .contents {
     border-color: var(--color-border);
     background: var(--color-surface);
     box-shadow: 0 12px 30px rgba(var(--color-shadow), 0.04);
-}.module h2, .module h3, .contents h3 {
+}
+.module h2, .module h3, .contents h3 {
     letter-spacing: -0.02em;
-}.header-underline {
+}
+.header-underline {
     border-bottom: 2px solid var(--color-primary) !important;
-}.c-content-block {
+}
+.c-content-block {
     gap: var(--space-4);
-}.c-content-block[data-content-model="file"] {
+}
+.c-content-block[data-content-model="file"] {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
     box-shadow: 0 18px 48px rgba(var(--color-shadow), 0.08);
     overflow: hidden;
-}.c-content-block[data-content-model="file"] .c-pdf-viewer {
+}
+.c-content-block[data-content-model="file"] .c-pdf-viewer {
     margin: 0;
     border: 0;
     border-radius: inherit;
     box-shadow: none;
     background: var(--color-surface);
-}.c-content-block[data-content-model="file"] .c-pdf-toolbar {
+}
+.c-content-block[data-content-model="file"] .c-pdf-toolbar {
     padding: var(--space-3) var(--space-4);
     background: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     -webkit-backdrop-filter: blur(14px);
     backdrop-filter: blur(14px);
-}.c-content-block[data-content-model="file"] .c-pdf-viewer__scroll {
+}
+.c-content-block[data-content-model="file"] .c-pdf-viewer__scroll {
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     background: var(--color-surface);
-}.c-pdf-toolbar__default, .c-pdf-toolbar__search, .c-pdf-toolbar__section {
+}
+.c-pdf-toolbar__default, .c-pdf-toolbar__search, .c-pdf-toolbar__section {
     gap: var(--space-2);
-}.c-pdf-btn:hover, .c-pdf-btn:focus-visible {
+}
+.c-pdf-btn:hover, .c-pdf-btn:focus-visible {
     background: var(--color-secondary-surface);
-}.c-pdf-page-input, .c-pdf-zoom-select, .c-pdf-search-input {
+}
+.c-pdf-page-input, .c-pdf-zoom-select, .c-pdf-search-input {
     min-height: 42px;
     border-radius: 0.9rem;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
-}.c-pdf-page__canvas, .c-pdf-page__text-layer, .c-pdf-page__highlights {
+}
+.c-pdf-page__canvas, .c-pdf-page__text-layer, .c-pdf-page__highlights {
     border-radius: inherit;
-}.api-chip-list {
+}
+.api-chip-list {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-}.api-chip {
+}
+.api-chip {
     display: inline-flex;
     align-items: center;
     min-height: 36px;
@@ -1971,14 +2033,17 @@ body.theme-dark .c-pdf-page__text-layer *::selection {
     background: var(--color-surface);
     color: var(--color-text);
     box-shadow: 0 8px 18px rgba(var(--color-shadow), 0.04);
-}.api-dual-layout {
+}
+.api-dual-layout {
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
     gap: var(--space-4);
-}.api-steps {
+}
+.api-steps {
     display: grid;
     gap: var(--space-3);
-}.api-step {
+}
+.api-step {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: var(--space-3);

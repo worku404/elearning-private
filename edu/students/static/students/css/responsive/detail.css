@@ -51,3 +51,75 @@
         transform: none;
     }
 }
+
+
+/* --- Code Block --- */
+@media (max-width: 640px) {
+    .llm-code-block-wrap {
+        padding: 0.25rem;
+    }
+
+    .llm-code-block-wrap pre {
+        padding: 2.8rem 0.9rem 1rem;
+    }
+
+    .llm-copy-code {
+        top: 0.65rem !important;
+        right: 0.65rem !important;
+    }
+
+    .code-run-btn {
+        top: 0.65rem !important;
+        right: 2.85rem !important;
+    }
+
+    .code-run-btn {
+        width: 2.05rem;
+        height: 2.05rem;
+        min-width: 2.05rem;
+        min-height: 2.05rem;
+    }
+    .page-heading {
+        padding-bottom: 0;
+    }
+
+    .page-title {
+        font-size: clamp(1.18rem, 4.5vw, 1.55rem);
+        line-height: 1.2;
+    }
+
+    .page-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.42;
+    }
+
+    .page, section.page {
+        gap: var(--space-2);
+    }
+
+    .topbar__brand {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .c-card, .c-content-block[data-content-model="file"], .api-code {
+        border-radius: 1rem;
+    }
+
+
+}
+
+/* --- Blockquote --- */
+@media (max-width: 640px) {
+    .c-reader blockquote,
+    .c-content-render blockquote {
+        margin: 1.5rem 0;
+        padding: 2rem 1.25rem 1.5rem 2.6rem;
+    }
+
+    .c-reader blockquote::before,
+    .c-content-render blockquote::before {
+        left: 0.75rem;
+        font-size: 3.4rem;
+    }
+}

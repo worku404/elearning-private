@@ -680,3 +680,67 @@ body.theme-dark .c-pdf-page__text-layer *::-moz-selection {
 .c-pdf-page__highlights {
     border-radius: inherit;
 }
+
+
+
+
+/* --- PDF Viewer --- */
+@media (max-width: 900px) {
+  .c-pdf-viewer__body {
+    grid-template-columns: 1fr;
+  }
+
+  .c-pdf-outline {
+    position: static;
+    max-height: none;
+  }
+
+  .c-pdf-toolbar {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.4rem;
+  }
+
+  .c-pdf-toolbar__default {
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+  }
+
+  .c-pdf-toolbar__section {
+    flex-wrap: wrap;
+  }
+
+  .c-pdf-toolbar__section--color {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .c-pdf-toolbar__divider {
+    display: none;
+  }
+
+  .c-pdf-toolbar__search-main {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  .c-pdf-toolbar__search-options {
+    max-width: 100%;
+  }
+
+  .c-pdf-search-input {
+    min-width: 0;
+  }
+
+  .c-pdf-zoom-select {
+    min-width: 6rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .c-pdf-toolbar__section--nav,
+  .c-pdf-toolbar__section--zoom {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

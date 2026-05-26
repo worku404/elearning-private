@@ -26,7 +26,31 @@
 .theme-icon svg {
     display: block;
 }
+
 /* Exam Countdown Timer Base Styles */
+
+.exam-countdown.countdown--critical {
+    background: rgba(194, 65, 12, 0.14);
+    border-color: rgba(194, 65, 12, 0.3);
+}
+.exam-countdown.countdown--critical .exam-countdown__timer {
+    color: #c2410c;
+    animation: pulse-urgent 2s ease-in-out infinite;
+}
+.exam-countdown.countdown--warning {
+    background: rgba(217, 119, 6, 0.14);
+    border-color: rgba(217, 119, 6, 0.3);
+}
+.exam-countdown.countdown--warning .exam-countdown__timer {
+    color: #d97706;
+}
+.exam-countdown.countdown--caution {
+    background: rgba(180, 83, 9, 0.14);
+    border-color: rgba(180, 83, 9, 0.3);
+}
+.exam-countdown.countdown--caution .exam-countdown__timer {
+    color: #b45309;
+}
 .exam-countdown {
     display: flex;
     align-items: center;
@@ -534,6 +558,7 @@ body.theme-dark .c-focus-modules__name {
 body.theme-dark .c-focus-modules__time {
     color: #f3f8ff;
 }
+
 /* Presence badge */
 .c-presence {
     display: inline-flex;
@@ -676,6 +701,8 @@ body.app-body--modern.theme-dark {
         linear-gradient(180deg, rgba(11, 18, 32, 0.82) 0%, var(--color-bg) 100%);
     color-scheme: dark;
 }
+
+/*  HEADER */
 .skip-link {
     background: linear-gradient(
         135deg,
@@ -873,28 +900,7 @@ a.secondary-button:hover,
 .topbar .c-btn--ghost:hover {
     background: var(--color-secondary-surface);
 }
-.exam-countdown.countdown--critical {
-    background: rgba(194, 65, 12, 0.14);
-    border-color: rgba(194, 65, 12, 0.3);
-}
-.exam-countdown.countdown--critical .exam-countdown__timer {
-    color: #c2410c;
-    animation: pulse-urgent 2s ease-in-out infinite;
-}
-.exam-countdown.countdown--warning {
-    background: rgba(217, 119, 6, 0.14);
-    border-color: rgba(217, 119, 6, 0.3);
-}
-.exam-countdown.countdown--warning .exam-countdown__timer {
-    color: #d97706;
-}
-.exam-countdown.countdown--caution {
-    background: rgba(180, 83, 9, 0.14);
-    border-color: rgba(180, 83, 9, 0.3);
-}
-.exam-countdown.countdown--caution .exam-countdown__timer {
-    color: #b45309;
-}
+/*-------------*/
 @keyframes pulse-urgent {
     0%,
     100% {
