@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* Legacy compatibility selectors used across student pages */
-.course-info,
+/*.course-info,
 #module-contents > div,
 #module-contents div,
 .module,
@@ -12,7 +12,7 @@
     border-color: var(--color-border);
     background: var(--color-surface);
     box-shadow: 0 12px 30px rgba(var(--color-shadow), 0.04);
-}
+}*/
 
 .module,
 .contents {
