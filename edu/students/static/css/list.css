@@ -1,0 +1,11 @@
+/* ============================================================
+   Students App — My Courses List Page (list.html)
+   ============================================================ */
+
+.page--my-courses {
+    /* list page layout modifier */
+}
+
+.c-card--course {
+    /* course card in the student list — extends .c-card */
+}

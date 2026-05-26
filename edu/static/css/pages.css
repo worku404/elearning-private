@@ -52,7 +52,6 @@ body::-webkit-scrollbar-thumb {
     gap: var(--space-3);
 }
 
-/* Student area styles (.course-workspace, .c-module-list, etc.) have been moved to students.css */
 
 #module-contents {
     display: grid;

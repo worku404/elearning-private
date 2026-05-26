@@ -956,16 +956,6 @@ textarea {
 .course-listing {
     gap: var(--space-4);
 }
-.course-workspace {
-    gap: var(--space-5);
-    grid-template-columns:
-        minmax(
-            var(--workspace-modules-min-current, 230px),
-            var(--workspace-modules-max-current, 300px)
-        )
-        minmax(0, 1fr);
-}
-.course-workspace .contents,
 .c-filter-panel,
 .l-rail--left .c-card,
 .l-util .c-card {
@@ -973,62 +963,4 @@ textarea {
     border-radius: var(--radius-lg);
     background: var(--color-surface);
     box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.06);
-}
-.course-workspace .contents {
-    padding: var(--space-3);
-}
-.c-module-item a,
-.c-module-item {
-    border-radius: 1rem;
-}
-.c-module-item a {
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    box-shadow: 0 8px 24px rgba(var(--color-shadow), 0.05);
-    padding: 0.82rem 0.9rem;
-}
-.c-module-item__eyebrow {
-    color: var(--color-text-muted);
-}
-.c-module-item.selected a,
-.c-module-item a:hover {
-    border-color: var(--color-primary);
-    background: linear-gradient(
-        135deg,
-        rgba(15, 118, 110, 0.08),
-        rgba(37, 99, 235, 0.06)
-    );
-}
-.c-course-progress {
-    border: 1px solid var(--color-border);
-    border-radius: 1rem;
-    background: var(--color-surface);
-}
-.c-course-progress__bar,
-.c-module-item__progress-bar {
-    background: linear-gradient(
-        90deg,
-        var(--color-primary),
-        var(--color-accent)
-    );
-}
-.course-info,
-#module-contents > div,
-#module-contents div,
-.module,
-.contents {
-    border-color: var(--color-border);
-    background: var(--color-surface);
-    box-shadow: 0 12px 30px rgba(var(--color-shadow), 0.04);
-}
-.module h2,
-.module h3,
-.contents h3 {
-    letter-spacing: -0.02em;
-}
-.header-underline {
-    border-bottom: 2px solid var(--color-primary) !important;
-}
-.c-content-block {
-    gap: var(--space-4);
 }

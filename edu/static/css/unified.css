@@ -541,18 +541,23 @@ body.theme-dark .c-content-render blockquote strong {
   font-weight: 700;
   flex: 0 0 auto;
   opacity: 0.85;
-}/* Dark mode */body.theme-dark .course-chat-link {
+}/* Dark mode */
+
+body.theme-dark .course-chat-link {
   border-color: #2b5f8a;
   background: linear-gradient(135deg, #13263a 0%, #1a3550 100%);
   color: #d6ecff;
-}body.theme-dark .course-chat-link:hover,
+}
+body.theme-dark .course-chat-link:hover,
 body.theme-dark .course-chat-link:focus-visible {
   border-color: #4ea5e9;
   box-shadow: 0 8px 18px rgba(23, 77, 126, 0.35);
-}body.theme-dark .course-chat-link__path {
+}
+body.theme-dark .course-chat-link__path {
   color: #8fc6f0;
   opacity: 1;
-}/* Keep it minimal: color + weight only *//* Removed students-specific CSS (.page-subtitle--focus, .course-time, etc.) to students.css *//* PDF */.c-pdf-viewer {
+}
+.c-pdf-viewer {
   width: 100%;
   margin: 0 0 0.75rem 0;
   display: grid;
