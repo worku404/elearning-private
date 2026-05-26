@@ -118,19 +118,26 @@
 }
 
 .auth-card {
-    border: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
-    border-radius: 18px;
-    background: linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--color-surface) 92%, var(--color-bg)),
-        color-mix(
-            in srgb,
-            var(--color-surface) 88%,
-            var(--color-secondary-surface)
-        )
-    );
-    box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.12);
-    padding: clamp(16px, 2vw, 24px);
+    max-width: min(560px, 100%);
+    width: min(100%, 620px);
+    margin-inline: auto;
+}
+.auth-card .errorlist {
+    margin-block: var(--space-1);
+    color: var(--color-error);
+    font-size: var(--fs-0);
+}
+.auth-card label {
+    font-weight: 500;
+    margin-bottom: var(--space-1);
+}
+.auth-card input,
+.auth-card select,
+.auth-card textarea {
+    width: 100%;
+}
+.auth-card .c-card__title {
+    font-size: clamp(1.5rem, 1.1rem + 1vw, 2rem);
 }
 
 .auth-form {

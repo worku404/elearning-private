@@ -319,25 +319,7 @@ body.theme-dark .c-alert--error {
 .c-alert__close:hover {
     background: color-mix(in srgb, var(--color-surface) 55%, transparent);
 }
-.auth-card {
-    max-width: min(560px, 100%);
-    width: min(100%, 620px);
-    margin-inline: auto;
-}
-.auth-card .errorlist {
-    margin-block: var(--space-1);
-    color: var(--color-error);
-    font-size: var(--fs-0);
-}
-.auth-card label {
-    font-weight: 500;
-    margin-bottom: var(--space-1);
-}
-.auth-card input,
-.auth-card select,
-.auth-card textarea {
-    width: 100%;
-}
+
 .c-inline-form {
     display: flex;
     gap: var(--space-3);
@@ -922,9 +904,7 @@ a.secondary-button:hover,
         opacity: 0.7;
     }
 }
-.auth-card .c-card__title {
-    font-size: clamp(1.5rem, 1.1rem + 1vw, 2rem);
-}
+
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
         [type="file"]
     ),
