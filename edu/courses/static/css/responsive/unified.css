@@ -216,13 +216,8 @@
         position: static;
     }
 
-    .catalog-layout, .course-workspace, .api-token-controls {
+    .catalog-layout, .api-token-controls {
         grid-template-columns: 1fr;
-    }
-
-    .course-workspace .contents {
-        position: static;
-        max-height: none;
     }
 }
 

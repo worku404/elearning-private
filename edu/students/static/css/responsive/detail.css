@@ -1,0 +1,53 @@
+/* ============================================================
+   Students App — Responsive: Course Detail / Workspace
+   ============================================================ */
+
+/* Collapsed to single column on wide tablets */
+@media (max-width: 1200px) {
+    .course-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .course-workspace.modules-collapsed .module {
+        width: 100%;
+    }
+
+    .course-workspace .contents {
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+}
+
+/* Narrow screens — PDF viewer + module controls */
+@media (max-width: 900px) {
+    .course-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .course-workspace .contents {
+        position: static;
+        max-height: none;
+    }
+
+    .c-content-block[data-content-model="file"] .c-pdf-viewer {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .c-content-block[data-content-model="file"] .c-pdf-toolbar {
+        padding-inline: var(--space-2);
+    }
+
+    .c-content-block[data-content-model="file"] .c-pdf-viewer__scroll {
+        min-height: 55vh;
+        max-height: none;
+    }
+
+    .modules-unhide {
+        top: auto;
+        left: 12px;
+        bottom: 12px;
+        transform: none;
+    }
+}

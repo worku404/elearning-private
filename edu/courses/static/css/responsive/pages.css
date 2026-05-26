@@ -1,17 +1,6 @@
 @media (max-width: 1200px) {
-    .catalog-layout,
-    .course-workspace {
+    .catalog-layout {
         grid-template-columns: 1fr;
-    }
-
-    .course-workspace.modules-collapsed .module {
-        width: 100%;
-    }
-
-    .course-workspace .contents {
-        position: static;
-        max-height: none;
-        overflow: visible;
     }
 
     .c-filter-panel {
@@ -22,27 +11,6 @@
 @media (max-width: 900px) {
     .page-title {
         font-size: clamp(var(--fs-2), 5vw, var(--fs-4));
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-viewer {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-toolbar {
-        padding-inline: var(--space-2);
-    }
-
-    .c-content-block[data-content-model="file"] .c-pdf-viewer__scroll {
-        min-height: 55vh;
-        max-height: none;
-    }
-
-    .modules-unhide {
-        top: auto;
-        left: 12px;
-        bottom: 12px;
-        transform: none;
     }
 }
 
