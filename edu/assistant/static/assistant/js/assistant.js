@@ -744,7 +744,13 @@
     const onPointerDown = (event) => {
       if (event.button !== 0) return;
       if (desktopMediaQuery && !desktopMediaQuery.matches) return;
-      if (event.target.closest("button, input, select, textarea, a")) return;
+      // Only prevent drag if clicking directly on input, textarea, select, or anchor elements
+      // Allow drag on buttons (including those in toolbar) and other toolbar elements
+      const target = event.target;
+      if (target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.tagName === "A" || 
+          (target.tagName === "INPUT" && target.type !== "button" && target.type !== "submit")) {
+        return;
+      }
 
       event.preventDefault();
       isDragging = true;

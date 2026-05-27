@@ -196,6 +196,7 @@ body.theme-dark {
     );
     color: var(--code-runner-accent);
     border-color: transparent;
+    pointer-events: auto;
 }
 .code-run-btn:hover {
     transform: translateY(-1px);

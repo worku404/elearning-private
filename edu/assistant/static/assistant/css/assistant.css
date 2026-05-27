@@ -836,7 +836,7 @@ body.assistant-sidebar-open .assistance {
     border: 1px solid var(--assistant-panel-border);
     border-radius: var(--assistant-radius-lg);
     box-shadow: var(--assistant-panel-shadow);
-    z-index: 2000;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
     gap: var(--assistant-element-gap);
@@ -1696,6 +1696,8 @@ body.assistant-resizing * {
     cursor: move;
     user-select: none;
     -webkit-user-select: none;
+    position: relative;
+    z-index: 9998;
 }
 .assistance-toolbar button {
     cursor: pointer;
@@ -1725,7 +1727,7 @@ body.assistant-resizing * {
 }
 .assistant-resize-handle {
     position: absolute;
-    z-index: 10;
+    z-index: 9997;
     background: transparent;
     touch-action: none;
     user-select: none;
@@ -1761,6 +1763,8 @@ body.assistant-resizing * {
 }
 .llm-form {
     gap: var(--space-3);
+    position: relative;
+    z-index: 1;
 }
 .llm-input,
 .assistant-history-search input,
