@@ -1086,6 +1086,7 @@ body.assistant-sidebar-open .llm-history {
     min-width: 0;
     position: relative;
     align-items: flex-start;
+    z-index: 1;
 }
 
 .llm-chat-row--user {
@@ -1104,6 +1105,8 @@ body.assistant-sidebar-open .llm-history {
     padding: var(--assistant-bubble-padding);
     background: var(--assistant-ai-bubble-bg);
     overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .llm-chat-stack--user {
@@ -1156,6 +1159,8 @@ body.assistant-sidebar-open .llm-history {
     font-size: var(--assistant-font-size);
     font-style: var(--assistant-font-style);
     letter-spacing: var(--assistant-letter-spacing);
+    position: relative;
+    z-index: 1;
 }
 
 .llm-chat-msg > * {
@@ -1234,6 +1239,8 @@ body.assistant-sidebar-open .llm-history {
     border: 1px solid var(--assistant-code-border);
     border-radius: var(--assistant-radius-sm);
     padding: var(--assistant-code-padding);
+    position: relative;
+    z-index: 0;
 }
 
 .llm-chat-msg pre code {
