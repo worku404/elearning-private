@@ -904,6 +904,7 @@ body.assistant-sidebar-open .llm-form {
 
 .assistant-history-scroll {
     display: grid;
+    flex: 1;
     gap: var(--assistant-element-gap);
     overflow-y: auto;
     min-height: 0;
@@ -1063,7 +1064,8 @@ body.assistant-sidebar-open .llm-form {
 }
 
 body.assistant-sidebar-open .llm-history {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 0;
     max-height: none;
@@ -1697,10 +1699,18 @@ body.assistant-resizing * {
     box-shadow: 0 10px 24px rgba(var(--color-shadow), 0.08);
 }
 .assistant-history-shell {
+    display: grid;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
     gap: var(--space-3);
     grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
 }
 .assistant-history-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     background: var(--color-surface);
