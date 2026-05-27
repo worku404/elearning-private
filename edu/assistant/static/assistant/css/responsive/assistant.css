@@ -136,3 +136,20 @@
         box-shadow: var(--assistant-panel-shadow);
     }
 }
+
+@media (min-width: 901px) {
+    body.assistant-sidebar-open .assistance {
+        position: relative;
+        top: 0;
+        right: auto;
+        width: 100%;
+        height: calc(100vh - var(--topbar-height) - (2 * var(--space-4)));
+        border: 1px solid var(--assistant-panel-border);
+        border-radius: var(--assistant-radius-lg);
+        z-index: 10;
+    }
+
+    .app-body.has-assistant.assistant-sidebar-open .l-util {
+        top: calc(var(--topbar-height) + var(--space-4));
+    }
+}
