@@ -1553,3 +1553,34 @@ body.notes-panel-resizing {
     cursor: ew-resize;
     user-select: none;
 }
+
+/* ==========================================================================
+   Notes Flow and Output Spacing integration
+   ========================================================================== */
+
+/* Reserv margin-bottom inside notes editor when code execution output is visible */
+.notes-editor pre.ql-syntax[data-run-output-visible="true"] {
+    margin-bottom: 220px !important;
+    transition: margin-bottom 0.18s ease-in-out;
+}
+
+/* Structure and constraints for notes code runner output panels */
+.notes-editor-wrap .code-output-panel {
+    position: absolute;
+    height: 200px !important;
+    box-sizing: border-box !important;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    border-radius: 8px !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.notes-editor-wrap .code-output-panel__body {
+    height: calc(100% - 2.4rem) !important;
+    max-height: none !important;
+    overflow: auto !important;
+}

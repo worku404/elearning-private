@@ -9,4 +9,8 @@
 @import url("responsive/pages.css");
 @import url("utilities.css");
 @import url("copy.css");
+@import url("video.css");
+@import url("pdf.css");
+@import url("../../chat/css/chat-link.css");
+
 

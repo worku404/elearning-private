@@ -1,0 +1,70 @@
+/* ===================================================== */
+/* COURSE CHAT LINK (sidebar)                            */
+/* ===================================================== */
+.course-chat-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid #b7e4d0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f3fff9 0%, #e8fff4 100%);
+    color: #0f5132;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+.course-chat-link:hover,
+.course-chat-link:focus-visible {
+    transform: translateY(-1px);
+    border-color: #7fd3ad;
+    box-shadow: 0 8px 18px rgba(15, 81, 50, 0.18);
+    outline: none;
+}
+.course-chat-link__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    opacity: 0.9;
+}
+.course-chat-link__text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1 1 auto;
+}
+.course-chat-link__title {
+    font-weight: 700;
+    font-size: 0.98rem;
+    line-height: 1.2;
+}
+.course-chat-link__path {
+    font-size: 0.76rem;
+    line-height: 1.25;
+    opacity: 0.8;
+    word-break: break-all;
+}
+.course-chat-link__arrow {
+    font-size: 1.05rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+    opacity: 0.85;
+}
+body.theme-dark .course-chat-link {
+    border-color: #2b5f8a;
+    background: linear-gradient(135deg, #13263a 0%, #1a3550 100%);
+    color: #d6ecff;
+}
+body.theme-dark .course-chat-link:hover,
+body.theme-dark .course-chat-link:focus-visible {
+    border-color: #4ea5e9;
+    box-shadow: 0 8px 18px rgba(23, 77, 126, 0.35);
+}
+body.theme-dark .course-chat-link__path {
+    color: #8fc6f0;
+    opacity: 1;
+}
