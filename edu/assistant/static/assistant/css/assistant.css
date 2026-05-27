@@ -273,21 +273,6 @@ body.theme-dark {
         var(--color-accent) 78%,
         #ffffff
     );
-    --assistant-user-text-color: var(--color-text);
-    --assistant-ai-text-color: var(--color-text);
-    --assistant-font-family: var(--font-mono, "IBM Plex Mono", monospace);
-    --assistant-font-style: normal;
-    --assistant-font-size: 0.95rem;
-    --assistant-line-height: 1.6;
-    --assistant-letter-spacing: 0.01em;
-    --assistant-heading-font-size: 1.05rem;
-    --assistant-heading-font-weight: 650;
-    --assistant-code-font-family:
-        "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
-        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", monospace;
-    --assistant-code-font-size: 0.9rem;
-    --assistant-code-line-height: 1.55;
     --assistant-code-text-color: color-mix(
         in srgb,
         var(--color-text) 86%,
@@ -365,26 +350,9 @@ body.theme-dark {
         #0b1320
     );
     --assistant-scroll-btn-color: var(--color-text);
-    --assistant-panel-padding: var(--space-3);
-    --assistant-toolbar-gap: var(--space-2);
-    --assistant-history-padding: var(--space-3);
-    --assistant-history-gap: var(--space-3);
-    --assistant-entry-gap: var(--space-2);
-    --assistant-message-gap: var(--space-2);
-    --assistant-element-gap: var(--space-2);
-    --assistant-bubble-padding: var(--space-3);
-    --assistant-composer-padding: var(--space-3);
-    --assistant-input-padding: 0.7rem 0.9rem;
-    --assistant-code-padding: 0.75rem;
-    --assistant-radius-sm: 10px;
-    --assistant-radius-md: 14px;
-    --assistant-radius-lg: 18px;
     --assistant-panel-shadow: 0 18px 40px rgba(2, 6, 12, 0.45);
     --assistant-history-item-shadow: 0 12px 26px rgba(2, 6, 12, 0.45);
     --assistant-composer-shadow: 0 12px 28px rgba(2, 6, 12, 0.45);
-    --assistant-transition-fast: 0.12s ease;
-    --assistant-transition-medium: 0.24s ease;
-    --assistant-transition-slow: 0.45s ease;
     --assistant-scrollbar-thumb: color-mix(in srgb, #b5c9e2 28%, transparent);
     --assistant-scrollbar-track: color-mix(in srgb, #1a2a3e 50%, transparent);
 }
@@ -1514,10 +1482,6 @@ body.assistant-sidebar-open .llm-history {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-.llm-send-icon--stop {
-    display: none;
 }
 
 .llm-btn--send {
