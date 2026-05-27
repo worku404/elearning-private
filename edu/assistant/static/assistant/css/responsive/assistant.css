@@ -1,12 +1,4 @@
-@media (hover: hover) and (min-width: 901px) {
-    .llm-chat-entry:hover,
-    .llm-chat-entry:focus-within {
-        background: var(--assistant-history-item-hover-bg);
-        transform: scale(var(--assistant-history-item-hover-scale));
-        box-shadow: var(--assistant-history-item-shadow);
-        border-color: color-mix(in srgb, var(--assistant-history-item-border) 70%, var(--assistant-panel-border));
-    }
-}
+/* Redundant hover scaling on entries removed for cleaner visual experience */
 
 /* Very small screens: only slight compaction, avoid hard font shrinking. */
 @media (max-width: 560px) {

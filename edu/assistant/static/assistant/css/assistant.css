@@ -1056,9 +1056,9 @@ body.assistant-sidebar-open .llm-form {
     overflow-x: hidden;
     padding: var(--assistant-history-padding);
     display: none;
-    background: var(--assistant-history-bg);
-    border: 1px solid var(--assistant-history-border);
-    border-radius: var(--assistant-radius-md);
+    background: transparent;
+    border: none;
+    border-radius: 0;
     gap: var(--assistant-history-gap);
 }
 
@@ -1072,16 +1072,11 @@ body.assistant-sidebar-open .llm-history {
 .llm-chat-entry {
     display: grid;
     gap: var(--assistant-message-gap);
-    padding: var(--assistant-entry-gap);
+    padding: 0;
     min-width: 0;
-    background: var(--assistant-history-item-bg);
-    border: 1px solid var(--assistant-history-item-border);
-    border-radius: var(--assistant-radius-md);
-    transition:
-        transform var(--assistant-transition-medium),
-        background var(--assistant-transition-medium),
-        box-shadow var(--assistant-transition-medium),
-        border-color var(--assistant-transition-medium);
+    background: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 .llm-chat-row {
