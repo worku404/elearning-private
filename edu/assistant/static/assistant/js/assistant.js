@@ -106,7 +106,7 @@
 
   const openAssistantSidebar = () => {
     setAssistantState("sidebar");
-    restoreAssistantSidebarWidth();
+    restoreAssistantSidebarDimensions();
   };
 
   const focusAssistantPrompt = () => {
@@ -198,15 +198,63 @@
     }
   };
 
-  const restoreAssistantSidebarWidth = () => {
+  const clampSidebarPosition = () => {
+    if (!assistantPanel || !bodyEl.classList.contains("assistant-sidebar-open")) return;
+    if (desktopMediaQuery && !desktopMediaQuery.matches) return;
+
+    const width = assistantPanel.offsetWidth || 440;
+    const height = assistantPanel.offsetHeight || 600;
+    let left = parseFloat(assistantPanel.style.left) || (window.innerWidth - width - 24);
+    let top = parseFloat(assistantPanel.style.top) || 80;
+
+    left = Math.max(16, Math.min(window.innerWidth - width - 16, left));
+    top = Math.max(16, Math.min(window.innerHeight - height - 16, top));
+
+    assistantPanel.style.left = `${left}px`;
+    assistantPanel.style.top = `${top}px`;
+    assistantPanel.style.right = "auto";
+  };
+
+  const restoreAssistantSidebarDimensions = () => {
+    if (!assistantPanel) return;
     if (desktopMediaQuery && !desktopMediaQuery.matches) {
-      clearAssistantSidebarWidth();
+      assistantPanel.style.left = "";
+      assistantPanel.style.top = "";
+      assistantPanel.style.width = "";
+      assistantPanel.style.height = "";
+      assistantPanel.style.right = "";
       return;
     }
-    const storedWidth = getStoredAssistantWidth();
-    if (storedWidth) {
-      applyAssistantSidebarWidth(storedWidth);
-    }
+
+    try {
+      const storedLeft = localStorage.getItem("assistant_float_left");
+      const storedTop = localStorage.getItem("assistant_float_top");
+      const storedWidth = localStorage.getItem("assistant_float_width");
+      const storedHeight = localStorage.getItem("assistant_float_height");
+
+      if (storedWidth) assistantPanel.style.width = storedWidth;
+      if (storedHeight) assistantPanel.style.height = storedHeight;
+      if (storedLeft) assistantPanel.style.left = storedLeft;
+      if (storedTop) assistantPanel.style.top = storedTop;
+
+      if (storedLeft || storedTop || storedWidth || storedHeight) {
+        assistantPanel.style.right = "auto";
+        clampSidebarPosition();
+        return;
+      }
+    } catch (e) {}
+
+    // Default centered-right fallback
+    const width = 440;
+    const topOffset = parseCssPx(readCssVar("--assistant-top-offset"), 64) + 16;
+    const defaultLeft = window.innerWidth - width - 24;
+    const defaultHeight = window.innerHeight - topOffset - 24;
+
+    assistantPanel.style.width = `${width}px`;
+    assistantPanel.style.height = `${defaultHeight}px`;
+    assistantPanel.style.left = `${defaultLeft}px`;
+    assistantPanel.style.top = `${topOffset}px`;
+    assistantPanel.style.right = "auto";
   };
 
   const getCurrentSidebarWidth = () => {
@@ -565,72 +613,184 @@
   const handleViewportChange = () => {
     if (desktopMediaQuery && !desktopMediaQuery.matches) {
       bodyEl.classList.remove("assistant-resizing");
-      clearAssistantSidebarWidth();
+      if (assistantPanel) {
+        assistantPanel.style.left = "";
+        assistantPanel.style.top = "";
+        assistantPanel.style.width = "";
+        assistantPanel.style.height = "";
+        assistantPanel.style.right = "";
+      }
       return;
     }
-    restoreAssistantSidebarWidth();
+    if (bodyEl.classList.contains("assistant-sidebar-open")) {
+      clampSidebarPosition();
+    } else {
+      restoreAssistantSidebarDimensions();
+    }
   };
 
   const setupResizeHandle = () => {
     if (!assistantPanel) return;
-    const resizeHandle = assistantPanel.querySelector("[data-assistant-resize-handle]");
-    if (!resizeHandle) return;
+    const handles = assistantPanel.querySelectorAll("[data-resize-edge]");
+    
+    handles.forEach((handle) => {
+      const edge = handle.dataset.resizeEdge;
+      
+      let startX = 0;
+      let startY = 0;
+      let startWidth = 0;
+      let startHeight = 0;
+      let startLeft = 0;
+      let startTop = 0;
+      let activePointerId = null;
 
-    const getHandleWidth = () => {
-      return parseCssPx(readCssVar("--assistant-resize-handle-width"), 10);
-    };
+      const startResize = (event) => {
+        if (event.button !== 0) return;
+        if (!bodyEl.classList.contains("assistant-sidebar-open")) return;
+        if (desktopMediaQuery && !desktopMediaQuery.matches) return;
+
+        event.preventDefault();
+        activePointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+
+        const rect = assistantPanel.getBoundingClientRect();
+        startWidth = rect.width;
+        startHeight = rect.height;
+        startLeft = parseFloat(assistantPanel.style.left) || rect.left;
+        startTop = parseFloat(assistantPanel.style.top) || rect.top;
+
+        bodyEl.classList.add("assistant-resizing");
+
+        if (handle.setPointerCapture) {
+          handle.setPointerCapture(event.pointerId);
+        }
+
+        window.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("pointerup", stopResize);
+        window.addEventListener("pointercancel", stopResize);
+      };
+
+      const onPointerMove = (event) => {
+        if (activePointerId === null) return;
+        
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        const minWidth = 360;
+        const maxWidth = 760;
+        const minHeight = 300;
+        const maxHeight = window.innerHeight - 80;
+
+        if (edge === "right") {
+          const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth + deltaX));
+          assistantPanel.style.width = `${newWidth}px`;
+        } 
+        else if (edge === "left") {
+          const newWidth = Math.max(minWidth, Math.min(maxWidth, startWidth - deltaX));
+          if (newWidth !== minWidth && newWidth !== maxWidth) {
+            assistantPanel.style.width = `${newWidth}px`;
+            assistantPanel.style.left = `${startLeft + deltaX}px`;
+            assistantPanel.style.right = "auto";
+          }
+        } 
+        else if (edge === "bottom") {
+          const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight + deltaY));
+          assistantPanel.style.height = `${newHeight}px`;
+        } 
+        else if (edge === "top") {
+          const newHeight = Math.max(minHeight, Math.min(maxHeight, startHeight - deltaY));
+          if (newHeight !== minHeight && newHeight !== maxHeight) {
+            assistantPanel.style.height = `${newHeight}px`;
+            assistantPanel.style.top = `${startTop + deltaY}px`;
+          }
+        }
+      };
+
+      const stopResize = () => {
+        if (activePointerId === null) return;
+        if (handle.releasePointerCapture) {
+          handle.releasePointerCapture(activePointerId);
+        }
+        activePointerId = null;
+        bodyEl.classList.remove("assistant-resizing");
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", stopResize);
+        window.removeEventListener("pointercancel", stopResize);
+
+        try {
+          localStorage.setItem("assistant_float_width", assistantPanel.style.width);
+          localStorage.setItem("assistant_float_height", assistantPanel.style.height);
+          localStorage.setItem("assistant_float_left", assistantPanel.style.left);
+          localStorage.setItem("assistant_float_top", assistantPanel.style.top);
+        } catch (e) {}
+      };
+
+      handle.addEventListener("pointerdown", startResize);
+    });
+  };
+
+  const setupDragAndDrop = () => {
+    if (!assistantPanel) return;
+    const toolbar = assistantPanel.querySelector(".assistance-toolbar");
+    if (!toolbar) return;
 
     let startX = 0;
-    let startWidth = 0;
-    let activePointerId = null;
+    let startY = 0;
+    let startLeft = 0;
+    let startTop = 0;
+    let isDragging = false;
 
-    const startResize = (event) => {
+    const onPointerDown = (event) => {
       if (event.button !== 0) return;
-      if (!bodyEl.classList.contains("assistant-sidebar-open")) return;
       if (desktopMediaQuery && !desktopMediaQuery.matches) return;
+      if (event.target.closest("button, input, select, textarea, a")) return;
+
       event.preventDefault();
-      activePointerId = event.pointerId;
+      isDragging = true;
       startX = event.clientX;
-      startWidth = getCurrentSidebarWidth();
-      bodyEl.classList.add("assistant-resizing");
-      if (resizeHandle.setPointerCapture) {
-        resizeHandle.setPointerCapture(event.pointerId);
-      }
+      startY = event.clientY;
+      startLeft = parseFloat(assistantPanel.style.left) || assistantPanel.offsetLeft || 0;
+      startTop = parseFloat(assistantPanel.style.top) || assistantPanel.offsetTop || 0;
+
+      bodyEl.classList.add("assistant-dragging");
+
       window.addEventListener("pointermove", onPointerMove);
-      window.addEventListener("pointerup", stopResize);
-      window.addEventListener("pointercancel", stopResize);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
     };
 
     const onPointerMove = (event) => {
-      if (activePointerId === null) return;
-      const delta = startX - event.clientX;
-      applyAssistantSidebarWidth(startWidth + delta);
+      if (!isDragging) return;
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+
+      let nextLeft = startLeft + deltaX;
+      let nextTop = startTop + deltaY;
+
+      nextLeft = Math.max(16, Math.min(window.innerWidth - assistantPanel.offsetWidth - 16, nextLeft));
+      nextTop = Math.max(16, Math.min(window.innerHeight - assistantPanel.offsetHeight - 16, nextTop));
+
+      assistantPanel.style.left = `${nextLeft}px`;
+      assistantPanel.style.top = `${nextTop}px`;
+      assistantPanel.style.right = "auto";
     };
 
-    const stopResize = () => {
-      if (activePointerId === null) return;
-      if (resizeHandle.hasPointerCapture && resizeHandle.hasPointerCapture(activePointerId)) {
-        resizeHandle.releasePointerCapture(activePointerId);
-      }
-      activePointerId = null;
-      bodyEl.classList.remove("assistant-resizing");
+    const onPointerUp = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      bodyEl.classList.remove("assistant-dragging");
       window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("pointerup", stopResize);
-      window.removeEventListener("pointercancel", stopResize);
-      applyAssistantSidebarWidth(getCurrentSidebarWidth(), { persist: true });
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+
+      try {
+        localStorage.setItem("assistant_float_left", assistantPanel.style.left);
+        localStorage.setItem("assistant_float_top", assistantPanel.style.top);
+      } catch (e) {}
     };
 
-    const isInResizeZone = (event) => {
-      const rect = assistantPanel.getBoundingClientRect();
-      const handleWidth = getHandleWidth();
-      return event.clientX - rect.left <= handleWidth + 2;
-    };
-
-    resizeHandle.addEventListener("pointerdown", startResize);
-    assistantPanel.addEventListener("pointerdown", (event) => {
-      if (!isInResizeZone(event)) return;
-      startResize(event);
-    });
+    toolbar.addEventListener("pointerdown", onPointerDown);
   };
 
   document.addEventListener("keydown", function (event) {
@@ -676,6 +836,7 @@
     }
 
     setupResizeHandle();
+    setupDragAndDrop();
 
     const initialState = readAssistantState();
     setAssistantState(initialState, { persist: false });
