@@ -792,6 +792,7 @@ body.assistant-hidden .assistance {
 
 .app-body.has-assistant .l-util {
     background: var(--assistant-app-bg);
+    z-index: 9999;
 }
 
 .app-body.has-assistant.assistant-hidden {
