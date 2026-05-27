@@ -12,5 +12,5 @@
 @import url("video.css");
 @import url("pdf.css");
 @import url("../../chat/css/chat-link.css");
-
-
+@import url("list.css");
+@import url("detail.css");

@@ -1,18 +1,1 @@
-.catalog-layout {
-    display: grid;
-    grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
-    gap: var(--space-5);
-    align-items: start;
-}
-.course-listing {
-    display: grid;
-    gap: var(--space-4);
-}
-.c-filter-panel,
-.l-rail--left .c-card,
-.l-util .c-card {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.06);
-}
+/* Catalog layout styles migrated to courses/static/courses/css/list.css */
