@@ -32,6 +32,11 @@ body:not(.theme-dark) .course-time__value {
     color: #102e45;
 }
 
+/* Ensure sticky sidebars can float on scroll */
+.l-main {
+    overflow: visible;
+}
+
 /* --- Workspace layout --- */
 .course-workspace {
     display: grid;
