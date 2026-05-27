@@ -718,9 +718,35 @@ body.assistant-hidden .assistance {
 .assistance-toolbar-actions {
     display: inline-flex;
     gap: var(--assistant-element-gap);
+}.assistant-history-toggle,
+.assistance-close {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border: 1px solid var(--assistant-button-border);
+    border-radius: 50% !important;
+    background: var(--assistant-button-bg);
+    color: var(--assistant-button-color);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.08);
+    transition: background var(--assistant-transition-fast), border-color var(--assistant-transition-fast), color var(--assistant-transition-fast), transform var(--assistant-transition-fast);
 }
 
+.assistant-history-toggle:hover,
+.assistance-close:hover {
+    transform: scale(1.04);
+}
 
+.assistance-close {
+    display: none;
+    font-size: 1.25rem;
+    line-height: 1;
+}
 
 .assistant-history-toggle:hover,
 .assistant-history-toggle:focus-visible {
@@ -1482,6 +1508,10 @@ body.assistant-sidebar-open .llm-history {
     justify-content: center;
 }
 
+.llm-send-icon--stop {
+    display: none;
+}
+
 .llm-btn--send {
     background: var(--assistant-send-bg);
     color: var(--assistant-send-color);
@@ -1665,24 +1695,22 @@ body.assistant-resizing * {
 .assistance-toolbar button {
     cursor: pointer;
 }
-.assistant-history-toggle,
-.assistance-close {
-    border-radius: 999px;
-    box-shadow: 0 10px 24px rgba(var(--color-shadow), 0.08);
-}
+
 .assistant-history-shell {
     display: grid;
     flex: 1;
     min-height: 0;
     min-width: 0;
     gap: var(--space-3);
-    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+    grid-template-columns: minmax(140px, 35%) 1fr;
 }
 .assistant-history-sidebar {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    gap: var(--assistant-element-gap);
     min-height: 0;
-    min-width: 0;
+    overflow: hidden;
+    padding: var(--assistant-history-padding);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
     background: var(--color-surface);
