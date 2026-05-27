@@ -264,6 +264,8 @@ body.theme-dark {
         var(--color-border) 70%,
         #0b1320
     );
+    --assistant-text-color: #e7eef7;
+    --assistant-text-muted: var(--color-text-muted);
     --assistant-heading-color: color-mix(
         in srgb,
         var(--color-accent) 78%,
