@@ -11,10 +11,8 @@
     left: var(--space-4);
     top: -120px;
     z-index: 2000;
-    background: var(--color-accent);
     color: #fff;
     padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-sm);
     transition: top 0.12s ease-in-out;
 }
 
@@ -26,17 +24,15 @@
     position: sticky;
     top: 0;
     z-index: 1100;
-    background: linear-gradient(120deg, var(--color-primary) 0%, #2f9e63 100%);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 70%, black);
 }
 
 .topbar__inner {
     min-height: var(--topbar-height);
     margin: 0 auto;
     padding: var(--space-3) 0;
-    max-width: 1600px;
+    max-width: 1720px;
     display: grid;
-    grid-template-columns: auto minmax(280px, 500px) 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     gap: var(--space-3);
     align-items: center;
 }
@@ -64,7 +60,6 @@
 
 .topbar__actions {
     display: inline-flex;
-    gap: var(--space-2);
     align-items: center;
     margin-left: auto;
     flex-shrink: 0;
@@ -74,15 +69,6 @@
     margin: 0;
 }
 
-.c-search.topbar__search {
-    flex-shrink: 0;
-    flex-basis: auto;
-}
-
-.exam-countdown {
-    flex-shrink: 0;
-    flex-basis: auto;
-}
 
 /* Desktop: drawer contains search, countdown, and actions - kept on one line */
 .topbar__menu-toggle {
