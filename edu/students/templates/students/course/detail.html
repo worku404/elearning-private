@@ -147,4 +147,153 @@
 <script src="{% static 'students/js/pdf_viewer.js' %}"></script>
 <script src="{% static 'students/js/video_zoom.js' %}"></script>
 <script src="{% static 'students/js/course_detail.js' %}" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Scrollbar Heading Navigation engine
+        function initScrollbarNavigation() {
+            const moduleEl = document.querySelector(".module");
+            if (!moduleEl) return;
+
+            const isModuleScrollable = moduleEl && (moduleEl.scrollHeight > moduleEl.clientHeight + 10);
+            const scrollContainer = isModuleScrollable ? moduleEl : window;
+
+            // Query active section headings
+            const headings = Array.from(document.querySelectorAll(
+                ".c-content-block h2.c-card__title, .c-content-render h1, .c-content-render h2, .c-content-render h3, .c-content-render h4"
+            )).filter(el => {
+                return el.textContent.trim().length > 0 && el.offsetHeight > 0;
+            });
+
+            if (headings.length === 0) return;
+
+            // Generate IDs for headings if missing
+            headings.forEach((heading, idx) => {
+                if (!heading.id) heading.id = `heading-nav-target-${idx}`;
+            });
+
+            // Create UI elements
+            const container = document.createElement("div");
+            container.className = "scrollbar-nav-container";
+
+            const track = document.createElement("div");
+            track.className = "scrollbar-nav-track";
+            container.appendChild(track);
+            document.body.appendChild(container);
+
+            const markers = headings.map((heading) => {
+                const marker = document.createElement("div");
+                marker.className = "scrollbar-nav-marker";
+                
+                const level = heading.tagName.toLowerCase();
+                marker.setAttribute("data-level", level);
+
+                const tooltip = document.createElement("div");
+                tooltip.className = "scrollbar-nav-tooltip";
+                tooltip.textContent = heading.textContent.trim();
+                marker.appendChild(tooltip);
+
+                marker.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const topbarHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height')) || 70;
+                    let targetY = 0;
+
+                    if (scrollContainer === window) {
+                        const rect = heading.getBoundingClientRect();
+                        targetY = rect.top + window.pageYOffset - topbarHeight - 20;
+                    } else {
+                        const containerRect = scrollContainer.getBoundingClientRect();
+                        const headingRect = heading.getBoundingClientRect();
+                        targetY = headingRect.top - containerRect.top + scrollContainer.scrollTop - 20;
+                    }
+
+                    scrollContainer.scrollTo({
+                        top: Math.max(0, targetY),
+                        behavior: "smooth"
+                    });
+                });
+
+                track.appendChild(marker);
+                return { marker, heading };
+            });
+
+            function updateMarkerPositions() {
+                let totalHeight = 1;
+                if (scrollContainer === window) {
+                    totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                } else {
+                    totalHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                }
+                if (totalHeight <= 0) totalHeight = 1;
+
+                markers.forEach(({ marker, heading }) => {
+                    let absoluteTop = 0;
+                    if (scrollContainer === window) {
+                        absoluteTop = heading.getBoundingClientRect().top + window.pageYOffset;
+                    } else {
+                        const containerRect = scrollContainer.getBoundingClientRect();
+                        absoluteTop = heading.getBoundingClientRect().top - containerRect.top + scrollContainer.scrollTop;
+                    }
+
+                    const percent = (absoluteTop / (totalHeight + (scrollContainer === window ? window.innerHeight : scrollContainer.clientHeight))) * 100;
+                    const boundedPercent = Math.max(2, Math.min(98, percent));
+                    marker.style.top = `${boundedPercent}%`;
+                });
+            }
+
+            function updateActiveMarker() {
+                const topbarHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height')) || 70;
+                const triggerPoint = topbarHeight + 100;
+
+                let activeIndex = -1;
+
+                for (let i = 0; i < markers.length; i++) {
+                    const { heading } = markers[i];
+                    const rect = heading.getBoundingClientRect();
+
+                    if (scrollContainer === window) {
+                        if (rect.top <= triggerPoint) {
+                            activeIndex = i;
+                        }
+                    } else {
+                        const containerRect = scrollContainer.getBoundingClientRect();
+                        const relativeTop = rect.top - containerRect.top;
+                        if (relativeTop <= 100) {
+                            activeIndex = i;
+                        }
+                    }
+                }
+
+                markers.forEach(({ marker }, idx) => {
+                    if (idx === activeIndex) {
+                        marker.classList.add("is-active");
+                    } else {
+                        marker.classList.remove("is-active");
+                    }
+                });
+            }
+
+            // Bind listeners
+            window.addEventListener("resize", updateMarkerPositions);
+            window.addEventListener("load", updateMarkerPositions);
+            scrollContainer.addEventListener("scroll", updateActiveMarker, { passive: true });
+
+            // Initial alignment runs
+            setTimeout(() => {
+                updateMarkerPositions();
+                updateActiveMarker();
+            }, 100);
+
+            // Catch expansions/collapses
+            if (typeof ResizeObserver === "function") {
+                const observer = new ResizeObserver(() => {
+                    updateMarkerPositions();
+                });
+                observer.observe(moduleEl);
+            }
+        }
+
+        // Initialize immediately
+        initScrollbarNavigation();
+    });
+</script>
 {% endblock %}
