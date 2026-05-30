@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <script>
+        (function () {
+            var themeStorageKey = "theme_preference";
+            var defaultMode = "dark";
+            var mode = defaultMode;
+            try {
+                var storedMode = localStorage.getItem(themeStorageKey);
+                if (storedMode === "dark" || storedMode === "light") {
+                    mode = storedMode;
+                } else {
+                    localStorage.setItem(themeStorageKey, defaultMode);
+                }
+            } catch (error) {
+                mode = defaultMode;
+            }
+            if (mode === "dark") {
+                document.documentElement.classList.add("theme-dark");
+                document.documentElement.style.colorScheme = "dark";
+            } else {
+                document.documentElement.style.colorScheme = "light";
+            }
+        })();
+    </script>
+    <style>
+        html.theme-dark,
+        html.theme-dark body {
+            background: #0d1324;
+        }
+    </style>
+    <!-- highlight.js for code formatting -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="{% static 'js/utils/copy.js' %}"></script>
+    
+    <!-- KaTeX for math rendering -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    ></script>
+    <script
+        defer
+        src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    ></script>
+
+    <!-- Core Layout CSS -->
+    <link rel="stylesheet" href="{% static 'courses/css/main.css' %}" />
+    <!-- AI Assistant Panel CSS -->
+    <link rel="stylesheet" href="{% static 'assistant/css/assistant.css' %}" />
+    <link rel="stylesheet" href="{% static 'assistant/css/responsive/assistant.css' %}" />
+    <!-- Standalone Overrides CSS -->
+    <link rel="stylesheet" href="{% static 'assistant/css/standalone.css' %}" />
+</head>
+<body class="is-standalone-window">
+    
+    <!-- Mounts the AI Assistant Panel -->
+    <div id="assistant-panel" class="assistance c-ai-panel" data-generate-url="{% url 'assistant:llm_generate' %}">
+        {% include "assistant/llm.html" %}
+    </div>
+
+    <!-- Standalone behavior triggers -->
+    <script src="{% static 'assistant/js/standalone.js' %}" defer></script>
+</body>
+</html>

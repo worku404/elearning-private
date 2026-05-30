@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Standalone Chat Window & New Window Button Styles
+   ========================================================================== */
+
+/* --- New Window (+) Button --- */
+.assistant-new-window {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border: 1px solid var(--assistant-button-border);
+    border-radius: 50%;
+    background: var(--assistant-button-bg);
+    color: var(--assistant-button-color);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.08);
+    transition: background var(--assistant-transition-fast),
+                border-color var(--assistant-transition-fast),
+                color var(--assistant-transition-fast),
+                transform var(--assistant-transition-fast);
+}
+
+.assistant-new-window:hover,
+.assistant-new-window:focus-visible {
+    transform: scale(1.04);
+    background: var(--assistant-button-hover-bg);
+    border-color: var(--assistant-button-border);
+    color: var(--assistant-icon-hover-color);
+}
+
+.assistant-new-window:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.assistant-new-window svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+/* ==========================================================================
+   Standalone Window Full-Viewport Overrides
+   ========================================================================== */
+
+body.is-standalone-window {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: var(--assistant-sidebar-bg, #0d1324);
+}
+
+body.is-standalone-window .assistance {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: var(--assistant-element-gap) !important;
+    background: var(--assistant-sidebar-bg, #0d1324) !important;
+    z-index: 1 !important;
+}
+
+/* Hide Close (X) and New Window (+) controls inside the detached popup */
+body.is-standalone-window .assistance-close,
+body.is-standalone-window .assistant-new-window {
+    display: none !important;
+}
+
+/* Ensure resize handles and drag cursor are disabled in standalone */
+body.is-standalone-window .assistant-resize-handle {
+    display: none !important;
+}
+
+body.is-standalone-window .assistance-toolbar {
+    cursor: default !important;
+}
+
+/* History panel should be visible by default */
+body.is-standalone-window .llm-history {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+}
+
+body.is-standalone-window .llm-form {
+    margin-top: auto !important;
+}

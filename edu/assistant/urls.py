@@ -27,4 +27,9 @@ urlpatterns = [
         views.llm_toggle_pin,
         name="llm_toggle_pin",
     ),
+    path(
+        "llm/standalone/",
+        views.llm_standalone,
+        name="llm_standalone",
+    ),
 ]

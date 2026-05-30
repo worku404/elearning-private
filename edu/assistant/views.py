@@ -216,3 +216,9 @@ def llm_toggle_pin(request, chat_id):
 @login_required
 def llm_page(request):
     return render(request, "assistant/page.html")
+
+
+@login_required
+def llm_standalone(request):
+    return render(request, "assistant/standalone.html")
+

@@ -7,6 +7,32 @@
 <div class="assistance-toolbar">
     <div class="assistance-toolbar__left">
         <button
+            id="assistant-close-btn"
+            class="assistance-close"
+            type="button"
+            aria-label="Close AI sidebar"
+        >
+            &times;
+        </button>
+        <button
+            class="assistant-new-window"
+            type="button"
+            aria-label="Open in new window"
+            title="Open in new window"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+        <button
             class="assistant-history-toggle"
             type="button"
             aria-label="Toggle chat history"
@@ -30,14 +56,6 @@
         <span class="assistance-title">AI Assistant</span>
     </div>
     <div class="assistance-toolbar-actions">
-        <button
-            id="assistant-close-btn"
-            class="assistance-close"
-            type="button"
-            aria-label="Close AI sidebar"
-        >
-            &times;
-        </button>
     </div>
 </div>
 
@@ -188,3 +206,4 @@
 </form>
 
 <script src="{% static 'assistant/js/assistant.js' %}" defer></script>
+<script src="{% static 'assistant/js/standalone.js' %}" defer></script>
