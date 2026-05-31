@@ -54,6 +54,9 @@ def llm_generate(request):
     "Use headers (##, ###) to organize content, bullet points for lists, "
     "bold for key terms, code blocks for any code, and tables where comparisons help. "
     "Never respond in plain prose without Markdown structure. "
+    "When displaying math equations, formulas, expressions, variables, or symbols, "
+    "always format them in LaTeX. Wrap inline math in single dollar signs (e.g., $x$) "
+    "and display/block math in double dollar signs (e.g., $$x = y$$). "
     
     "**Questions:** Never ask more than one clarifying question at a time. "
     "Always attempt to answer first, then ask for clarification if needed. "
