@@ -8,7 +8,7 @@ register = template.Library()
 ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS.union({
     "p", "h1", "h2", "h3", "h4", "h5", "h6", "pre", "code", "br", "hr",
     "table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption",
-    "colgroup", "col", "span"
+    "colgroup", "col", "span", "details", "summary"
 })
 
 ALLOWED_ATTRIBUTES = {
@@ -19,6 +19,7 @@ ALLOWED_ATTRIBUTES = {
     "col": ["span"],
     "code": ["class"],
     "span": ["class"],
+    "details": ["open"],
 }
 
 @register.filter(name="markdown")
