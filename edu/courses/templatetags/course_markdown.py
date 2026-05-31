@@ -1,6 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
 import markdown as md
+import re
 import bleach
 
 register = template.Library()
@@ -24,9 +25,12 @@ ALLOWED_ATTRIBUTES = {
 
 @register.filter(name="markdown")
 def markdown_filter(value):
+    val = value or ""
+    val = re.sub(r'<details(?![^>]*markdown)[^>]*>', lambda m: m.group(0)[:-1] + ' markdown="1">', val, flags=re.IGNORECASE)
+    val = re.sub(r'<summary(?![^>]*markdown)[^>]*>', lambda m: m.group(0)[:-1] + ' markdown="1">', val, flags=re.IGNORECASE)
     html = md.markdown(
-        value or "",
-        extensions=["extra", "nl2br", "fenced_code"],
+        val,
+        extensions=["extra", "nl2br", "fenced_code", "md_in_html"],
     )
     clean = bleach.clean(html, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES)
     return mark_safe(clean)
