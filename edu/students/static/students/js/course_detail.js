@@ -659,10 +659,23 @@ if (window.PdfViewer) {
     });
 }
 
-window.requestAnimationFrame(() => {
-    applySearchTarget();
-    enhanceCourseCodeBlocks();
-});
+// Render KaTeX formulas in the course reader blocks
+const initCourseMath = () => {
+    if (typeof renderMathInElement !== "function") return;
+    
+    const contentContainers = document.querySelectorAll(".c-content-render");
+    contentContainers.forEach((container) => {
+        renderMathInElement(container, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true },
+            ],
+            throwOnError: false,
+        });
+    });
+};
 
 if (document.body && typeof MutationObserver === "function") {
     const bodyClassObserver = new MutationObserver((mutations) => {
@@ -671,3 +684,9 @@ if (document.body && typeof MutationObserver === "function") {
     });
     bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 }
+
+window.requestAnimationFrame(() => {
+    applySearchTarget();
+    enhanceCourseCodeBlocks();
+    initCourseMath();
+});
