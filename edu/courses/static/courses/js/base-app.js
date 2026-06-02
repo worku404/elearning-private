@@ -72,7 +72,7 @@
 
                 const data = await response.json();
                 const onlineCount = Number.parseInt(data.online_count, 10);
-                const value = Number.isFinite(onlineCount) ? String(onlineCount+10) : "0";
+                const value = Number.isFinite(onlineCount) ? String(onlineCount) : "0";
                 countEls.forEach((countEl) => {
                     countEl.textContent = value;
                 });
