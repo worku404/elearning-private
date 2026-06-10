@@ -11,54 +11,18 @@
     --llm-code-block-border: var(--color-border);
     /* Assistant design tokens (light/default) */
     --assistant-app-bg: var(--color-bg);
-    --assistant-panel-bg: var(--color-surface);
-    --assistant-panel-border: color-mix(
-        in srgb,
-        var(--color-border) 85%,
-        #ffffff
-    );
-    --assistant-history-bg: color-mix(
-        in srgb,
-        var(--color-surface) 94%,
-        var(--color-secondary-surface)
-    );
-    --assistant-history-border: color-mix(
-        in srgb,
-        var(--color-border) 80%,
-        #ffffff
-    );
-    --assistant-composer-bg: color-mix(
-        in srgb,
-        var(--color-surface) 92%,
-        var(--color-secondary-surface)
-    );
-    --assistant-input-border: color-mix(
-        in srgb,
-        var(--color-border) 75%,
-        #ffffff
-    );
-    --assistant-sidebar-bg: var(--assistant-panel-bg);
-    --assistant-toolbar-bg: color-mix(
-        in srgb,
-        var(--color-surface) 96%,
-        var(--color-secondary-surface)
-    );
-    --assistant-toolbar-border: color-mix(
-        in srgb,
-        var(--color-border) 80%,
-        #ffffff
-    );
+    --assistant-panel-bg: var(--glass-bg);
+    --assistant-panel-border: var(--glass-border);
+    --assistant-history-bg: var(--glass-bg);
+    --assistant-history-border: var(--glass-border);
+    --assistant-composer-bg: var(--glass-bg);
+    --assistant-input-border: var(--glass-border);
+    --assistant-sidebar-bg: var(--glass-bg);
+    --assistant-toolbar-bg: rgba(var(--color-shadow), 0.02);
+    --assistant-toolbar-border: var(--glass-border);
     --assistant-code-bg: color-mix(in srgb, #f5f7fb 92%, #d9e4f1);
-    --assistant-code-border: color-mix(
-        in srgb,
-        var(--color-border) 78%,
-        #ffffff
-    );
-    --assistant-inline-code-bg: color-mix(
-        in srgb,
-        var(--color-secondary-surface) 72%,
-        #ffffff
-    );
+    --assistant-code-border: var(--color-border);
+    --assistant-inline-code-bg: var(--color-secondary-surface);
     --assistant-inline-code-border: color-mix(
         in srgb,
         var(--color-border) 70%,
@@ -99,26 +63,10 @@
         var(--color-text) 88%,
         #0b1624
     );
-    --assistant-user-bubble-bg: color-mix(
-        in srgb,
-        var(--color-secondary-surface) 78%,
-        #ffffff
-    );
-    --assistant-user-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 65%,
-        var(--color-secondary-surface)
-    );
-    --assistant-ai-bubble-bg: color-mix(
-        in srgb,
-        var(--color-surface) 96%,
-        #f7f9fc
-    );
-    --assistant-ai-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 78%,
-        #ffffff
-    );
+    --assistant-user-bubble-bg: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 80%, var(--color-accent)) 100%);
+    --assistant-user-bubble-border: transparent;
+    --assistant-ai-bubble-bg: var(--color-surface);
+    --assistant-ai-bubble-border: var(--color-border);
     --assistant-history-item-bg: color-mix(
         in srgb,
         var(--assistant-history-bg) 88%,
@@ -219,39 +167,15 @@ body.theme-dark {
     --llm-heading: #1678de;
     /* Assistant design tokens (dark) */
     --assistant-app-bg: var(--color-bg);
-    --assistant-panel-bg: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
-    --assistant-panel-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
-    --assistant-history-bg: color-mix(
-        in srgb,
-        var(--color-surface) 88%,
-        #0b1320
-    );
-    --assistant-history-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
-    --assistant-composer-bg: color-mix(in srgb, #111b2a 82%, #0b1320);
-    --assistant-input-border: color-mix(
-        in srgb,
-        var(--color-border) 65%,
-        #0b1320
-    );
-    --assistant-sidebar-bg: var(--assistant-panel-bg);
-    --assistant-toolbar-bg: color-mix(
-        in srgb,
-        var(--color-surface) 88%,
-        #0b1320
-    );
-    --assistant-toolbar-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
+    --assistant-panel-bg: var(--glass-bg);
+    --assistant-panel-border: var(--glass-border);
+    --assistant-history-bg: var(--glass-bg);
+    --assistant-history-border: var(--glass-border);
+    --assistant-composer-bg: var(--glass-bg);
+    --assistant-input-border: var(--glass-border);
+    --assistant-sidebar-bg: var(--glass-bg);
+    --assistant-toolbar-bg: rgba(0, 0, 0, 0.25);
+    --assistant-toolbar-border: var(--glass-border);
     --assistant-code-bg: color-mix(in srgb, #0b1320 88%, #15243a);
     --assistant-code-border: color-mix(
         in srgb,
@@ -276,18 +200,10 @@ body.theme-dark {
         var(--color-text) 86%,
         #ffffff
     );
-    --assistant-user-bubble-bg: color-mix(in srgb, #1b2a3b 70%, #0b1320);
-    --assistant-user-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 55%,
-        #0b1320
-    );
-    --assistant-ai-bubble-bg: color-mix(in srgb, #121c2a 85%, #0b1320);
-    --assistant-ai-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 60%,
-        #0b1320
-    );
+    --assistant-user-bubble-bg: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 80%, var(--color-accent)) 100%);
+    --assistant-user-bubble-border: transparent;
+    --assistant-ai-bubble-bg: var(--color-surface);
+    --assistant-ai-bubble-border: var(--color-border);
     --assistant-history-item-bg: color-mix(
         in srgb,
         var(--assistant-history-bg) 85%,
@@ -390,58 +306,18 @@ body.app-body--modern {
         #ffffff
     );
     --assistant-app-bg: var(--color-bg);
-    --assistant-panel-bg: color-mix(
-        in srgb,
-        var(--color-surface) 96%,
-        var(--color-surface-soft)
-    );
-    --assistant-panel-border: color-mix(
-        in srgb,
-        var(--color-border) 72%,
-        #ffffff
-    );
-    --assistant-history-bg: color-mix(
-        in srgb,
-        var(--color-surface) 94%,
-        var(--color-secondary-surface)
-    );
-    --assistant-history-border: color-mix(
-        in srgb,
-        var(--color-border) 72%,
-        #ffffff
-    );
-    --assistant-composer-bg: color-mix(
-        in srgb,
-        var(--color-surface) 94%,
-        var(--color-secondary-surface)
-    );
-    --assistant-input-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #ffffff
-    );
-    --assistant-sidebar-bg: var(--assistant-panel-bg);
-    --assistant-toolbar-bg: color-mix(
-        in srgb,
-        var(--color-surface) 94%,
-        var(--color-secondary-surface)
-    );
-    --assistant-toolbar-border: color-mix(
-        in srgb,
-        var(--color-border) 72%,
-        #ffffff
-    );
+    --assistant-panel-bg: var(--glass-bg);
+    --assistant-panel-border: var(--glass-border);
+    --assistant-history-bg: var(--glass-bg);
+    --assistant-history-border: var(--glass-border);
+    --assistant-composer-bg: var(--glass-bg);
+    --assistant-input-border: var(--glass-border);
+    --assistant-sidebar-bg: var(--glass-bg);
+    --assistant-toolbar-bg: rgba(var(--color-shadow), 0.02);
+    --assistant-toolbar-border: var(--glass-border);
     --assistant-code-bg: color-mix(in srgb, #f4f7fb 84%, #dbe8f3);
-    --assistant-code-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #ffffff
-    );
-    --assistant-inline-code-bg: color-mix(
-        in srgb,
-        var(--color-secondary-surface) 72%,
-        #ffffff
-    );
+    --assistant-code-border: var(--color-border);
+    --assistant-inline-code-bg: var(--color-secondary-surface);
     --assistant-inline-code-border: color-mix(
         in srgb,
         var(--color-border) 70%,
@@ -452,26 +328,10 @@ body.app-body--modern {
         var(--color-accent) 74%,
         var(--color-text)
     );
-    --assistant-user-bubble-bg: color-mix(
-        in srgb,
-        var(--color-secondary-surface) 74%,
-        #ffffff
-    );
-    --assistant-user-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 68%,
-        var(--color-secondary-surface)
-    );
-    --assistant-ai-bubble-bg: color-mix(
-        in srgb,
-        var(--color-surface) 96%,
-        #f7f9fc
-    );
-    --assistant-ai-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 74%,
-        #ffffff
-    );
+    --assistant-user-bubble-bg: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 80%, var(--color-accent)) 100%);
+    --assistant-user-bubble-border: transparent;
+    --assistant-ai-bubble-bg: var(--color-surface);
+    --assistant-ai-bubble-border: var(--color-border);
     --assistant-history-item-bg: color-mix(
         in srgb,
         var(--assistant-history-bg) 86%,
@@ -545,45 +405,17 @@ body.app-body--modern.theme-dark {
     --llm-code-block-bg: color-mix(in srgb, #111b2a 88%, #15243a);
     --llm-code-block-border: var(--color-border);
     --assistant-app-bg: var(--color-bg);
-    --assistant-panel-bg: color-mix(in srgb, var(--color-surface) 92%, #0b1320);
-    --assistant-panel-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
-    --assistant-history-bg: color-mix(
-        in srgb,
-        var(--color-surface) 88%,
-        #0b1320
-    );
-    --assistant-history-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
-    --assistant-composer-bg: color-mix(in srgb, #111b2a 82%, #0b1320);
-    --assistant-input-border: color-mix(
-        in srgb,
-        var(--color-border) 65%,
-        #0b1320
-    );
-    --assistant-sidebar-bg: var(--assistant-panel-bg);
-    --assistant-toolbar-bg: color-mix(
-        in srgb,
-        var(--color-surface) 88%,
-        #0b1320
-    );
-    --assistant-toolbar-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
+    --assistant-panel-bg: var(--glass-bg);
+    --assistant-panel-border: var(--glass-border);
+    --assistant-history-bg: var(--glass-bg);
+    --assistant-history-border: var(--glass-border);
+    --assistant-composer-bg: var(--glass-bg);
+    --assistant-input-border: var(--glass-border);
+    --assistant-sidebar-bg: var(--glass-bg);
+    --assistant-toolbar-bg: rgba(0, 0, 0, 0.25);
+    --assistant-toolbar-border: var(--glass-border);
     --assistant-code-bg: color-mix(in srgb, #0b1320 88%, #15243a);
-    --assistant-code-border: color-mix(
-        in srgb,
-        var(--color-border) 70%,
-        #0b1320
-    );
+    --assistant-code-border: var(--color-border);
     --assistant-inline-code-bg: color-mix(in srgb, #0b1320 78%, #20304a);
     --assistant-inline-code-border: color-mix(
         in srgb,
@@ -595,18 +427,10 @@ body.app-body--modern.theme-dark {
         var(--color-accent) 78%,
         #ffffff
     );
-    --assistant-user-bubble-bg: color-mix(in srgb, #1b2a3b 70%, #0b1320);
-    --assistant-user-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 55%,
-        #0b1320
-    );
-    --assistant-ai-bubble-bg: color-mix(in srgb, #121c2a 85%, #0b1320);
-    --assistant-ai-bubble-border: color-mix(
-        in srgb,
-        var(--color-border) 60%,
-        #0b1320
-    );
+    --assistant-user-bubble-bg: linear-gradient(135deg, var(--color-primary) 0%, color-mix(in srgb, var(--color-primary) 80%, var(--color-accent)) 100%);
+    --assistant-user-bubble-border: transparent;
+    --assistant-ai-bubble-bg: var(--color-surface);
+    --assistant-ai-bubble-border: var(--color-border);
     --assistant-history-item-bg: color-mix(
         in srgb,
         var(--assistant-history-bg) 85%,
@@ -933,26 +757,23 @@ body.assistant-sidebar-open .llm-form {
 }
 
 .assistant-history-item {
-    border: 1px solid transparent;
-    border-radius: 12px;
-    background: var(--assistant-history-item-bg);
-    color: var(--assistant-text-color);
-    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: rgba(var(--color-shadow), 0.02);
+    color: var(--color-text);
+    padding: 0.6rem 0.8rem;
     text-align: left;
     display: grid;
     gap: 0.25rem;
     cursor: pointer;
     min-width: 0;
+    transition: all var(--assistant-transition-fast);
 }
 
 .assistant-history-item:hover,
 .assistant-history-item:focus-visible {
-    border-color: color-mix(
-        in srgb,
-        var(--assistant-heading-color) 45%,
-        var(--assistant-history-item-border)
-    );
-    background: var(--assistant-history-item-hover-bg);
+    border-color: var(--color-primary);
+    background: var(--color-secondary-surface);
 }
 
 .assistant-history-item:focus-visible {
@@ -961,16 +782,9 @@ body.assistant-sidebar-open .llm-form {
 }
 
 .assistant-history-item.is-active {
-    background: color-mix(
-        in srgb,
-        var(--assistant-heading-color) 18%,
-        var(--assistant-history-item-bg)
-    );
-    border-color: color-mix(
-        in srgb,
-        var(--assistant-heading-color) 45%,
-        var(--assistant-history-item-border)
-    );
+    background: var(--color-secondary-surface);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
 }
 
 .assistant-history-item__title {
@@ -1094,12 +908,19 @@ body.assistant-sidebar-open .llm-history {
     max-width: 100%;
     min-width: 0;
     border: 1px solid var(--assistant-ai-bubble-border);
-    border-radius: var(--assistant-radius-md);
+    border-radius: 16px 16px 16px 4px;
     padding: var(--assistant-bubble-padding);
     background: var(--assistant-ai-bubble-bg);
     overflow: hidden;
     position: relative;
     z-index: 1;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.llm-chat-bubble:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(var(--color-shadow), 0.08);
 }
 
 .llm-chat-stack--user {
@@ -1130,14 +951,19 @@ body.assistant-sidebar-open .llm-history {
 }
 
 .llm-chat-bubble--user {
-    background-color: var(--assistant-user-bubble-bg);
+    background: var(--assistant-user-bubble-bg);
     border-color: var(--assistant-user-bubble-border);
-    border-radius: 12px 6px 0 12px;
+    border-radius: 16px 16px 4px 16px;
     margin-left: 30px;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.08);
 }
 
 .llm-chat-row--user .llm-chat-msg {
-    color: var(--assistant-text-color);
+    color: #ffffff;
+}
+
+.llm-chat-row--user .llm-chat-msg a {
+    color: #93c5fd;
 }
 
 .llm-chat-row--ai .llm-chat-msg {
@@ -1346,14 +1172,16 @@ body.assistant-sidebar-open .llm-history {
 
 .llm-scroll-bottom {
     position: absolute;
-    right: 0.35rem;
-    top: -2.75rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    border: 1px solid var(--assistant-scroll-btn-border);
-    background: var(--assistant-scroll-btn-bg);
-    color: var(--assistant-scroll-btn-color);
+    right: 0.8rem;
+    top: -3.2rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1366,6 +1194,7 @@ body.assistant-sidebar-open .llm-history {
         background-color var(--assistant-transition-fast),
         border-color var(--assistant-transition-fast);
     z-index: 3;
+    box-shadow: 0 4px 15px rgba(var(--color-shadow), 0.15);
 }
 
 .llm-scroll-bottom.is-visible {
@@ -1376,8 +1205,10 @@ body.assistant-sidebar-open .llm-history {
 
 .llm-scroll-bottom:hover,
 .llm-scroll-bottom:focus-visible {
-    background: var(--assistant-button-hover-bg);
-    border-color: var(--assistant-button-border);
+    background: var(--color-secondary-surface);
+    border-color: var(--color-primary);
+    color: var(--color-primary-hover);
+    transform: translateY(-2px) scale(1.08) !important;
 }
 
 .llm-scroll-bottom:focus-visible {
@@ -1396,16 +1227,18 @@ body.assistant-sidebar-open .llm-history {
     grid-template-areas: "input controls";
     align-items: end;
     column-gap: 0.45rem;
-    background: transparent;
-    border-radius: 14px;
-    padding: 0.28rem 0.35rem 0.28rem 0.38rem;
-    box-shadow: none;
-    border: 2px solid transparent;
-    transition: border-color 0.08s ease-in-out;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 0.35rem 0.5rem;
+    box-shadow: 0 4px 15px rgba(var(--color-shadow), 0.05);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--assistant-transition-medium), box-shadow var(--assistant-transition-medium);
 }
 
-.llm-composer.is-active {
+.llm-composer.is-active,
+.llm-composer:focus-within {
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-focus-ring), 0 4px 20px rgba(var(--color-shadow), 0.08);
 }
 
 
@@ -1675,7 +1508,9 @@ body.assistant-resizing * {
 .assistance {
     border-radius: var(--assistant-radius-lg);
     border: 1px solid var(--assistant-panel-border);
-    background: var(--color-surface);
+    background: var(--assistant-panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 24px 60px rgba(var(--color-shadow), 0.14);
 }
 .c-ai-panel {
@@ -1684,8 +1519,8 @@ body.assistant-resizing * {
 .assistance-toolbar {
     border-radius: var(--radius-md);
     padding: 0.85rem 0.95rem;
-    background: var(--color-surface);
-    border-color: var(--color-border);
+    background: var(--assistant-toolbar-bg);
+    border-color: var(--assistant-toolbar-border);
     cursor: move;
     user-select: none;
     -webkit-user-select: none;
@@ -1712,8 +1547,8 @@ body.assistant-resizing * {
     overflow: hidden;
     padding: var(--assistant-history-padding);
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
+    border: 1px solid var(--assistant-history-border);
+    background: var(--assistant-history-bg);
     box-shadow: 0 14px 30px rgba(var(--color-shadow), 0.05);
 }
 .assistant-resize-handle {

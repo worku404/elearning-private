@@ -133,3 +133,40 @@
     position: sticky;
     top: var(--topbar-height);
 }
+
+/* Slide/Fade entry animations for panels */
+@keyframes panel-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes panel-slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.l-main__inner {
+    animation: panel-slide-in-right 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.l-rail--left {
+    animation: panel-slide-in-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Clean transition on main grid */
+.l-shell {
+    transition: grid-template-columns 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

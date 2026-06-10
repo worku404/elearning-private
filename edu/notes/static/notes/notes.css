@@ -343,15 +343,15 @@ body.theme-dark {
     /* Header is auto height; body takes the rest. */
     grid-template-rows: auto minmax(0, 1fr);
     /* Start hidden off-canvas. */
-    transform: translateX(-16px);
+    transform: translateX(-100%);
     /* Start hidden. */
     opacity: 0;
     /* Prevent interactions when hidden. */
     pointer-events: none;
     /* Smooth transitions for open/close. */
     transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     /* Ensure panel sits above most UI layers. */
     z-index: 1250;
 }

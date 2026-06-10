@@ -1,29 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap");
 
 :root {
-    --font-body: "Sora", "Segoe UI", sans-serif;
+    --font-body: "Manrope", "Segoe UI", sans-serif;
     --font-heading: "Sora", "Segoe UI", sans-serif;
     --font-mono: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
         ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-    --color-primary: #1f7a4e;
-    --color-primary-hover: #18613e;
-    --color-secondary-surface: #eaf5ef;
-    --color-accent: #2a6fb3;
-    --color-warning: #a06a00;
-    --color-error: #b3261e;
-    --color-text: #1b2630;
-    --color-text-muted: #51606f;
-    --color-border: #c9d5df;
-    --color-bg: #f4f7fa;
+    --color-primary: #0d9488;
+    --color-primary-hover: #0f766e;
+    --color-secondary-surface: #f0fdfa;
+    --color-accent: #6366f1;
+    --color-warning: #d97706;
+    --color-error: #e11d48;
+    --color-text: #0f172a;
+    --color-text-muted: #475569;
+    --color-border: #e2e8f0;
+    --color-bg: #f8fafc;
     --color-surface: #ffffff;
-    --color-surface-soft: #f8fbfd;
-    --color-focus-ring: color-mix(in srgb, var(--color-accent) 65%, white);
+    --color-surface-soft: #f1f5f9;
+    --color-focus-ring: rgba(13, 148, 136, 0.25);
     --color-shadow: 15 23 42;
 
     --radius-sm: 8px;
     --radius-md: 12px;
-    --radius-lg: 16px;
+    --radius-lg: 20px;
 
     --space-1: 0.25rem;
     --space-2: 0.5rem;
@@ -34,104 +34,103 @@
     --space-7: 3rem;
 
     --fs-0: 0.875rem;
-    --fs-1: 1.2rem;
-    --fs-2: 1.2rem;
-    --fs-3: 1.44rem;
-    --fs-4: 1.728rem;
-    --fs-5: 2.074rem;
+    --fs-1: 1rem;
+    --fs-2: 1.125rem;
+    --fs-3: 1.25rem;
+    --fs-4: 1.5rem;
+    --fs-5: 2.25rem;
 
-    --lh-reading: 1.6;
-    --lh-ui: 1.42;
+    --lh-reading: 1.7;
+    --lh-ui: 1.5;
 
     --rail-left: 280px;
-    --rail-right: 380px;
-    /* Compact rail widths used while the AI sidebar is open. */
-    --rail-left-compact: 232px;
-    --course-modules-min: 220px;
-    --course-modules-max: 280px;
-    --course-modules-min-compact: 190px;
-    --course-modules-max-compact: 240px;
+    --rail-right: 400px;
+    --rail-left-compact: 240px;
+    --course-modules-min: 240px;
+    --course-modules-max: 300px;
+    --course-modules-min-compact: 200px;
+    --course-modules-max-compact: 260px;
     --topbar-height: 74px;
-    --main-max: 1100px;
-    --reading-max: 65ch;
+    --main-max: 1200px;
+    --reading-max: 70ch;
 
     --bp-sm: 640px;
     --bp-md: 900px;
     --bp-lg: 1200px;
     --bp-xl: 1440px;
+    
+    /* Premium glass variables */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(241, 245, 249, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
 }
 
 body.theme-dark {
-    --color-primary: #2a9d66;
-    --color-primary-hover: #227f53;
-    --color-secondary-surface: #1b2a3b;
-    --color-accent: #5aa1e6;
-    --color-warning: #d0a649;
-    --color-error: #ef6363;
-    --color-text: #e7eef7;
-    --side-bar-text: red; /*should be correct later*/
-    --color-text-muted: #9ab0c7;
-    --color-border: #2a3b50;
-    --color-bg: #0f1723;
-    --color-surface: #121c2a;
-    --color-surface-soft: #172434;
-    --color-focus-ring: color-mix(in srgb, var(--color-accent) 70%, white);
+    --color-primary: #14b8a6;
+    --color-primary-hover: #0d9488;
+    --color-secondary-surface: #0f1d24;
+    --color-accent: #818cf8;
+    --color-warning: #fbbf24;
+    --color-error: #fb7185;
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-border: #1e293b;
+    --color-bg: #080c14;
+    --color-surface: #0e1524;
+    --color-surface-soft: #151e2e;
+    --color-focus-ring: rgba(20, 184, 166, 0.35);
     --color-shadow: 0 0 0;
+    
+    --glass-bg: rgba(14, 21, 36, 0.75);
+    --glass-border: rgba(30, 41, 59, 0.8);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 body.app-body--modern {
-    --font-body: "Manrope", "Segoe UI", sans-serif;
-    --font-heading: "Sora", "Segoe UI", sans-serif;
-    --font-mono: "IBM Plex Mono", "Cascadia Mono", "Fira Code", "JetBrains Mono",
-        ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-
-    --color-primary: #0f766e;
-    --color-primary-hover: #115e59;
-    --color-secondary-surface: #e6fffb;
-    --color-accent: #2563eb;
-    --color-warning: #b45309;
-    --color-error: #c2410c;
-    --color-text: #10202d;
-    --color-text-muted: #5b6c7d;
-    --color-border: #d7e0ea;
-    --color-bg: #f4f7fb;
+    --color-primary: #0d9488;
+    --color-primary-hover: #0f766e;
+    --color-secondary-surface: #f0fdfa;
+    --color-accent: #4f46e5;
+    --color-warning: #d97706;
+    --color-error: #e11d48;
+    --color-text: #0f172a;
+    --color-text-muted: #475569;
+    --color-border: #e2e8f0;
+    --color-bg: #f8fafc;
     --color-surface: #ffffff;
-    --color-surface-soft: #f8fbfd;
-    --color-focus-ring: color-mix(in srgb, var(--color-accent) 55%, white);
+    --color-surface-soft: #f1f5f9;
+    --color-focus-ring: rgba(13, 148, 136, 0.25);
     --color-shadow: 15 23 42;
 
     --radius-sm: 0.75rem;
     --radius-md: 1rem;
-    --radius-lg: 1.35rem;
+    --radius-lg: 1.5rem;
 
-    --rail-left: 272px;
-    --rail-right: 416px;
-    --rail-left-compact: 224px;
-    --course-modules-min: 214px;
-    --course-modules-max: 276px;
-    --course-modules-min-compact: 184px;
-    --course-modules-max-compact: 236px;
+    --rail-left: 280px;
+    --rail-right: 420px;
+    --rail-left-compact: 230px;
+    --course-modules-min: 220px;
+    --course-modules-max: 290px;
+    --course-modules-min-compact: 190px;
+    --course-modules-max-compact: 250px;
     --topbar-height: 80px;
-    --main-max: 1160px;
-    --reading-max: 68ch;
+    --main-max: 1240px;
+    --reading-max: 72ch;
 }
 
 body.app-body--modern.theme-dark {
-    --font-body: "Manrope", "Segoe UI", sans-serif;
-    --font-heading: "Sora", "Segoe UI", sans-serif;
-    --color-primary: #34a37a;
-    --color-primary-hover: #2b8a64;
-    --color-secondary-surface: #132437;
-    --color-accent: #6aa8ff;
-    --color-warning: #d1a24d;
-    --color-error: #f98c69;
-    --color-text: #e7eef7;
-    --color-text-muted: #9ab0c7;
-    --color-border: #2a3b50;
-    --color-bg: #0f1723;
-    --color-surface: #121c2a;
-    --color-surface-soft: #172434;
-    --color-focus-ring: color-mix(in srgb, var(--color-accent) 70%, white);
+    --color-primary: #14b8a6;
+    --color-primary-hover: #0d9488;
+    --color-secondary-surface: #0f1d24;
+    --color-accent: #818cf8;
+    --color-warning: #fbbf24;
+    --color-error: #fb7185;
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-border: #1e293b;
+    --color-bg: #080c14;
+    --color-surface: #0e1524;
+    --color-surface-soft: #151e2e;
+    --color-focus-ring: rgba(20, 184, 166, 0.35);
     --color-shadow: 0 0 0;
-
 }

@@ -4,92 +4,132 @@
 
 .catalog-layout {
     display: grid;
-    grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
+    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
     gap: var(--space-5);
     align-items: start;
 }
+
 .course-listing {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-4);
 }
-.c-filter-panel,
-.l-rail--left .c-card,
-.l-util .c-card {
+
+.c-filter-panel {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
-    box-shadow: 0 18px 42px rgba(var(--color-shadow), 0.06);
+    box-shadow: 0 10px 30px -5px rgba(var(--color-shadow), 0.04);
+    padding: var(--space-4);
+    position: sticky;
+    top: calc(var(--topbar-height) + var(--space-4));
 }
 
 /* --- Subject Filter List Items --- */
-.c-module-item a,
-.c-module-item {
+.c-module-list {
     display: grid;
-    gap: var(--space-1);
-    color: var(--color-text);
-    border-radius: var(--radius-sm);
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
+
+.c-module-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .c-module-item a {
-    padding: 0.65rem 0.75rem;
-    border: 1px solid transparent;
-    background: color-mix(in srgb, var(--color-surface) 85%, var(--color-bg));
-}
-.c-module-item__eyebrow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: 0.85rem 1rem;
     color: var(--color-text-muted);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-module-item a span {
+    font-size: var(--fs-0);
+    color: var(--color-text-muted);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Hover and Selected States */
+.c-module-item a:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-secondary-surface);
+    transform: translateX(4px);
+}
+
+.c-module-item.selected a {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+    background: var(--color-secondary-surface);
+    box-shadow: 0 4px 12px rgba(var(--color-shadow), 0.03);
+    font-weight: 700;
+}
+
+/* --- Course Card Enhancements --- */
+.c-card--course {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: var(--space-5);
+    box-shadow: 0 10px 30px -5px rgba(var(--color-shadow), 0.03);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.c-card--course:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+    box-shadow: 0 20px 40px -15px rgba(var(--color-shadow), 0.08);
+}
+
+.c-card--course .c-card__title {
+    margin-bottom: var(--space-2);
+}
+
+.c-card--course .c-card__meta {
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
     font-size: var(--fs-0);
 }
-.c-module-item__progress-inline {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.28rem;
-}
-.c-module-item__pdf-progress {
-    flex: 0 0 auto;
-}
-.c-module-item__progress {
-    display: inline-block;
-    flex: 1 1 auto;
-    width: auto;
-    min-width: 0;
-    height: 8px;
-    margin-top: 0;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-border) 58%, transparent);
-    overflow: hidden;
-}
-.c-module-item__progress-bar {
-    display: block;
-    height: 100%;
-    width: 0%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, var(--color-primary), #2aa36a);
-    transition: width 0.2s ease;
+
+.c-card--course .c-card__meta a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
 }
 
-/* --- Selected / hover states --- */
-.c-module-item.selected a,
-.c-module-item a:hover {
-    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
-    background: color-mix(in srgb, var(--color-primary) 12%, white);
+.c-card--course .c-card__actions {
+    margin-top: auto;
 }
 
-/* --- Dark theme --- */
+/* --- Dark Theme Overrides --- */
 body.theme-dark .c-module-item a {
-    background: color-mix(in srgb, var(--color-surface) 92%, #0d1522);
-    border-color: color-mix(in srgb, var(--color-border) 75%, #0d1522);
-    color: var(--color-text);
+    background: var(--color-surface-soft);
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
 }
+
 body.theme-dark .c-module-item.selected a,
 body.theme-dark .c-module-item a:hover {
-    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
-    background: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
-    color: #ecf4ff;
-}
-body.theme-dark .c-module-item__progress {
-    background: color-mix(in srgb, var(--color-border) 50%, #0d1522);
-}
-body.theme-dark .c-course-progress {
-    background: color-mix(in srgb, var(--color-surface) 92%, #0d1522);
-    border-color: color-mix(in srgb, var(--color-border) 76%, #0d1522);
+    color: var(--color-primary);
+    background: var(--color-secondary-surface);
+    border-color: var(--color-primary);
 }
